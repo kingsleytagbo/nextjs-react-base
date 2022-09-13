@@ -56,16 +56,17 @@ export default function LoginForm(props: any) {
   }
 
   const click = (event: any) => {
-    //setLoading(true);
-    displayForm(false);
+    setLoading(true);
     const result = postFormJsonData(formState);
     processApiData(result);
-    //console.log(formState);
+    setLoading(false);
   }
 
   const postFormJsonData = (data: any) => {
-    const header =  {'Authorization': 'Basic ' + btoa(data.name + ':' + data.password),
-    'Content-Type': 'application/json'};
+    const header = {
+      'Authorization': 'Basic ' + btoa(data.name + ':' + data.password),
+      'Content-Type': 'application/json'
+    };
     // console.log({header: header, data: data});
     return fetch(API_FORM_URL, {
       method: 'POST',
@@ -82,10 +83,9 @@ export default function LoginForm(props: any) {
           //CacheSave(store);
           const authId = result.AuthID;
           const roleNames = result.RoleNames;
-          console.log({result: result, authId: authId, roleNames: roleNames});
+          // console.log({ result: result, authId: authId, roleNames: roleNames });
           if (authId && roleNames) {
             displayForm(false);
-            setLoading(false);
             // router.replace("/");
           }
           else {
@@ -128,9 +128,9 @@ export default function LoginForm(props: any) {
                           <section>
                             <h3 className="main-form-text">Wait, You are being Logged into to your Account ...</h3>
                             <div className="d-flex justify-content-center" >
-                              <div style={{ width: '3rem', height: '3rem' }} className="spinner-border text-primary" role="status">
-                                <span className="sr-only">One moment ...</span>
-                              </div>
+                              <section id="loading">
+                                  <Loading isLoading={isLoading} />
+                              </section>
                             </div>
                           </section>
                         </section>
