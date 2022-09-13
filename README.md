@@ -18,12 +18,17 @@ Nextjs React Base
 ## git commit -am "first commit"
 ## git push --set-upstream dev1 main
 
+## git checkout -b  authentication
+##  git push --set-upstream dev1 authentication
+
 ## References
 ### Visit: http://localhost:3010/api
 ### How to add Bootstrap 5 in Next.js: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c 
 #### npm install bootstrap @latest --save
 
-
+## Build Commands
+npm run build
+npm run start
 
 ## nextjs information
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
