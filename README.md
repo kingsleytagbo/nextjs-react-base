@@ -20,6 +20,8 @@ Nextjs React Base
 
 ## References
 ### Visit: http://localhost:3010/api
+### How to add Bootstrap 5 in Next.js: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c 
+#### npm install bootstrap @latest --save
 
 
 
