@@ -61,10 +61,15 @@ Nextjs React Base
 ## git remote -v 
 ## Git Commands / Add username as a Collaborator for Repository
 ## git remote add dev1 https://github.com/kingsleytagbo/nextjs-react-base.git
+## git remote add dev2 git@github.com:stlouis-mo-developers/nextjs-react-base.git
 ## git pull dev1 main --allow-unrelated-histories
 ## git add --all
 ## git commit -am "first commit"
 ## git push --set-upstream dev1 main
+
+## for second reporistory
+git push -u dev2 main
+git push dev2 authentication
 
 ## git checkout -b  authentication
 ##  git push --set-upstream dev1 authentication
