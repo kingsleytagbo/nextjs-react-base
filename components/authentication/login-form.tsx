@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Loading from './loading';
+import Loading from '../loading';
 
 export default function LoginForm(props: any) {
   const router = useRouter();
@@ -144,7 +144,7 @@ export default function LoginForm(props: any) {
                           className="form-control"
                           id="name"
                           name="name"
-                          placeholder="Your account ..."
+                          placeholder="Your username ..."
                           type="text"
                           autoComplete="false"
                         />

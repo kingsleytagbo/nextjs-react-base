@@ -1,10 +1,58 @@
-## how to create a next js project
-- This project was created using create-react-app: https://nextjs.org/docs
+# nextjs-react-base
+- This project was created using create-next-app: https://nextjs.org/docs
 
+## How to create a start a Next.Js project
+- Change directory to a local folder for the project
+- we are giong to create a new Next.js app using create-next-app and typescript, so type the command: 
 npx create-next-app@latest --typescript
-Need to install the latest following packages: create-next-app@latest
-Ok to proceed? (y)
-What is your project named? nextjs-react-base
+- You will be propted with a question like ... 
+- Need to install the latest following packages: create-next-app@latest
+Ok to proceed? (y)'
+- Answer: Y and then you will be prompted with another question ....
+- What is your project named? 
+- Answer: nextjs-react-base
+- A new Next.js app will be created complete with the following folders: /pages, /public & /styles 
+- After the project is created, run the followin comamnd in teh root of the project to start it up:
+npm run dev and then check it out at http://localhost:3000
+
+## How to run the existing Next.Js project
+- 
+
+### How to Add Login / Authentication to your Next.js app
+- Create a components folder and an authentication folder inside it.
+- Add the login-form.tsx file in the project
+- Import the Login component in index.tsx, like : 
+``` 
+import LoginForm from '../components/authentication/login-form';
+``` 
+- Display the login form inside index.tsx homepage using a command like:    
+```     
+<section className={styles.title}>
+        <LoginForm></LoginForm>
+</section>
+```
+- 
+
+### How to setup a Node Api for your Next.js app
+- The authentication of your login form willl be handled by another Node + Express Api project which you can clone from the git repository at: git@github.com:stlouis-mo-developers/NodeExpressApi.git
+- AFter you clone that repository, get it running using on your local host using: ```npm start```
+- View your Node Express Api at http://localhost:3010/
+- 
+
+### How to create a login form inside a Next.js app
+Let's take a look at login-form.jsx inside /components/authentication
+- There are two input fields for the username and password needed for your login. 
+These inputs are similar to each other and so, let's take a peek at the username input: 
+```<input value={form.name} onChange={onChange} className="form-control" id="name" name="name" placeholder="Your username ..." type="text" autoComplete="false" />```
+- As you type a username, the onChange event is triggered and the new values are evaluated  / validated in the onChange() as well as the validate() functions
+- Assuming that your username and password are valid, the Login button is enabled, otherwise it's disabled
+- When you click on the Login button, the form values are then submitted / posted to the Node + Appress Api that you have running locally at http://localhost:3010/
+- The click event on your form is trigegred when you click on the login button .That calls a click() fucntion
+that posts the Form data using the postFormJsonData() function. 
+- The processApiData() function evaluates the api result returned by postFormJsonData(). 
+- If the api result includes an AuthID and Roles, then the Loading Spinner stops and the Login Form hides as the Login process is deemed successful otherwise the Login Form stays open & visible
+
+
 
 # nodeapi
 Nextjs React Base
