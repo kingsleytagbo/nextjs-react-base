@@ -1,6 +1,13 @@
 # nextjs-react-base
 - This project was created using create-next-app: https://nextjs.org/docs
 
+## Why Next.Js?
+- Next.js is a framework that uses the React library to build websites/apps with server-side rendering (SSR),
+- NextJs offers HTTP caching, linting and standardisation, SEO tools, and automatic code-splitting via dynamic imports or webpack bundles. 
+- Next.js is an open source framework that's based on Node.js and Babel.
+
+In this project, you will learn how to create a React app with a Login page for User Authentication using Next.JS
+
 ## How to create a start a Next.Js project
 - Change directory to a local folder for the project
 - we are giong to create a new Next.js app using create-next-app and typescript, so type the command: 
@@ -17,13 +24,6 @@ npm run dev and then check it out at http://localhost:3000
 
 ## How to run the existing Next.Js project
 - 
-
-### Why Next.Js?
-- Next.js is a framework that uses the React library to build websites/apps with server-side rendering (SSR),
-- NextJs offers HTTP caching, linting and standardisation, SEO tools, and automatic code-splitting via dynamic imports or webpack bundles. 
-- Next.js is an open source framework that's based on Node.js and Babel.
-
-In this project, you will learn how to create a React app with a Login page for User Authentication using Next.JS
 
 ### How to Add Login / Authentication to your Next.js app
 - Create a components folder and an authentication folder inside it.
