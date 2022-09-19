@@ -2,25 +2,24 @@
 - This project was created using create-next-app: https://nextjs.org/docs
 
 ## Why Next.Js?
-- Next.js is a framework that uses the React library to build websites/apps with server-side rendering (SSR),
-- NextJs offers HTTP caching, linting and standardisation, SEO tools, and automatic code-splitting via dynamic imports or webpack bundles. 
+- Next.js is a React-based framework that provides you with the tools you need for building websites/apps with server-side rendering (SSR), routing, data fetching.
+- NextJs also offers HTTP caching, linting and standardisation, SEO tools, and automatic code-splitting via dynamic imports or webpack bundles. 
 - Next.js is an open source framework that's based on Node.js and Babel.
 
 In this project, you will learn how to create a React app with a Login page for User Authentication using Next.JS
 
 ## How to create a start a Next.Js project
-- Change directory to a local folder for the project
-- we are giong to create a new Next.js app using create-next-app and typescript, so type the command: 
-npx create-next-app@latest --typescript
+- Change directory to a local folder where you want to run your project
+- we are giong to create a new Next.js app using create-next-app and typescript, so type the command in the terminal: 
+``` npx create-next-app@latest --typescript ```
 - You will be propted with a question like ... 
-- Need to install the latest following packages: create-next-app@latest
-Ok to proceed? (y)'
-- Answer: Y and then you will be prompted with another question ....
-- What is your project named? 
+- ```Need to install the latest following packages: create-next-app@latest
+Ok to proceed? (y)```
+- Answer: Y and then you will be prompted with another question : ```What is your project named?```
 - Answer: nextjs-react-base
 - A new Next.js app will be created complete with the following folders: /pages, /public & /styles 
-- After the project is created, run the followin comamnd in teh root of the project to start it up:
-npm run dev and then check it out at http://localhost:3000
+- After the project is created, run the following comamnd in the root of the project to start it up:
+```npm run dev``` and then check it out at http://localhost:3000
 
 ## How to run the existing Next.Js project
 - 
