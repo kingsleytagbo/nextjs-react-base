@@ -107,16 +107,16 @@ export default function LoginForm(props: any) {
 
           {/* <!-- BEGIN FORM  -->} */}
 
-          <div className="row">
+          <div className="row card w-75">
 
             <div className="col-12">
               <div className='text-center'>
                 {(showForm === true) &&
-                  <h3 className='text-info'>Login to your account ...</h3>
+                  <h3 className='card-title text-dark'>Login to your account ...</h3>
                 }
                 {(showForm === false) &&
                   <>
-                    <h3 className='text-success'>You are logged-in ...</h3>
+                    <h3 className='card-title text-success w-100'>You are logged-in ...</h3>
                     <div className="d-flex justify-content-center" >
                       <section id="loading">
                         <Loading isLoading={isLoading} />
@@ -125,7 +125,7 @@ export default function LoginForm(props: any) {
                   </>
                 }
               </div>
-              <form method="post" style={{ display: showForm ? 'block' : 'none' }}>
+              <form className="card-body" method="post" style={{ display: showForm ? 'block' : 'none' }}>
                 <div className="mt-3">
                   <input
                     value={form.name}
