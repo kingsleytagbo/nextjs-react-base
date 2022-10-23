@@ -2,17 +2,17 @@
 - This project was created using create-next-app: https://nextjs.org/docs
 
 ## Why Next.Js?
-- Next.js is a React-based framework that provides you with the tools you need for building websites/apps with server-side rendering (SSR), routing, data fetching.
-- NextJs also offers HTTP caching, linting and standardisation, SEO tools, and automatic code-splitting via dynamic imports or webpack bundles. 
+- Next.js is a React-based framework that provides you with the tools you need for building websites /apps with server-side rendering (SSR), routing & data fetching.
+- The NextJs framework also offers HTTP caching, linting and standardisation, SEO tools, and automatic code-splitting via dynamic imports or webpack bundles. 
 - Next.js is an open source framework that's based on Node.js and Babel.
 
-In this project, you will learn how to create a React app with a Login page for User Authentication using Next.JS
+In this lesson, you will learn how to create a React app with a Login page for User Authentication using Next.JS
 
-## How to create a start a Next.Js project
+## How to start a Next.Js project
 - Change directory to a local folder where you want to run your project
 - we are giong to create a new Next.js app using create-next-app and typescript, so type the command in the terminal: 
 ``` npx create-next-app@latest --typescript ```
-- You will be propted with a question like ... 
+- You will be prompted with a question like ... 
 - ```Need to install the latest following packages: create-next-app@latest
 Ok to proceed? (y)```
 - Answer: Y and then you will be prompted with another question : ```What is your project named?```
@@ -26,7 +26,7 @@ Ok to proceed? (y)```
 
 ### How to Add Login / Authentication to your Next.js app
 - Create a components folder and an authentication folder inside it.
-- Add the login-form.tsx file in the project
+- Add a login-form.tsx file in the project
 - Import the Login component in index.tsx, like : 
 ``` 
 import LoginForm from '../components/authentication/login-form';
@@ -40,7 +40,7 @@ import LoginForm from '../components/authentication/login-form';
 - 
 
 ### How to setup a Node Api for your Next.js app
-- The authentication of your login form willl be handled by another Node + Express Api project which you can clone from the git repository at: git@github.com:stlouis-mo-developers/NodeExpressApi.git
+- The authentication from the Login Form of your Next.js App will be handled by another Node.js + Express Api project which you can clone from the git repository at: https://github.com/stlouis-mo-developers/NodeExpressApi
 - AFter you clone that repository, get it running using on your local host using: ```npm start```
 - View your Node Express Api at http://localhost:3010/
 - 
@@ -53,15 +53,15 @@ These inputs are similar to each other and so, let's take a peek at the username
 - As you type a username, the onChange event is triggered and the new values are evaluated  / validated in the onChange() as well as the validate() functions
 - Assuming that your username and password are valid, the Login button is enabled, otherwise it's disabled
 - When you click on the Login button, the form values are then submitted / posted to the Node + Appress Api that you have running locally at http://localhost:3010/
-- The click event on your form is trigegred when you click on the login button .That calls a click() fucntion
-that posts the Form data using the postFormJsonData() function. 
+- The click event on your form is trigegred when you click on the login button that calls a click() function which posts the Form data using the postFormJsonData() function. 
 - The processApiData() function evaluates the api result returned by postFormJsonData(). 
 - If the api result includes an AuthID and Roles, then the Loading Spinner stops and the Login Form hides as the Login process is deemed successful otherwise the Login Form stays open & visible
 
+### How do you host & run a Next.js project?
 
 ### References?
-- 1. 
-- 2.
+- 1. https://pagepro.co/blog/what-is-nextjs/ - WHAT IS NEXT JS AND WHY SHOULD YOU USE IT IN 2022?
+- 2. https://kinsta.com/knowledgebase/next-js/
 
 
 # nodeapi

@@ -109,24 +109,24 @@ export default function LoginForm(props: any) {
 
 
         {/* <!-- BEGIN CONTAINER  -->} */}
-        <div className="container px-4 px-lg-5">
-          <div className="row gx-4 gx-lg-5 justify-content-center">
+        <div className="container px-4 px-lg-5 py-5">
+          <div className="row gx-5 justify-content-center">
             <div className="col-md-10 col-lg-8 col-xl-7">
 
               {/* <!-- BEGIN FORM  -->} */}
-              <div className="fill-form form-box">
-                <div className="row g-0">
+              <div>
+                <div className="row g-5">
                   <div className="col-12">
                   </div>
-                  <div className="col-12 form-box__content">
-                    <div id="box-title">
+                  <div className="col-12 ">
+                    <div id="box-title" className='text-center'>
                       {(showForm === true) &&
-                        <h3 className="main-form-text">Login to your account ...</h3>
+                        <h3>Login to your account ...</h3>
                       }
                       {(showForm === false) &&
                         <section>
                           <section>
-                            <h3 className="main-form-text">Wait, You are being Logged into to your Account ...</h3>
+                            <h3>You are logged-in ...</h3>
                             <div className="d-flex justify-content-center" >
                               <section id="loading">
                                   <Loading isLoading={isLoading} />
