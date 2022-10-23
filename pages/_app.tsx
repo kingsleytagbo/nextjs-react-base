@@ -1,9 +1,8 @@
-import Head from "next/head";
-// add bootstrap css 
-import 'bootstrap/dist/css/bootstrap.css'
-// customize global css file (from nextjs) here
+import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.css';
+import '../styles/custom.css';
 
+import Head from "next/head";
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {

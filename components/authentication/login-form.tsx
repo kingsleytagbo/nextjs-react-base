@@ -36,7 +36,6 @@ export default function LoginForm(props: any) {
           valid = false;
           break;
         }
-        //console.log({key: key, value: value});
       }
     }
     else {
@@ -52,7 +51,6 @@ export default function LoginForm(props: any) {
     formState[key] = value;
     setFormValue(formState);
     validate();
-    //console.log({ e: e, form: form, copy: formState, isvalid: isValid });
   }
 
   const click = (event: any) => {
@@ -67,7 +65,7 @@ export default function LoginForm(props: any) {
       'Authorization': 'Basic ' + btoa(data.name + ':' + data.password),
       'Content-Type': 'application/json'
     };
-    // console.log({header: header, data: data});
+
     return fetch(API_FORM_URL, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -79,14 +77,10 @@ export default function LoginForm(props: any) {
     if (result) {
       result.then(
         (result: any) => {
-          //const store: CacheStore = { key: String(process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE), authentication: result };
-          //CacheSave(store);
           const authId = result.AuthID;
           const roleNames = result.RoleNames;
-          // console.log({ result: result, authId: authId, roleNames: roleNames });
           if (authId && roleNames) {
             displayForm(false);
-            // router.replace("/");
           }
           else {
             displayForm(true);
@@ -105,88 +99,79 @@ export default function LoginForm(props: any) {
     <>
 
 
-      <section className="" key="login">
+      <section className="py-5 mt-5" key="login">
 
 
         {/* <!-- BEGIN CONTAINER  -->} */}
-        <div className="container px-4 px-lg-5 py-5">
-          <div className="row gx-5 justify-content-center">
-            <div className="col-md-10 col-lg-8 col-xl-7">
+        <div className="container d-flex align-items-center justify-content-center">
 
-              {/* <!-- BEGIN FORM  -->} */}
-              <div>
-                <div className="row g-5">
-                  <div className="col-12">
-                  </div>
-                  <div className="col-12 ">
-                    <div id="box-title" className='text-center'>
-                      {(showForm === true) &&
-                        <h3>Login to your account ...</h3>
-                      }
-                      {(showForm === false) &&
-                        <section>
-                          <section>
-                            <h3>You are logged-in ...</h3>
-                            <div className="d-flex justify-content-center" >
-                              <section id="loading">
-                                  <Loading isLoading={isLoading} />
-                              </section>
-                            </div>
-                          </section>
-                        </section>
-                      }
+          {/* <!-- BEGIN FORM  -->} */}
+
+          <div className="row">
+
+            <div className="col-12">
+              <div className='text-center'>
+                {(showForm === true) &&
+                  <h3 className='text-info'>Login to your account ...</h3>
+                }
+                {(showForm === false) &&
+                  <>
+                    <h3 className='text-success'>You are logged-in ...</h3>
+                    <div className="d-flex justify-content-center" >
+                      <section id="loading">
+                        <Loading isLoading={isLoading} />
+                      </section>
                     </div>
-                    <form method="post" style={{ display: showForm ? 'block' : 'none' }}>
-                      <div className="mt-3">
-                        <input
-                          value={form.name}
-                          onChange={onChange}
-                          className="form-control"
-                          id="name"
-                          name="name"
-                          placeholder="Your username ..."
-                          type="text"
-                          autoComplete="false"
-                        />
-                      </div>
-                      <div className="mt-3">
-                        <input
-                          value={form.password}
-                          onChange={onChange}
-                          className="form-control"
-                          id="password"
-                          name="password"
-                          placeholder="Your password ..."
-                          type="password"
-                          autoComplete="false"
-                        />
-                      </div>
-                      <div className="d-grid mt-4">
-                        <button
-                          disabled={!isValid}
-                          onClick={click}
-                          className="btn btn-primary btn-lg" type="button" value="Send Now">
-                          LOG-IN
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                  </>
+                }
               </div>
-              {/* <!-- END FORM  -->} */}
-
-
+              <form method="post" style={{ display: showForm ? 'block' : 'none' }}>
+                <div className="mt-3">
+                  <input
+                    value={form.name}
+                    onChange={onChange}
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Your username ..."
+                    type="text"
+                    autoComplete="false"
+                  />
+                </div>
+                <div className="mt-3">
+                  <input
+                    value={form.password}
+                    onChange={onChange}
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Your password ..."
+                    type="password"
+                    autoComplete="false"
+                  />
+                </div>
+                <div className="d-grid mt-3">
+                  <button
+                    disabled={!isValid}
+                    onClick={click}
+                    className="btn btn-primary btn-lg" type="button" value="Send Now">
+                    LOG-IN
+                  </button>
+                </div>
+              </form>
             </div>
+
           </div>
+
+          {/* <!-- END FORM  -->} */}
+
         </div>
         {/* <!-- END CONTAINER  -->} */}
 
-        {/* <!-- End Main Content--> */}
+
       </section>
 
     </>
   )
 }
-
-//export default LoginForm;
 
