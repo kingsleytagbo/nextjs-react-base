@@ -24,3 +24,7 @@ a {
     background: black;
   }
 }
+label{
+  font-weight: 600;
+  color: #000;
+}

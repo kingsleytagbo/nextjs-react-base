@@ -8,7 +8,7 @@ export default function LoginForm(props: any) {
   const router = useRouter();
   const [data, setItems] = useState(props);
 
-  const [form, setFormValue] = useState({ name: '', password: '' });
+  const [form, setFormValue] = useState({ username: '', password: '' });
   const [isValid, setValidation] = useState(false);
   const [showForm, displayForm] = useState(true);
   const [isLoading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function LoginForm(props: any) {
       for (let i = 0; i < values.length; i++) {
         const key: any = values[i];
         const value = formState[key];
-        if ((key === 'name' && value.length < 3) || (key === 'password' && value.length < 5)) {
+        if ((key === 'username' && value.length < 3) || (key === 'password' && value.length < 5)) {
           valid = false;
           break;
         }
@@ -53,7 +53,7 @@ export default function LoginForm(props: any) {
     validate();
   }
 
-  const click = (event: any) => {
+  const onClick = (event: any) => {
     setLoading(true);
     const result = postFormJsonData(formState);
     processApiData(result);
@@ -62,7 +62,7 @@ export default function LoginForm(props: any) {
 
   const postFormJsonData = (data: any) => {
     const header = {
-      'Authorization': 'Basic ' + btoa(data.name + ':' + data.password),
+      'Authorization': 'Basic ' + btoa(data.username + ':' + data.password),
       'Content-Type': 'application/json'
     };
 
@@ -130,18 +130,20 @@ export default function LoginForm(props: any) {
  
               <form className="card-body" method="post" style={{ display: showForm ? 'block' : 'none' }}>
                 <div className="mt-3">
+                  <label htmlFor="username">Username</label>
                   <input
-                    value={form.name}
+                    value={form.username}
                     onChange={onChange}
                     className="form-control"
-                    id="name"
-                    name="name"
+                    id="username"
+                    name="username"
                     placeholder="Your username ..."
                     type="text"
                     autoComplete="false"
                   />
                 </div>
                 <div className="mt-3">
+                  <label htmlFor="password"> Password</label>
                   <input
                     value={form.password}
                     onChange={onChange}
@@ -156,7 +158,7 @@ export default function LoginForm(props: any) {
                 <div className="d-grid mt-3">
                   <button
                     disabled={!isValid}
-                    onClick={click}
+                    onClick={onClick}
                     className="btn btn-primary btn-lg" type="button" value="Send Now">
                     LOG-IN
                   </button>
