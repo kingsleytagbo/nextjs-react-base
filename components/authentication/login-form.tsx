@@ -1,33 +1,28 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 import Loading from '../loading';
 
 export default function LoginForm(props: any) {
-  const router = useRouter();
-  const [data, setItems] = useState(props);
 
   const [form, setFormValue] = useState({ username: '', password: '' });
   const [isValid, setValidation] = useState(false);
-  const [showForm, displayForm] = useState(true);
   const [isLoading, setLoading] = useState(false);
+  const [showForm, displayForm] = useState(true);
 
   const Post: any = {};
-
-  const formState: any = Object.assign({}, form);
   const API_FORM_URL = process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + '/login/authenticate/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
   const validate = () => {
     let valid = true;
-    const values = Object.keys(formState).map(function (item, i) {
+    const values = Object.keys(form).map(function (item, i) {
       return item;
     });
 
     if (values && values.length > 0) {
       for (let i = 0; i < values.length; i++) {
         const key: any = values[i];
-        const value = formState[key];
+        const value = form[key as keyof typeof form];
+
         if ((key === 'username' && value.length < 3) || (key === 'password' && value.length < 5)) {
           valid = false;
           break;
@@ -48,28 +43,31 @@ export default function LoginForm(props: any) {
     const key: string = e.target.name;
     const value: string = e.target.value;
 
-    formState[key] = value;
+    form[key as keyof typeof form] = value;
+    const formState: any = Object.assign({}, form);
     setFormValue(formState);
+
     validate();
   }
 
   const onClick = (event: any) => {
     setLoading(true);
-    const result = postFormJsonData(formState);
+
+    const result = postFormJsonData(form);
     processApiData(result);
     setLoading(false);
   }
 
-  const postFormJsonData = (data: any) => {
-    const header = {
-      'Authorization': 'Basic ' + btoa(data.username + ':' + data.password),
+  const postFormJsonData = (formData: any) => {
+    const headers = {
+      'Authorization': 'Basic ' + btoa(formData.username + ':' + formData.password),
       'Content-Type': 'application/json'
     };
 
     return fetch(API_FORM_URL, {
       method: 'POST',
-      body: JSON.stringify(data),
-      headers: header
+      body: JSON.stringify({}),
+      headers: headers
     }).then(response => response.json());
   }
 
@@ -86,9 +84,6 @@ export default function LoginForm(props: any) {
             displayForm(true);
           }
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error: any) => {
           console.log(error)
         }
@@ -97,8 +92,7 @@ export default function LoginForm(props: any) {
   }
   return (
     <>
-
-
+    
       <section className="py-5 mt-5" key="login">
 
 
