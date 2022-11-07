@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Utility } from '../../services/utility';
 import Loading from '../loading';
 
 export default function LoginForm(props: any) {
@@ -11,6 +12,14 @@ export default function LoginForm(props: any) {
 
   const Post: any = {};
   const API_FORM_URL = process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + '/login/authenticate/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
+
+  const utils = new Utility();
+
+  useEffect(() => {
+    const loggedIn = utils.isUserLoggedIn('authentication');
+    displayForm(!loggedIn)
+   // console.log({ loggedIn: loggedIn});
+  }, [isLoading]);
 
   const validate = () => {
     let valid = true;
@@ -78,6 +87,7 @@ export default function LoginForm(props: any) {
           const authId = result.AuthID;
           const roleNames = result.RoleNames;
           if (authId && roleNames) {
+              utils.saveData(result, 'authentication');
             displayForm(false);
           }
           else {
@@ -90,7 +100,7 @@ export default function LoginForm(props: any) {
       )
     }
   }
-  
+
   return (
     <>
     
