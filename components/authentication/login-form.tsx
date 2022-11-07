@@ -53,12 +53,12 @@ export default function LoginForm(props: any) {
   const onClick = (event: any) => {
     setLoading(true);
 
-    const result = postFormJsonData(form);
-    processApiData(result);
+    const result = postFormRequest(form);
+    processApiResponse(result);
     setLoading(false);
   }
 
-  const postFormJsonData = (formData: any) => {
+  const postFormRequest = (formData: any) => {
     const headers = {
       'Authorization': 'Basic ' + btoa(formData.username + ':' + formData.password),
       'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ export default function LoginForm(props: any) {
     }).then(response => response.json());
   }
 
-  const processApiData = (result: (Promise<any> | undefined)) => {
+  const processApiResponse = (result: (Promise<any> | undefined)) => {
     if (result) {
       result.then(
         (result: any) => {
@@ -90,6 +90,7 @@ export default function LoginForm(props: any) {
       )
     }
   }
+  
   return (
     <>
     
