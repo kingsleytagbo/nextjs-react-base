@@ -140,7 +140,7 @@ export default function LoginForm(props: any) {
                         <button
                           onClick={onClickLogout}
                           className="btn btn-warning btn-lg" type="button" value="Logout">
-                          <i className="bi bi-unlock-fill"></i>&nbsp;Logout
+                          <i className="bi bi-unlock"></i>&nbsp;Logout
                         </button>
                       </div>
                     </div></div>
@@ -185,7 +185,7 @@ export default function LoginForm(props: any) {
                       disabled={!isValid}
                       onClick={onClick}
                       className="btn btn-primary btn-lg" type="button" value="Send Now">
-                      LOG-IN
+                      <i className="bi bi-lock"></i> &nbsp; Login
                     </button>
                   </div>
                 </form>
