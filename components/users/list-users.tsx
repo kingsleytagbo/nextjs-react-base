@@ -2,21 +2,43 @@
 
 // Import Modules
 import React, { useState, useEffect } from "react";
+import AddUser from "./add-user";
 import UserForm from "./user-form";
+//import { User } from '../../models/User';
 
 // List User Component
-const ListUsers = (props: any) => {
+const ListUsers = () => {
     const API_FORM_URL = '/api/users';
     const [users, setUsers] = useState([]);
-    const [edituser, setEditUser] = useState(0);
+    const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
 
-    const handleEditUser = (id: number) => {
+    const handleEditUser = (id: any) => {
         setEditUser(id);
-        console.log({handleEditUser: id});
+        fetchUser(id);
+        console.log({ handleEditUser: id });
     };
 
-    const fetchData = () => {
-        fetch(API_FORM_URL, {
+    const handleUserAdded = () => {
+        fetchUsers();
+        //console.log("new User Added");
+    };
+
+    const onChange = (e: any) => {
+        const key: any = e.target.name;
+        const value: any = e.target.value;
+        const formState: any = ({ ...edituser, [key]: value });
+
+        setEditUser(formState);
+    }
+
+    const onCancel = () => {
+        setEditUser({ITCC_UserID: 0, Username: '', Password: ''});
+    }
+
+
+    const fetchUsers = () => {
+        const url = API_FORM_URL;
+        fetch(url, {
             method: 'GET'
         }).then(response => {
             const result = response.json();
@@ -24,7 +46,29 @@ const ListUsers = (props: any) => {
                 result.then(
                     (result: any) => {
                         setUsers(result);
-                        console.log({ result: result });
+                        console.log({ fetchUsers: result });
+                    },
+                    (error: any) => {
+                        console.log(error);
+                    }
+                )
+            }
+        }
+        );
+    }
+
+    const fetchUser = (id: number) => {
+        const url = API_FORM_URL + '/' + id;
+        console.log({ fetchUser: id, url: url });
+        fetch(url, {
+            method: 'GET'
+        }).then(response => {
+            const result = response.json();
+            if (result) {
+                result.then(
+                    (result: any) => {
+                        //setUser(result);
+                        console.log({ fetchUser: result });
                     },
                     (error: any) => {
                         console.log(error);
@@ -36,8 +80,8 @@ const ListUsers = (props: any) => {
     }
 
     useEffect(() => {
-        fetchData();
-    }, [props.fetchData]);
+        fetchUsers();
+    }, []);
 
 
 
@@ -45,67 +89,100 @@ const ListUsers = (props: any) => {
     return (
         <>
 
-            <section className="py-5 mt-5" key="user-form">
+            {/* <!-- BEGIN ADD USER  --> */}
+            {(edituser.ITCC_UserID == 0) &&
+                <AddUser handleUserAdded={handleUserAdded}></AddUser>
+            }
+            {/* <!-- END ADD USER  --> */}
 
 
-                {/* <!-- BEGIN CONTAINER  -->} */}
-                <div className="container align-items-center justify-content-center">
+            {/* <!-- BEGIN EDIT USER  --> */}
+            {(edituser && edituser.ITCC_UserID && edituser.ITCC_UserID
+                > 0) &&
+                <section>
+                    <UserForm {...edituser}
+                        title="Edit User"
+                        onChange={onChange}
+                        onCancel={onCancel}
+                    >
 
-                    {/* <!-- BEGIN FORM  -->} */}
+                        Save
+                    </UserForm>
+                </section>
+            }
+            {/* <!-- BEGIN EDIT USER  --> */}
 
-                    <div className="row">
-                        <div className="col-md-3"></div>
 
-                        <div className="col-md-6">
+            {/* <!-- BEGIN LIST USERS  --> */}
 
-                            <section className="card">
+            {(edituser.ITCC_UserID === 0) &&
+                <section className="py-1 mt-1" key="list-users">
 
-                                <h3 className='card-title text-center text-dark mt-3'>List All Users</h3>
 
-                                <div className="card-body">
+                    {/* <!-- BEGIN CONTAINER  -->} */}
+                    <div className="container align-items-center justify-content-center">
 
-                                    {users.map((item: any, index: number) => {
-                                        return (
-                                            <div key={index} className='row'>
-                                                <div className="col-md-4">
-                                                    <label htmlFor="username">Username</label>
-                                                    <p className="text-dark">{item.Username}</p>
-                                                </div>
+                        {/* <!-- BEGIN FORM  -->} */}
 
-                                                <div className="col-md-4">
-                                                    <label htmlFor="password"> Password</label>
-                                                    <p className="text-dark">{item.Password}</p>
-                                                </div>
+                        <div className="row">
+                            <div className="col-md-3"></div>
 
-                                                <div className="col-md-4">
-                                                    <div className="d-grid mt-3">
-                                                        <button
-                                                           onClick={() => handleEditUser(item.ITCC_UserID)}
-                                                            className="btn btn-info" type="button" value="Edit">
-                                                            <i className="bi bi-pencil"></i> &nbsp;Edit
-                                                        </button>
+                            <div className="col-md-6">
+
+                                <section className="card">
+
+                                    <h3 className='card-title text-center text-dark mt-3'>List All Users</h3>
+
+                                    <div className="card-body">
+
+                                        {users.map((item: any, index: number) => {
+                                            return (
+                                                <section key={index}>
+                                                    <div className='row'>
+                                                        <div className="col-md-4">
+                                                            <label htmlFor="username">Username</label>
+                                                            <p className="text-dark">{item.Username}</p>
+                                                        </div>
+
+                                                        <div className="col-md-4">
+                                                            <label htmlFor="password"> Password</label>
+                                                            <p className="text-dark">{item.Password}</p>
+                                                        </div>
+
+                                                        <div className="col-md-4">
+                                                            <div className="d-grid mt-3">
+                                                                <button
+                                                                    onClick={() => handleEditUser(item)}
+                                                                    className="btn btn-info" type="button" value="Edit">
+                                                                    <i className="bi bi-pencil"></i> &nbsp;Edit
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })};
+                                                    <hr className="pt-1 bg-info" /></section>
+                                            );
+                                        })};
 
-                                </div>
+                                    </div>
 
-                            </section>
+                                </section>
 
+                            </div>
+
+                            <div className="col-md-3"></div>
                         </div>
 
-                        <div className="col-md-3"></div>
+                        {/* <!-- END FORM  -->} */}
+
                     </div>
-
-                    {/* <!-- END FORM  -->} */}
-
-                </div>
-                {/* <!-- END CONTAINER  -->} */}
+                    {/* <!-- END CONTAINER  -->} */}
 
 
-            </section>
+                </section>
+            }
+
+
+            {/* <!-- END LIST USERS  --> */}
 
 
         </>

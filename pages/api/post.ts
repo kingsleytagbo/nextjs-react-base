@@ -1,19 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-type User = {
-  ITCC_UserID: number,
-  Username: string,
-  Password: string
-};
-
-const data: Array<User> = [{ ITCC_UserID:1, Username: 'admin', Password: 'password' }];
+import { User } from '../../models/User';
+import { MockData } from '../../services/mockData';
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  const data = new MockData().getUsers();
   const body = req.body;
+  const slug = req.query;
+
   if (req.method === 'POST') {
     console.log({post: body});
     if(body.username && body.password){
@@ -27,7 +24,10 @@ export default function handler(
 
    }
    else if (req.method === 'GET'){
+    console.log({ GET: body, slug: slug });
     res.status(200).json(data);
    }
-    else res.status(401);
+    else {
+      res.status(401);
+    }
 }

@@ -1,16 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
-import AddUser from '../components/users/add-user';
 import ListUsers from '../components/users/list-users';
 
 const Users: NextPage = () => {
-  const [users, updatedUsers] = useState(0);
   
-  const handleUserAdded = () => {
-    updatedUsers(users + 1)
-    console.log("new User Added");
-};
   return (
     <main className="container-fluid mt-0 clearfix">
       <Head>
@@ -24,8 +17,7 @@ const Users: NextPage = () => {
           <div className="col-md-12">
 
               <section>
-                <AddUser handleUserAdded={handleUserAdded}></AddUser>
-                <ListUsers fetchData={users}></ListUsers>
+                <ListUsers></ListUsers>
               </section>
 
           </div></div>
