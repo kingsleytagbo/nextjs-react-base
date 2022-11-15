@@ -5,9 +5,15 @@ import React, { useState, useEffect } from "react";
 import UserForm from "./user-form";
 
 // List User Component
-const ListUsers = (props:any) => {
+const ListUsers = (props: any) => {
     const API_FORM_URL = '/api/users';
     const [users, setUsers] = useState([]);
+    const [edituser, setEditUser] = useState(0);
+
+    const handleEditUser = (id: number) => {
+        setEditUser(id);
+        console.log({handleEditUser: id});
+    };
 
     const fetchData = () => {
         fetch(API_FORM_URL, {
@@ -33,7 +39,9 @@ const ListUsers = (props:any) => {
         fetchData();
     }, [props.fetchData]);
 
-    // Return User form
+
+
+
     return (
         <>
 
@@ -58,15 +66,25 @@ const ListUsers = (props:any) => {
 
                                     {users.map((item: any, index: number) => {
                                         return (
-                                            <div key={index} className=''>
-                                                <div className="mt-3">
+                                            <div key={index} className='row'>
+                                                <div className="col-md-4">
                                                     <label htmlFor="username">Username</label>
-                                                    <p className="text-dark">{item.username}</p>
+                                                    <p className="text-dark">{item.Username}</p>
                                                 </div>
 
-                                                <div className="mt-3">
+                                                <div className="col-md-4">
                                                     <label htmlFor="password"> Password</label>
-                                                    <p className="text-dark">{item.password}</p>
+                                                    <p className="text-dark">{item.Password}</p>
+                                                </div>
+
+                                                <div className="col-md-4">
+                                                    <div className="d-grid mt-3">
+                                                        <button
+                                                           onClick={() => handleEditUser(item.ITCC_UserID)}
+                                                            className="btn btn-info" type="button" value="Edit">
+                                                            <i className="bi bi-pencil"></i> &nbsp;Edit
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         );
