@@ -17,9 +17,12 @@ export default function handler(
       const data = mockServer.getUsers();
 
       const item: User = { ITCC_UserID: data.length + 1, Username: body.Username, Password: body.Password };
-      data.push(item);
+      const findUser = mockServer.getUser(item);
 
-      mockServer.saveUsers(data);
+      if (!findUser) {
+        data.push(item);
+        mockServer.saveUsers(data);
+      }
 
       res.status(200).json(mockServer.getUsers());
     }
@@ -30,12 +33,10 @@ export default function handler(
   }
   else if (req.method === 'PUT') {
     if (body.Username && body.Password) {
-      const data = mockServer.getUsers();
 
       const item: User = { ITCC_UserID: body.ITCC_UserID, Username: body.Username, Password: body.Password };
-      //data.push(item);
 
-      mockServer.saveUsers(data);
+      mockServer.updateUser(item);
 
       res.status(200).json(item);
     }

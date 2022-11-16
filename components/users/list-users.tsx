@@ -15,12 +15,10 @@ const ListUsers = () => {
     const handleEditUser = (id: any) => {
         setEditUser(id);
         fetchUser(id);
-        console.log({ handleEditUser: id });
     };
 
     const handleUserAdded = () => {
         fetchUsers();
-        //console.log("new User Added");
     };
 
     const onChangeEditUser = (e: any) => {
@@ -32,26 +30,28 @@ const ListUsers = () => {
     }
 
     const onCancelEditUser = () => {
-        setEditUser({ITCC_UserID: 0, Username: '', Password: ''});
+        setEditUser({ ITCC_UserID: 0, Username: '', Password: '' });
     }
 
     const onSaveEditUser = () => {
         const result = postFormRequest(edituser);
+        fetchUsers();
+        setEditUser({ ITCC_UserID: 0, Username: '', Password: '' });
     }
 
     const postFormRequest = (formData: any) => {
         const headers = {
-          'Authorization': 'Basic ' + btoa(formData.Username + ':' + formData.Password),
-          'Content-Type': 'application/json'
+            'Authorization': 'Basic ' + btoa(formData.Username + ':' + formData.Password),
+            'Content-Type': 'application/json'
         };
-    
+
         const url = API_FORM_URL + '/' + formData.ITCC_UserID;
         return fetch(url, {
-          method: 'PUT',
-          body: JSON.stringify(formData),
-          headers: headers
+            method: 'PUT',
+            body: JSON.stringify(formData),
+            headers: headers
         }).then(response => response.json());
-      }
+    }
 
     const fetchUsers = () => {
         const url = API_FORM_URL;
