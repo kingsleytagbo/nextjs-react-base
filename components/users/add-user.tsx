@@ -17,10 +17,9 @@ const AddUser = (props:any) => {
         setEditUser(formState);
     }
 
-    const onClick = () => {
+    const onSave = () => {
         const result = postFormRequest(edituser);
         props.handleUserAdded();
-        //console.log({onClick: edituser, result: result});
     }
 
     const onCancel = () => {
@@ -46,7 +45,7 @@ const AddUser = (props:any) => {
         <section>
         <UserForm {...edituser}
             title="Create A New User"
-            onClick={onClick}
+            onClick={onSave}
             onChange={onChange}
             onCancel={onCancel}
         >

@@ -28,11 +28,24 @@ export default function handler(
     }
 
   }
-  else if (req.method === 'GET') {
-    //const mockServer = new MockData();
-    const data = mockServer.getUsers();
+  else if (req.method === 'PUT') {
+    if (body.Username && body.Password) {
+      const data = mockServer.getUsers();
 
-    console.log({ req: req.method, slug: slug, mockServer: mockServer });
+      const item: User = { ITCC_UserID: body.ITCC_UserID, Username: body.Username, Password: body.Password };
+      //data.push(item);
+
+      mockServer.saveUsers(data);
+
+      res.status(200).json(item);
+    }
+    else {
+      return res.status(400).json({ errors: 'Username or password not found' })
+    }
+
+  }
+  else if (req.method === 'GET') {
+    const data = mockServer.getUsers();
     res.status(200).json(data);
   }
   else {

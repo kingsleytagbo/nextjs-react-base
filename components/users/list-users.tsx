@@ -35,6 +35,23 @@ const ListUsers = () => {
         setEditUser({ITCC_UserID: 0, Username: '', Password: ''});
     }
 
+    const onSaveEditUser = () => {
+        const result = postFormRequest(edituser);
+    }
+
+    const postFormRequest = (formData: any) => {
+        const headers = {
+          'Authorization': 'Basic ' + btoa(formData.Username + ':' + formData.Password),
+          'Content-Type': 'application/json'
+        };
+    
+        const url = API_FORM_URL + '/' + formData.ITCC_UserID;
+        return fetch(url, {
+          method: 'PUT',
+          body: JSON.stringify(formData),
+          headers: headers
+        }).then(response => response.json());
+      }
 
     const fetchUsers = () => {
         const url = API_FORM_URL;
@@ -104,6 +121,7 @@ const ListUsers = () => {
                         title="Edit User"
                         onChange={onChangeEditUser}
                         onCancel={onCancelEditUser}
+                        onClick={onSaveEditUser}
                     >
 
                         Save
