@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { User } from '../../models/User';
-import { MockData } from '../../services/mockData';
+import { User } from '../../../models/user';
+import { MockData } from '../../../services/mockData';
 
 export default function handler(
   req: NextApiRequest,
@@ -46,8 +46,7 @@ export default function handler(
 
   }
   else if (req.method === 'GET') {
-    const data = mockServer.getUsers();
-    res.status(200).json(data);
+    res.status(200).json('login/authenticate');
   }
   else {
     res.status(401);

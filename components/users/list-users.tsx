@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from "react";
 import AddUser from "./add-user";
 import UserForm from "./user-form";
-//import { User } from '../../models/User';
 
 // List User Component
 const ListUsers = () => {
@@ -12,9 +11,10 @@ const ListUsers = () => {
     const [users, setUsers] = useState([]);
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
 
-    const handleEditUser = (id: any) => {
-        setEditUser(id);
-        fetchUser(id);
+    const handleEditUser = (item: any) => {
+       // console.log({handleEditUser: item})
+        setEditUser(item);
+        fetchUser(item.ITCC_UserID);
     };
 
     const handleUserAdded = () => {

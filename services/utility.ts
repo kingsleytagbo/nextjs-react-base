@@ -1,6 +1,11 @@
 import { json } from "stream/consumers";
 import { IStorage, SessionStorage } from "./storage";
 
+export enum BaseUrlTypes{
+    Authenticate = 'login/authenticate',
+    Users = 'users/'
+}
+
 export class Utility implements IStorage {
 
     appStorageKey = 'app_storage_key_' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
@@ -22,6 +27,12 @@ export class Utility implements IStorage {
     saveData(value: any, key: any) {
         const storage = new SessionStorage();
         storage.saveData(value, this.appStorageKey + key);
+    }
+
+    getBaseApi(urlType: BaseUrlTypes){
+        const baseUrl = process.env.USE_REMOTE_API === 'true' ? process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API : 'api';
+        
+        
     }
 
 }
