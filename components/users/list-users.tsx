@@ -23,7 +23,7 @@ const ListUsers = () => {
         //console.log("new User Added");
     };
 
-    const onChange = (e: any) => {
+    const onChangeEditUser = (e: any) => {
         const key: any = e.target.name;
         const value: any = e.target.value;
         const formState: any = ({ ...edituser, [key]: value });
@@ -31,7 +31,7 @@ const ListUsers = () => {
         setEditUser(formState);
     }
 
-    const onCancel = () => {
+    const onCancelEditUser = () => {
         setEditUser({ITCC_UserID: 0, Username: '', Password: ''});
     }
 
@@ -102,8 +102,8 @@ const ListUsers = () => {
                 <section>
                     <UserForm {...edituser}
                         title="Edit User"
-                        onChange={onChange}
-                        onCancel={onCancel}
+                        onChange={onChangeEditUser}
+                        onCancel={onCancelEditUser}
                     >
 
                         Save
