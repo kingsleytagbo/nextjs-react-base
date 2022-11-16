@@ -12,6 +12,8 @@ export default function handler(
   const body = req.body;
   const { slug } = req.query;
 
+  console.log({body: body, slug: slug, method: req.method});
+
   if (req.method === 'POST') {
     if (body.Username && body.Password) {
       const data = mockServer.getUsers();

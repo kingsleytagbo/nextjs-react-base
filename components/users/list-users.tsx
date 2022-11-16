@@ -2,12 +2,15 @@
 
 // Import Modules
 import React, { useState, useEffect } from "react";
+import { BaseUrlTypes, Utility } from "../../services/utility";
 import AddUser from "./add-user";
 import UserForm from "./user-form";
 
 // List User Component
 const ListUsers = () => {
-    const API_FORM_URL = '/api/users';
+    const utils = new Utility();
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
+
     const [users, setUsers] = useState([]);
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
 

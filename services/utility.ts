@@ -30,9 +30,18 @@ export class Utility implements IStorage {
     }
 
     getBaseApi(urlType: BaseUrlTypes){
-        const baseUrl = process.env.USE_REMOTE_API === 'true' ? process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API : 'api';
-        
-        
+        const baseUrl = process.env.NEXT_PUBLIC_USE_REMOTE_API === 'true' ? process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API : 'api';
+        // console.log({Remote : process.env.NEXT_PUBLIC_USE_REMOTE_API, local: process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API});
+
+        let baseApiPath = '';
+            switch(urlType){
+                case BaseUrlTypes.Users:
+                    baseApiPath = 'users';
+                    break;
+                    default:
+                        break;
+            }
+        return baseUrl + '/' + baseApiPath;
     }
 
 }
