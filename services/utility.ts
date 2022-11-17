@@ -35,6 +35,9 @@ export class Utility implements IStorage {
 
         let baseApiPath = '';
             switch(urlType){
+                case BaseUrlTypes.Authenticate:
+                    baseApiPath = 'login/authenticate';
+                    break;
                 case BaseUrlTypes.Users:
                     baseApiPath = 'users';
                     break;

@@ -12,7 +12,7 @@ export default function handler(
   const body = req.body;
   const { slug } = req.query;
 
-  if (req.method === 'GET') {
+  if (req.method === 'POST') {
     res.status(200).json('login/authenticate');
   }
   else {

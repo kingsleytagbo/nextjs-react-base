@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
-import { Utility } from '../../services/utility';
+import { BaseUrlTypes, Utility } from '../../services/utility';
 import Loading from '../loading';
 
 export default function LoginForm(props: any) {
@@ -10,11 +10,12 @@ export default function LoginForm(props: any) {
   const [isLoading, setLoading] = useState(false);
   const [showForm, displayForm] = useState(true);
 
-  const Post: any = {};
-  const AUTH_KEY =  '/login/authenticate/';
-  const API_FORM_URL = process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + AUTH_KEY + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
-
   const utils = new Utility();
+
+
+  const AUTH_KEY =  '/login/authenticate/';
+  //const API_FORM_URL = process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + AUTH_KEY + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
+  const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Authenticate) + '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
   useEffect(() => {
     getUserLoggedInStatus();
