@@ -12,9 +12,9 @@ export default function handler(
   const mockServer = MockData;
   const query = req.query;
   const { slug, privateKey } = query;
+  const params = slug ? Array.from(slug) : [];
 
-
-  if (req.method === 'POST') {
+  if (req.method === 'POST' && params.indexOf('authenticate') > -1) {
     const base64AuthenticationHeader = (req.headers.authorization || '').split(' ')[1] || '';
     const [username, password] = Buffer.from(base64AuthenticationHeader, 'base64').toString().split(':');
 
@@ -23,7 +23,7 @@ export default function handler(
     const result = { AuthID: findUser?.ITCC_UserID, RoleNames: ['admin'] };
 
     console.log({
-      result: result, slug: req.query,
+      result: result, slug: req.query, params: params,
       username: username, password: password, item: item, findUser: findUser
     });
 

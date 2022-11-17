@@ -13,6 +13,11 @@ const ListUsers = () => {
 
     const [users, setUsers] = useState([]);
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
+    const [displayAddForm, setAddForm] = useState(false);
+
+    const handleAddUserClick = () => {
+        setAddForm(true);
+    };
 
     const handleEditUser = (item: any) => {
        // console.log({handleEditUser: item})
@@ -22,6 +27,7 @@ const ListUsers = () => {
 
     const handleUserAdded = () => {
         fetchUsers();
+        setAddForm(false);
     };
 
     const onChangeEditUser = (e: any) => {
@@ -34,12 +40,14 @@ const ListUsers = () => {
 
     const onCancelEditUser = () => {
         setEditUser({ ITCC_UserID: 0, Username: '', Password: '' });
+        setAddForm(false);
     }
 
     const onSaveEditUser = () => {
         const result = postFormRequest(edituser);
         fetchUsers();
         setEditUser({ ITCC_UserID: 0, Username: '', Password: '' });
+        setAddForm(false);
     }
 
     const postFormRequest = (formData: any) => {
@@ -105,19 +113,37 @@ const ListUsers = () => {
 
 
 
-
     return (
         <>
 
+            {/* <!-- BEGIN - ADD USER BUTTON  --> */}
+
+            {(!displayAddForm) &&
+                <section className="row align-items-center justify-content-center" key="add-users-button">
+                    <div className="col-md-12">
+                        <div className="d-grid mt-3">
+                            <button
+                                onClick={() => handleAddUserClick()}
+                                className="btn btn-info" type="button" value="Edit">
+                                <i className="bi bi-pencil"></i> &nbsp;Add User
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            }
+
+            {/* <!-- END - ADD USER BUTTON  --> */}
+
+
             {/* <!-- BEGIN ADD USER  --> */}
-            {(edituser.ITCC_UserID == 0) &&
+            {displayAddForm &&
                 <AddUser handleUserAdded={handleUserAdded}></AddUser>
             }
             {/* <!-- END ADD USER  --> */}
 
 
             {/* <!-- BEGIN EDIT USER  --> */}
-            {(edituser && edituser.ITCC_UserID && edituser.ITCC_UserID
+            {(edituser && (edituser.ITCC_UserID && edituser.ITCC_UserID)
                 > 0) &&
                 <section>
                     <UserForm {...edituser}
