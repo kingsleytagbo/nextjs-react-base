@@ -74,10 +74,10 @@ const ListUsers = () => {
                 result.then(
                     (result: any) => {
                         setUsers(result);
-                        console.log({ fetchUsers: result });
+                       // console.log({ fetchUsers: result });
                     },
                     (error: any) => {
-                        console.log(error);
+                        //console.log(error);
                     }
                 )
             }
@@ -87,7 +87,7 @@ const ListUsers = () => {
 
     const fetchUser = (id: number) => {
         const url = API_FORM_URL + '/' + id;
-        console.log({ fetchUser: id, url: url });
+        //console.log({ fetchUser: id, url: url });
         fetch(url, {
             method: 'GET'
         }).then(response => {
@@ -96,10 +96,10 @@ const ListUsers = () => {
                 result.then(
                     (result: any) => {
                         //setUser(result);
-                        console.log({ fetchUser: result });
+                        //console.log({ fetchUser: result });
                     },
                     (error: any) => {
-                        console.log(error);
+                        //console.log(error);
                     }
                 )
             }

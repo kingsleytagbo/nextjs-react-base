@@ -105,7 +105,7 @@ export default function LoginForm(props: any) {
           }
         },
         (error: any) => {
-          console.log(error)
+         // console.log(error)
         }
       )
     }

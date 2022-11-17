@@ -22,11 +22,6 @@ export default function handler(
     const findUser = mockServer.getUser(item);
     const result = { AuthID: findUser?.ITCC_UserID, RoleNames: ['admin'] };
 
-    console.log({
-      result: result, slug: req.query, params: params,
-      username: username, password: password, item: item, findUser: findUser
-    });
-
     res.status(200).json(result);
   }
   else {

@@ -10,7 +10,6 @@ export class MockData{
 
     static saveUsers(values: any) {
         this.users = values;
-        console.log({data: this.users, values: values})
     }
 
     static getUser(item: User){
