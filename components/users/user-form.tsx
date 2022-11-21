@@ -8,10 +8,6 @@ const UserForm = (props: any) => {
 
       <section className="py-1 mt-1" key="user-form">
 
-
-        {/* <!-- BEGIN CONTAINER  -->} */}
-        <div className="">
-
           {/* <!-- BEGIN FORM  -->} */}
 
               <section className="card">
@@ -77,10 +73,6 @@ const UserForm = (props: any) => {
               </section>
 
           {/* <!-- END FORM  -->} */}
-
-        </div>
-        {/* <!-- END CONTAINER  -->} */}
-
 
       </section>
 

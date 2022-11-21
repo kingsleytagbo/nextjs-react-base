@@ -25,10 +25,14 @@ const ListUsers = () => {
         fetchUser(item.ITCC_UserID);
     };
 
-    const handleUserAdded = () => {
+    const onSaveAddUser = () => {
         fetchUsers();
         setAddForm(false);
     };
+
+    const onCancelAddUser = () =>{
+        setAddForm(false);
+    }
 
     const onChangeEditUser = (e: any) => {
         const key: any = e.target.name;
@@ -138,7 +142,10 @@ const ListUsers = () => {
 
                     {/* <!-- BEGIN ADD USER  --> */}
                     {displayAddForm &&
-                        <AddUser handleUserAdded={handleUserAdded}></AddUser>
+                        <AddUser 
+                            onSaveAddUser={onSaveAddUser}
+                            onCancelAddUser={onSaveAddUser}
+                        ></AddUser>
                     }
                     {/* <!-- END ADD USER  --> */}
 

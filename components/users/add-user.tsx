@@ -19,11 +19,12 @@ const AddUser = (props:any) => {
 
     const onSave = () => {
         const result = postFormRequest(edituser);
-        props.handleUserAdded();
+        props.onSaveAddUser();
     }
 
     const onCancel = () => {
         setEditUser({ITCC_UserID: 0, Username: '', Password: ''});
+        props.onCancelAddUser();
     }
 
 
