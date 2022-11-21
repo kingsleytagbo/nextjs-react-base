@@ -20,7 +20,7 @@ const ListUsers = () => {
     };
 
     const handleEditUser = (item: any) => {
-       // console.log({handleEditUser: item})
+        // console.log({handleEditUser: item})
         setEditUser(item);
         fetchUser(item.ITCC_UserID);
     };
@@ -74,7 +74,7 @@ const ListUsers = () => {
                 result.then(
                     (result: any) => {
                         setUsers(result);
-                       // console.log({ fetchUsers: result });
+                        // console.log({ fetchUsers: result });
                     },
                     (error: any) => {
                         //console.log(error);
@@ -114,125 +114,103 @@ const ListUsers = () => {
 
 
     return (
-        <>
+        <div className="container align-items-center justify-content-center">
+            <div className="row">
+                <div className="col-md-2"></div>
+                <div className="col-md-8">
 
-            {/* <!-- BEGIN - ADD USER BUTTON  --> */}
+                    {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-            {(!displayAddForm) &&
-                <section className="row align-items-center justify-content-center" key="add-users-button">
-                    <div className="col-md-12">
-                        <div className="d-grid mt-3">
+                    {(!displayAddForm) &&
+
+                        <div className="d-grid mt-1">
                             <button
                                 onClick={() => handleAddUserClick()}
                                 className="btn btn-info" type="button" value="Edit">
                                 <i className="bi bi-pencil"></i> &nbsp;Add User
                             </button>
                         </div>
-                    </div>
-                </section>
-            }
 
-            {/* <!-- END - ADD USER BUTTON  --> */}
+                    }
 
-
-            {/* <!-- BEGIN ADD USER  --> */}
-            {displayAddForm &&
-                <AddUser handleUserAdded={handleUserAdded}></AddUser>
-            }
-            {/* <!-- END ADD USER  --> */}
+                    {/* <!-- END - ADD USER BUTTON  --> */}
 
 
-            {/* <!-- BEGIN EDIT USER  --> */}
-            {(edituser && (edituser.ITCC_UserID && edituser.ITCC_UserID)
-                > 0) &&
-                <section>
-                    <UserForm {...edituser}
-                        title="Edit User"
-                        onChange={onChangeEditUser}
-                        onCancel={onCancelEditUser}
-                        onClick={onSaveEditUser}
-                    >
-
-                        Save
-                    </UserForm>
-                </section>
-            }
-            {/* <!-- BEGIN EDIT USER  --> */}
+                    {/* <!-- BEGIN ADD USER  --> */}
+                    {displayAddForm &&
+                        <AddUser handleUserAdded={handleUserAdded}></AddUser>
+                    }
+                    {/* <!-- END ADD USER  --> */}
 
 
-            {/* <!-- BEGIN LIST USERS  --> */}
+                    {/* <!-- BEGIN EDIT USER  --> */}
+                    {(edituser && (edituser.ITCC_UserID && edituser.ITCC_UserID)
+                        > 0) &&
+                        <section className="card py-1 mt-1">
+                            <UserForm {...edituser}
+                                title="Edit User"
+                                onChange={onChangeEditUser}
+                                onCancel={onCancelEditUser}
+                                onClick={onSaveEditUser}
+                            >
 
-            {(edituser.ITCC_UserID === 0) &&
-                <section className="py-1 mt-1" key="list-users">
+                                Save
+                            </UserForm>
+                        </section>
+                    }
+                    {/* <!-- BEGIN EDIT USER  --> */}
 
 
-                    {/* <!-- BEGIN CONTAINER  -->} */}
-                    <div className="container align-items-center justify-content-center">
+                    {/* <!-- BEGIN LIST USERS  --> */}
 
-                        {/* <!-- BEGIN FORM  -->} */}
+                    {(edituser.ITCC_UserID === 0) &&
 
-                        <div className="row">
-                            <div className="col-md-3"></div>
+                        <section className="card py-1 mt-1">
 
-                            <div className="col-md-6">
+                            <h3 className='card-title text-center text-dark mt-3'>List All Users</h3>
 
-                                <section className="card">
+                            <div className="card-body">
 
-                                    <h3 className='card-title text-center text-dark mt-3'>List All Users</h3>
+                                {users.map((item: any, index: number) => {
+                                    return (
+                                        <section key={index}>
+                                            <div className='row'>
+                                                <div className="col-md-4">
+                                                    <label htmlFor="username">Username</label>
+                                                    <p className="text-dark">{item.Username}</p>
+                                                </div>
 
-                                    <div className="card-body">
+                                                <div className="col-md-4">
+                                                    <label htmlFor="password"> Password</label>
+                                                    <p className="text-dark">{item.Password}</p>
+                                                </div>
 
-                                        {users.map((item: any, index: number) => {
-                                            return (
-                                                <section key={index}>
-                                                    <div className='row'>
-                                                        <div className="col-md-4">
-                                                            <label htmlFor="username">Username</label>
-                                                            <p className="text-dark">{item.Username}</p>
-                                                        </div>
-
-                                                        <div className="col-md-4">
-                                                            <label htmlFor="password"> Password</label>
-                                                            <p className="text-dark">{item.Password}</p>
-                                                        </div>
-
-                                                        <div className="col-md-4">
-                                                            <div className="d-grid mt-3">
-                                                                <button
-                                                                    onClick={() => handleEditUser(item)}
-                                                                    className="btn btn-info" type="button" value="Edit">
-                                                                    <i className="bi bi-pencil"></i> &nbsp;Edit
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                                <div className="col-md-4">
+                                                    <div className="d-grid mt-3">
+                                                        <button
+                                                            onClick={() => handleEditUser(item)}
+                                                            className="btn btn-info" type="button" value="Edit">
+                                                            <i className="bi bi-pencil"></i> &nbsp;Edit
+                                                        </button>
                                                     </div>
-                                                    <hr className="pt-1 bg-info" /></section>
-                                            );
-                                        })};
-
-                                    </div>
-
-                                </section>
+                                                </div>
+                                            </div>
+                                            <hr className="pt-1 bg-info" /></section>
+                                    );
+                                })};
 
                             </div>
 
-                            <div className="col-md-3"></div>
-                        </div>
+                        </section>
+                    }
 
-                        {/* <!-- END FORM  -->} */}
-
-                    </div>
-                    {/* <!-- END CONTAINER  -->} */}
+                    {/* <!-- END LIST USERS  --> */}
 
 
-                </section>
-            }
-
-
-            {/* <!-- END LIST USERS  --> */}
-
-
-        </>
+                </div>
+                <div className="col-md-2"></div>
+            </div>
+        </div>
 
     )
 }

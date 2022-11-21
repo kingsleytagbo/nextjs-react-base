@@ -12,6 +12,7 @@ export default function handler(
   const mockServer = MockData;
   const body = req.body;
   const { slug } = req.query;
+  const params = slug ? Array.from(slug) : [];
 
   if (req.method === 'POST') {
     if (body.Username && body.Password) {
@@ -28,7 +29,7 @@ export default function handler(
       res.status(200).json(mockServer.getUsers());
     }
     else {
-      return res.status(400).json({ errors: 'Username or password not found' })
+      return res.status(400).json({ errors: 'username or password not found' })
     }
 
   }
@@ -42,14 +43,22 @@ export default function handler(
       res.status(200).json(item);
     }
     else {
-      return res.status(400).json({ errors: 'Username or password not found' })
+      return res.status(400).json({ errors: 'username or password not found' })
     }
 
   }
   else if (req.method === 'GET') {
-    res.status(200).json('login/authenticate');
+    // get one user by id
+    if(params  && params.length === 1){
+      const items = mockServer.getUsers();
+      const item = items.find(u => u.ITCC_UserID === Number(params[0]));
+      res.status(200).json(item);
+    }
+    else {
+      return res.status(404).json({ errors: 'user not found' })
+    }
   }
   else {
-    res.status(401);
+    res.status(404);
   }
 }

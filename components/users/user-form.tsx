@@ -10,14 +10,9 @@ const UserForm = (props: any) => {
 
 
         {/* <!-- BEGIN CONTAINER  -->} */}
-        <div className="container align-items-center justify-content-center">
+        <div className="">
 
           {/* <!-- BEGIN FORM  -->} */}
-
-          <div className="row">
-            <div className="col-md-3"></div>
-
-            <div className="col-md-6">
 
               <section className="card">
 
@@ -80,11 +75,6 @@ const UserForm = (props: any) => {
 
                 </form>
               </section>
-
-            </div>
-
-            <div className="col-md-3"></div>
-          </div>
 
           {/* <!-- END FORM  -->} */}
 

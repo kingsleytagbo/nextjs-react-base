@@ -29,8 +29,9 @@ export default function handler(
     else {
       return res.status(400).json({ errors: 'Username or password not found' })
     }
-
   }
+  
+  /*
   else if (req.method === 'PUT') {
     if (body.Username && body.Password) {
 
@@ -40,11 +41,13 @@ export default function handler(
 
       res.status(200).json(item);
     }
+
     else {
       return res.status(400).json({ errors: 'Username or password not found' })
     }
-
+        
   }
+  */
   else if (req.method === 'GET') {
     const data = mockServer.getUsers();
     res.status(200).json(data);
