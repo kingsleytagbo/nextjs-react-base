@@ -50,7 +50,7 @@ const AddUser = (props:any) => {
             onChange={onChange}
             onCancel={onCancel}
         >
-            Save
+            <i className="bi bi-sticky"></i>&nbsp;Save
         </UserForm>
         </section>
     )

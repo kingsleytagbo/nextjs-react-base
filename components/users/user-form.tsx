@@ -12,7 +12,7 @@ const UserForm = (props: any) => {
 
               <section className="card">
 
-                <h3 className='card-title text-center text-dark mt-3'>{props.title}</h3>
+                <h3 className='card-title text-center text-dark mt-3'><i className="bi bi-person"></i> {props.title}</h3>
 
                 <form className="card-body">
 
@@ -63,7 +63,7 @@ const UserForm = (props: any) => {
                         <button
                           onClick={props.onCancel}
                           className="btn btn-secondary btn-block" type="button" value="Cancel">
-                          <i className="bi bi-user"></i> &nbsp;Cancel
+                          <i className="bi bi-x-octagon"></i> &nbsp;Cancel
                         </button>
                       </div>
                     </div>

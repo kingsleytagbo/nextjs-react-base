@@ -30,7 +30,7 @@ const ListUsers = () => {
         setAddForm(false);
     };
 
-    const onCancelAddUser = () =>{
+    const onCancelAddUser = () => {
         setAddForm(false);
     }
 
@@ -125,13 +125,14 @@ const ListUsers = () => {
 
                     {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-                    {(!displayAddForm) &&
+                    {(!displayAddForm && (edituser.ITCC_UserID
+                        === 0)) &&
 
                         <div className="d-grid mt-1">
                             <button
                                 onClick={() => handleAddUserClick()}
                                 className="btn btn-info" type="button" value="Edit">
-                                <i className="bi bi-pencil"></i> &nbsp;Add User
+                                <i className="bi bi-person-plus"></i> &nbsp;Add User
                             </button>
                         </div>
 
@@ -142,7 +143,7 @@ const ListUsers = () => {
 
                     {/* <!-- BEGIN ADD USER  --> */}
                     {displayAddForm &&
-                        <AddUser 
+                        <AddUser
                             onSaveAddUser={onSaveAddUser}
                             onCancelAddUser={onSaveAddUser}
                         ></AddUser>
@@ -151,7 +152,7 @@ const ListUsers = () => {
 
 
                     {/* <!-- BEGIN EDIT USER  --> */}
-                    {(edituser && (edituser.ITCC_UserID && edituser.ITCC_UserID)
+                    {((edituser.ITCC_UserID && edituser.ITCC_UserID)
                         > 0) &&
                         <section className="card py-1 mt-1">
                             <UserForm {...edituser}
@@ -161,7 +162,7 @@ const ListUsers = () => {
                                 onClick={onSaveEditUser}
                             >
 
-                                Save
+                                <i className="bi bi-sticky"> &nbsp; </i>Save
                             </UserForm>
                         </section>
                     }
@@ -172,9 +173,9 @@ const ListUsers = () => {
 
                     {(edituser.ITCC_UserID === 0) &&
 
-                        <section className="card py-1 mt-1">
+                        <section className="card py-1 mt-2">
 
-                            <h3 className='card-title text-center text-dark mt-3'>List All Users</h3>
+                            <h3 className='card-title text-center text-dark mt-3'><i className="bi bi-people"></i> Users</h3>
 
                             <div className="card-body">
 
@@ -182,25 +183,26 @@ const ListUsers = () => {
                                     return (
                                         <section key={index}>
                                             <div className='row'>
-                                                <div className="col-md-4">
+                                                <div className="col-md-2">
+                                                    <div className="d-grid mt-3">
+                                                        <button
+                                                            onClick={() => handleEditUser(item)}
+                                                            className="btn btn-outline-info" type="button" value="Edit">
+                                                            <i className="bi bi-pencil-square"></i> &nbsp;Edit
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-5">
                                                     <label htmlFor="username">Username</label>
                                                     <p className="text-dark">{item.Username}</p>
                                                 </div>
 
-                                                <div className="col-md-4">
+                                                <div className="col-md-5">
                                                     <label htmlFor="password"> Password</label>
                                                     <p className="text-dark">{item.Password}</p>
                                                 </div>
 
-                                                <div className="col-md-4">
-                                                    <div className="d-grid mt-3">
-                                                        <button
-                                                            onClick={() => handleEditUser(item)}
-                                                            className="btn btn-info" type="button" value="Edit">
-                                                            <i className="bi bi-pencil"></i> &nbsp;Edit
-                                                        </button>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <hr className="pt-1 bg-info" /></section>
                                     );
