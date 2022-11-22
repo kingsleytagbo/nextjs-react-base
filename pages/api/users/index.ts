@@ -16,7 +16,7 @@ export default function handler(
     if (body.Username && body.Password) {
       const data = mockServer.getUsers();
 
-      const item: User = { ITCC_UserID: data.length + 1, Username: body.Username, Password: body.Password };
+      const item: User = { ITCC_UserID: data.length + 1, Username: body.Username, Password: body.Password, UserID: '' };
       const findUser = mockServer.getUser(item);
 
       if (!findUser) {
@@ -30,7 +30,7 @@ export default function handler(
       return res.status(400).json({ errors: 'Username or password not found' })
     }
   }
-  
+
   /*
   else if (req.method === 'PUT') {
     if (body.Username && body.Password) {

@@ -113,7 +113,7 @@ const ListUsers = () => {
 
     useEffect(() => {
         fetchUsers();
-    }, []);
+    });
 
 
 
