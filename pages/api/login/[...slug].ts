@@ -36,5 +36,5 @@ export default function handler(
 
 const setUnauthorizedHttpResponse = (  res: NextApiResponse<any>) => {
   res.setHeader('WWW-Authenticate', 'Basic realm=Authorization Required');
-  res.status(401);
+  res.status(403).json({error: 'unauthorized'});
 }
