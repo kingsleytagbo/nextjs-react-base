@@ -10,6 +10,13 @@ export class Utility implements IStorage {
 
     appStorageKey = 'app_storage_key_' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
+    private static _instance: Utility;
+
+    public static get Instance()
+    {
+        return this._instance || (this._instance = new this());
+    }
+
     isUserLoggedIn(key:any) {
         const value:any = this.getData(key);
         const data = (value && (value.AuthID && value.RoleNames)) ? true : false;
@@ -64,3 +71,5 @@ export class Utility implements IStorage {
     }
 
 }
+
+export const utils = Utility.Instance;

@@ -2,11 +2,10 @@
 
 // Import Modules
 import React, { useState, useEffect, useCallback } from "react";
-import { BaseUrlTypes, Utility } from "../../services/utility";
+import { BaseUrlTypes, utils } from "../../services/utility";
 import AddUser from "./add-user";
 import UserForm from "./user-form";
 
-const utils = new Utility();
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
 
 // List User Component

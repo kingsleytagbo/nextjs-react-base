@@ -1,11 +1,9 @@
 import type { NextPage } from 'next'
 import { useCallback, useEffect, useState } from 'react';
-import { BaseUrlTypes, Utility } from '../../services/utility';
+import { BaseUrlTypes, utils } from '../../services/utility';
 import Loading from '../loading';
 
-const utils = new Utility();
 const AUTH_KEY =  '/login/authenticate/';
-//const API_FORM_URL = process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + AUTH_KEY + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Authenticate) + '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
 
