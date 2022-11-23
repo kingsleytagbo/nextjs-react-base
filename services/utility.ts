@@ -17,6 +17,8 @@ export class Utility implements IStorage {
         return this._instance || (this._instance = new this());
     }
 
+    private constructor(){}
+
     isUserLoggedIn(key:any) {
         const value:any = this.getData(key);
         const data = (value && (value.AuthID && value.RoleNames)) ? true : false;
