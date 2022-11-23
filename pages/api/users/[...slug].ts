@@ -59,6 +59,6 @@ export default function handler(
     }
   }
   else {
-    res.status(404);
+    res.status(404).json({error: 'an error has occured'});
   }
 }

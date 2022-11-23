@@ -53,6 +53,6 @@ export default function handler(
     res.status(200).json(data);
   }
   else {
-    res.status(401);
+    res.status(401).json({error: 'an error has occured'});
   }
 }
