@@ -20,12 +20,21 @@ export default function handler(
 
     const item: User = { ITCC_UserID: 0, Username: username, Password: password, UserID: '' };
     const findUser = mockServer.getUser(item);
-    const result = { AuthID: findUser?.ITCC_UserID, RoleNames: ['admin'] };
 
-    res.status(200).json(result);
+    if (findUser) {
+      const result = { AuthID: findUser?.ITCC_UserID, RoleNames: ['admin'] };
+      res.status(200).json(result);
+    }
+    else {
+      setUnauthorizedHttpResponse(res);
+    }
   }
   else {
-      res.setHeader('WWW-Authenticate', 'Basic realm=Authorization Required');
-      res.status(401);
+    setUnauthorizedHttpResponse(res);
   }
+}
+
+const setUnauthorizedHttpResponse = (  res: NextApiResponse<any>) => {
+  res.setHeader('WWW-Authenticate', 'Basic realm=Authorization Required');
+  res.status(401);
 }
