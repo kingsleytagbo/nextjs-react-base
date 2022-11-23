@@ -1,15 +1,16 @@
 // ListUsers Component for add new student
 
 // Import Modules
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BaseUrlTypes, Utility } from "../../services/utility";
 import AddUser from "./add-user";
 import UserForm from "./user-form";
 
+const utils = new Utility();
+const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
+
 // List User Component
 const ListUsers = () => {
-    const utils = new Utility();
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
 
     const [users, setUsers] = useState([]);
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
@@ -68,9 +69,8 @@ const ListUsers = () => {
         }).then(response => response.json());
     }
 
-    const fetchUsers = () => {
-        const url = API_FORM_URL;
-        fetch(url, {
+    const fetchUsers = useCallback(async () => {
+        fetch(API_FORM_URL, {
             method: 'GET'
         }).then(response => {
             const result = response.json();
@@ -87,7 +87,7 @@ const ListUsers = () => {
             }
         }
         );
-    }
+    }, []);
 
     const fetchUser = (id: number) => {
         const url = API_FORM_URL + '/' + id;
@@ -113,7 +113,7 @@ const ListUsers = () => {
 
     useEffect(() => {
         fetchUsers();
-    });
+    }, [fetchUsers]);
 
 
 
