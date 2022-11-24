@@ -102,7 +102,7 @@ export default function LoginForm() {
           }
         },
         (error: any) => {
-         // console.log(error)
+         return error;
         }
       )
     }

@@ -79,6 +79,7 @@ const ListUsers = () => {
                         // console.log({ fetchUsers: result });
                     },
                     (error: any) => {
+                        return error;
                         //console.log(error);
                     }
                 )
@@ -97,10 +98,11 @@ const ListUsers = () => {
             if (result) {
                 result.then(
                     (result: any) => {
-                        //setUser(result);
+                        setEditUser(result);
                         //console.log({ fetchUser: result });
                     },
                     (error: any) => {
+                        return error;
                         //console.log(error);
                     }
                 )
