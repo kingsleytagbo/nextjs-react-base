@@ -51,7 +51,6 @@ export default function handler(
     if(params  && params.length === 1){
       const items = mockServer.getUsers();
       const item = items.find(u => u.ITCC_UserID === Number(params[0]));
-      console.log({params: params, param:params[0], item: item, items: items, data: mockServer.getUsers()})
       res.status(200).json(item);
     }
     else {
