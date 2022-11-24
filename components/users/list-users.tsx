@@ -8,7 +8,7 @@ import UserForm from "./user-form";
 
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
 
-// List User Component
+// List Users Component
 const ListUsers = () => {
 
     const [users, setUsers] = useState([]);
@@ -20,7 +20,6 @@ const ListUsers = () => {
     };
 
     const handleEditUser = (item: any) => {
-        // console.log({handleEditUser: item})
         setEditUser(item);
         fetchUser(item.ITCC_UserID);
     };
@@ -48,7 +47,7 @@ const ListUsers = () => {
     }
 
     const onSaveEditUser = () => {
-        const result = postFormRequest(edituser);
+        postFormRequest(edituser);
         fetchUsers();
         setEditUser({ ITCC_UserID: 0, Username: '', Password: '' });
         setAddForm(false);
@@ -144,7 +143,7 @@ const ListUsers = () => {
                     {displayAddForm &&
                         <AddUser
                             onSaveAddUser={onSaveAddUser}
-                            onCancelAddUser={onSaveAddUser}
+                            onCancelAddUser={onCancelAddUser}
                         ></AddUser>
                     }
                     {/* <!-- END ADD USER  --> */}

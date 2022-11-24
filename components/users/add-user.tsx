@@ -1,7 +1,7 @@
 // CreateUser Component for add new student
 
 // Import Modules
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UserForm from "./user-form";
 
 // CreateUser Component
@@ -10,15 +10,15 @@ const AddUser = (props:any) => {
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
 
     const onChange = (e: any) => {
-        const key: any = e.target.name;
-        const value: any = e.target.value;
-        const formState: any = ({ ...edituser, [key]: value });
+        const key = e.target.name;
+        const value = e.target.value;
+        const formState = ({ ...edituser, [key]: value });
         
         setEditUser(formState);
     }
 
     const onSave = () => {
-        const result = postFormRequest(edituser);
+        postFormRequest(edituser);
         props.onSaveAddUser();
     }
 

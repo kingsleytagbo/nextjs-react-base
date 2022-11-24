@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { request } from 'http';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '../../../models/user';
 import { MockData } from '../../../services/mockData';
@@ -22,7 +21,7 @@ export default function handler(
     const findUser = mockServer.getUser(item);
 
     if (findUser) {
-      const result = { AuthID: findUser?.ITCC_UserID, RoleNames: ['admin'] };
+      const result = { AuthID: findUser?.UserID, RoleNames: ['admin'], Key: privateKey };
       res.status(200).json(result);
     }
     else {

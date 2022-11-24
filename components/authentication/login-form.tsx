@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import { useCallback, useEffect, useState } from 'react';
 import { BaseUrlTypes, utils } from '../../services/utility';
 import Loading from '../loading';
@@ -7,7 +6,7 @@ const AUTH_KEY =  '/login/authenticate/';
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Authenticate) + '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
 
-export default function LoginForm(props: any) {
+export default function LoginForm() {
 
   const [form, setFormValue] = useState({ username: '', password: '' });
   const [isValid, setValidation] = useState(false);
@@ -26,7 +25,7 @@ export default function LoginForm(props: any) {
 
   const validate = () => {
     let valid = true;
-    const values = Object.keys(form).map(function (item, i) {
+    const values = Object.keys(form).map(function (item) {
       return item;
     });
 
@@ -62,7 +61,7 @@ export default function LoginForm(props: any) {
     validate();
   }
 
-  const onClick = (event: any) => {
+  const onClick = () => {
     setLoading(true);
 
     const result = postFormRequest(form);
@@ -70,7 +69,7 @@ export default function LoginForm(props: any) {
     setLoading(false);
   }
 
-  const onClickLogout = (event: any) => {
+  const onClickLogout = () => {
     utils.saveData(null, AUTH_KEY);
     getUserLoggedInStatus();
   }
