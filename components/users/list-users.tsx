@@ -98,6 +98,7 @@ const ListUsers = () => {
             if (result) {
                 result.then(
                     (result: any) => {
+                        console.log({ fetchUser: result });
                         setEditUser(result);
                         //console.log({ fetchUser: result });
                     },

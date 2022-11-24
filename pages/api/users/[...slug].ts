@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '../../../models/user';
-import { MockData } from '../../../services/mockData';
+import { mockServer } from '../../../services/mockData';
 
 
 export default function handler(
@@ -9,7 +9,6 @@ export default function handler(
   res: NextApiResponse<any>
 ) {
 
-  const mockServer = MockData;
   const body = req.body;
   const { slug } = req.query;
   const params = slug ? Array.from(slug) : [];
@@ -52,10 +51,11 @@ export default function handler(
     if(params  && params.length === 1){
       const items = mockServer.getUsers();
       const item = items.find(u => u.ITCC_UserID === Number(params[0]));
+      console.log({params: params, param:params[0], item: item, items: items, data: mockServer.getUsers()})
       res.status(200).json(item);
     }
     else {
-      return res.status(404).json({ errors: 'user not found' })
+      res.status(404).json({ errors: 'user not found' })
     }
   }
   else {

@@ -6,7 +6,7 @@ export enum BaseUrlTypes{
     Users = 'users/'
 }
 
-export class Utility implements IStorage {
+class Utility implements IStorage {
 
     appStorageKey = 'app_storage_key_' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
