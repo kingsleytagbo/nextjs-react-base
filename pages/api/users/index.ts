@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { User } from '../../../models/user';
 import { mockServer } from '../../../services/mockData';
+import { utils } from '../../../services/utility';
 
 export default function handler(
   req: NextApiRequest,
@@ -18,6 +19,7 @@ export default function handler(
       const findUser = mockServer.getUser(item);
 
       if (!findUser) {
+        item.UserID = utils.generateUUID();
         data.push(item);
         mockServer.saveUsers(data);
       }
