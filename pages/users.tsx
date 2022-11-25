@@ -1,33 +1,32 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Footer from '../components/footer';
 import Header from '../components/header';
 import ListUsers from '../components/users/list-users';
 
 const Users: NextPage = () => {
   
   return (
-    <main className="clearfix">
+<main className="bg-light">
       <Head>
         <title>{process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_NAME}</title>
         <meta name="description" content={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_DESCRIPTION} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header></Header>
 
-      <section>
-        <Header></Header>
+      <section className="container-fluid bg-secondary vh-100">
         <div className="row">
           <div className="col-md-12">
 
-              <section>
-                <ListUsers></ListUsers>
-              </section>
+            <section>
+              <ListUsers></ListUsers>
+            </section>
 
           </div></div>
       </section>
 
-      <footer>
-      </footer>
-
+      <Footer></Footer>
     </main>
   )
 }
