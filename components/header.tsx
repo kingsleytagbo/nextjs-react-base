@@ -1,8 +1,11 @@
+import Link from "next/link";
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from "react";
 import { utils } from "../services/utility";
-const AUTH_KEY =  '/login/authenticate/';
+const AUTH_KEY = '/login/authenticate/';
 
 function Header() {
+    const router = useRouter();
     const [userLoginStatus, setLoginStatus] = useState(false);
 
     const getUserLoggedInStatus = useCallback(async () => {
@@ -20,8 +23,22 @@ function Header() {
             {
                 <section className="d-flex justify-content-center py-1 bg-light">
                     <ul className="nav nav-pills">
-                        <li className="nav-item"><a href="/" className="nav-link active" aria-current="page">Home</a></li>
-                        {(userLoginStatus === true) && <li className="nav-item"><a href="/users" className="nav-link">Users</a></li>}
+                        <li className="nav-item">
+                            <Link legacyBehavior href='/'>
+                                <a href="/"
+                                    className={`nav-link ${router.asPath === '/' ? 'active' : ''}`}
+                                    aria-current="page">Home</a>
+                            </Link>
+                        </li>
+                        {(userLoginStatus === true) &&
+                            <li className="nav-item">
+                                <Link legacyBehavior href='/users'>
+                                    <a href="/"
+                                        className={`nav-link ${router.asPath === '/users' ? 'active' : ''}`}
+                                        aria-current="page">Users</a>
+                                </Link>
+                            </li>
+                        }
                     </ul>
                 </section>
             }
