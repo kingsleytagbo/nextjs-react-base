@@ -1,6 +1,5 @@
-import styles from '../styles/Home.module.css';
 const Loading = (props: any) => (
-    <section className={styles.main}>
+    <section>
         {
             (props.isLoading) &&
             <div className="row">

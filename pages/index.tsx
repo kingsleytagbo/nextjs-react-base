@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import LoginForm from '../components/authentication/login-form';
+import Header from '../components/header';
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +12,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section>
+      <section className="bg-secondary vh-100">
+        <Header></Header>
         <div className="row">
           <div className="col-md-12">
 

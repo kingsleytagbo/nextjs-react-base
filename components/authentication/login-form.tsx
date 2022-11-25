@@ -115,7 +115,7 @@ export default function LoginForm() {
 
 
         {/* <!-- BEGIN CONTAINER  -->} */}
-        <div className="container align-items-center justify-content-center">
+        <div className="align-items-center justify-content-center">
 
           {/* <!-- BEGIN FORM  -->} */}
 
