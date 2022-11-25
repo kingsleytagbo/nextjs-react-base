@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { utils } from "../services/utility";
 const AUTH_KEY =  '/login/authenticate/';
@@ -20,8 +21,8 @@ function Header() {
             {
                 <section className="d-flex justify-content-center py-1 bg-light">
                     <ul className="nav nav-pills">
-                        <li className="nav-item"><a href="/" className="nav-link active" aria-current="page">Home</a></li>
-                        {(userLoginStatus === true) && <li className="nav-item"><a href="/users" className="nav-link">Users</a></li>}
+                        <li className="nav-item"><Link href="/" className="nav-link active" aria-current="page">Home</Link></li>
+                        {(userLoginStatus === true) && <li className="nav-item"><Link href="/users" className="nav-link">Users</Link></li>}
                     </ul>
                 </section>
             }

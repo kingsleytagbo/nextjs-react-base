@@ -5,8 +5,6 @@ import '../styles/custom.css';
 
 import Head from "next/head";
 import type { AppProps } from 'next/app'
-import Footer from '../components/footer';
-import Header from '../components/header';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
