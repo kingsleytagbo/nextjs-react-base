@@ -19,7 +19,7 @@ class Utility implements IStorage {
 
     private constructor(){}
 
-    isUserLoggedIn(key:any) {
+    getUserLoginStatus(key:any) {
         const value:any = this.getData(key);
         const data = (value && (value.AuthID && value.RoleNames)) ? true : false;
         return data;

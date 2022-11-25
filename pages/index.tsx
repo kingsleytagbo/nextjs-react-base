@@ -1,32 +1,31 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import LoginForm from '../components/authentication/login-form';
+import Footer from '../components/footer';
 import Header from '../components/header';
 
 const Home: NextPage = () => {
   return (
-    <main className="clearfix">
+    <main className="bg-light">
       <Head>
         <title>{process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_NAME}</title>
         <meta name="description" content={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_DESCRIPTION} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header></Header>
 
-      <section>
-        <Header></Header>
+      <section className="container-fluid bg-secondary vh-100">
         <div className="row">
           <div className="col-md-12">
 
-              <section>
-                <LoginForm></LoginForm>
-              </section>
+            <section>
+              <LoginForm></LoginForm>
+            </section>
 
           </div></div>
       </section>
 
-      <footer>
-      </footer>
-
+      <Footer></Footer>
     </main>
   )
 }
