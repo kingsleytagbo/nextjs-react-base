@@ -13,7 +13,7 @@ const Users: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="bg-secondary vh-100">
+      <section>
         <Header></Header>
         <div className="row">
           <div className="col-md-12">
