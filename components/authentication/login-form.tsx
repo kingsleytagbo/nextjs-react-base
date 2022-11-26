@@ -12,10 +12,12 @@ export default function LoginForm() {
   const [isValid, setValidation] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [showForm, displayForm] = useState(true);
+  const [userLoginStatus, setLoginStatus] = useState(false);
 
   const getUserLoggedInStatus = useCallback(async () => {
     const loggedIn = utils.getUserLoginStatus(AUTH_KEY);
     displayForm(!loggedIn);
+    setLoginStatus(loggedIn);
   }, []);
 
 
@@ -95,8 +97,8 @@ export default function LoginForm() {
           const authId = result.AuthID;
           const roleNames = result.RoleNames;
           if (authId && roleNames) {
-            publish(AUTH_KEY, {detail: ''});
             utils.saveData(result, AUTH_KEY);
+            publish(AUTH_KEY, {detail: ''});
             displayForm(false);
           }
           else {
@@ -113,7 +115,7 @@ export default function LoginForm() {
   return (
     <>
 
-      <section className="py-5 mt-5" key="login">
+      <section className="py-5 mt-0" key="login">
 
 
         {/* <!-- BEGIN CONTAINER  -->} */}
@@ -128,10 +130,10 @@ export default function LoginForm() {
 
               <section className="card">
 
-                {(showForm === true) &&
+                {(showForm === true && userLoginStatus == false) &&
                   <h3 className='card-title text-center text-dark mt-3'>Login to your account ...</h3>
                 }
-                {(showForm === false) &&
+                {(userLoginStatus == true) &&
                   <>
                     <h3 className='card-title text-center text-success mt-5 mb-5'>You are logged-in ...</h3>
 

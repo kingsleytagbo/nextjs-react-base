@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from "react";
 import { utils } from "../services/utility";
-import { subscribe, unsubscribe } from "../services/event";
+import { publish, subscribe, unsubscribe } from "../services/event";
 import { AUTH_KEY } from "../services/constants";
 
 
@@ -13,9 +13,13 @@ function Header() {
     const getUserLoggedInStatus = useCallback(async () => {
         const loggedIn = utils.getUserLoginStatus(AUTH_KEY);
         setLoginStatus(loggedIn);
-        console.log({loggedIn: loggedIn, AUTH_KEY: AUTH_KEY});
     }, []);
 
+    const onLogout = () => {
+        utils.saveData(null, AUTH_KEY);
+        publish(AUTH_KEY, { detail: '' });
+        getUserLoggedInStatus();
+    }
 
     useEffect(() => {
         subscribe(AUTH_KEY, () => getUserLoggedInStatus());
@@ -49,6 +53,23 @@ function Header() {
                                 </Link>
                             </li>
                         }
+
+                        <li className="nav-item">
+                            {(userLoginStatus === true) ?
+                                <button
+                                    onClick={onLogout}
+                                    className="btn btn-warning" type="button" value="Logout">
+                                    <i className="bi bi-unlock"></i>&nbsp;Logout
+                                </button>
+                                :
+                                <Link legacyBehavior href='/login'>
+                                    <a href="/"
+                                        className={`nav-link ${router.asPath === '/login' ? 'active' : ''}`}
+                                        aria-current="page">Login</a>
+                                </Link>
+                            }
+                        </li>
+
                     </ul>
                 </section>
             }
