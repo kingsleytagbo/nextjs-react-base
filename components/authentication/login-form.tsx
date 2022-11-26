@@ -117,7 +117,6 @@ export default function LoginForm() {
 
       <section className="py-5 mt-0" key="login">
 
-
         {/* <!-- BEGIN CONTAINER  -->} */}
         <div className="align-items-center justify-content-center">
 
@@ -130,10 +129,10 @@ export default function LoginForm() {
 
               <section className="card">
 
-                {(showForm === true && userLoginStatus == false) &&
+                {(userLoginStatus === true) &&
                   <h3 className='card-title text-center text-dark mt-3'>Login to your account ...</h3>
                 }
-                {(userLoginStatus == true) &&
+                {(showForm === false) &&
                   <>
                     <h3 className='card-title text-center text-success mt-5 mb-5'>You are logged-in ...</h3>
 
