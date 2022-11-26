@@ -59,7 +59,7 @@ function Header() {
                             {(userLoginStatus === true) ?
                                 <button
                                     onClick={onLogout}
-                                    className="btn btn-warning" type="button" value="Logout">
+                                    className="btn btn-secondary" type="button" value="Logout">
                                     <i className="bi bi-unlock"></i>&nbsp;Logout
                                 </button>
                                 :

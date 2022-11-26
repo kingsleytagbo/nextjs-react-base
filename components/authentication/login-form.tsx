@@ -71,6 +71,7 @@ export default function LoginForm() {
     const result = postFormRequest(form);
     processApiResponse(result);
     setLoading(false);
+    router.push({ pathname: '/'});
   }
 
   const onClickLogout = () => {
