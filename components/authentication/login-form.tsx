@@ -3,11 +3,13 @@ import { BaseUrlTypes, utils } from '../../services/utility';
 import Loading from '../loading';
 import { AUTH_KEY } from "../../services/constants";
 import { publish } from "../../services/event";
+import { useRouter } from 'next/router';
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Authenticate) + '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
 
 export default function LoginForm() {
-
+  const router = useRouter();
+  
   const [form, setFormValue] = useState({ username: '', password: '' });
   const [isValid, setValidation] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -75,6 +77,7 @@ export default function LoginForm() {
     utils.saveData(null, AUTH_KEY);
     publish(AUTH_KEY, {detail: ''});
     getUserLoggedInStatus();
+    router.push({ pathname: '/'});
   }
 
   const postFormRequest = (formData: any) => {

@@ -19,6 +19,7 @@ function Header() {
         utils.saveData(null, AUTH_KEY);
         publish(AUTH_KEY, { detail: '' });
         getUserLoggedInStatus();
+        router.push({ pathname: '/'});
     }
 
     useEffect(() => {
