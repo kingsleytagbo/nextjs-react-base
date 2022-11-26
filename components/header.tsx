@@ -9,9 +9,8 @@ import { AUTH_KEY } from "../services/constants";
 function Header() {
     const router = useRouter();
     const [userLoginStatus, setLoginStatus] = useState(false);
-
     const getUserLoggedInStatus = useCallback(async () => {
-        const loggedIn = utils.getUserLoginStatus(AUTH_KEY);
+        const loggedIn = utils.getUserAuthStatus(AUTH_KEY);
         setLoginStatus(loggedIn);
     }, []);
 

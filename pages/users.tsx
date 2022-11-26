@@ -1,16 +1,15 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import ListUsers from '../components/users/list-users';
-import { AuthGuard } from '../services/authGuard';
+//import { AuthGuard } from '../services/authGuard';
 
 const Users: NextPage = () => {
 
   useEffect(() => {
-    AuthGuard();
+    //AuthGuard();
   }, []);
 
   return (

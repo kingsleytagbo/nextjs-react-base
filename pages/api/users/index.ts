@@ -15,11 +15,12 @@ export default function handler(
     if (body.Username && body.Password) {
       const data = mockServer.getUsers();
 
-      const item: User = { ITCC_UserID: data.length + 1, Username: body.Username, Password: body.Password, UserID: '' };
+      const item: User = { ITCC_UserID: data.length + 1, Username: body.Username, Password: body.Password };
       const findUser = mockServer.getUser(item);
 
       if (!findUser) {
         item.UserID = utils.generateUUID();
+        item.RoleNames = ['subscriber'];
         data.push(item);
         mockServer.saveUsers(data);
       }

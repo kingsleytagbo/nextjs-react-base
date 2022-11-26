@@ -17,7 +17,7 @@ export default function LoginForm() {
   const [userLoginStatus, setLoginStatus] = useState(false);
 
   const getUserLoggedInStatus = useCallback(async () => {
-    const loggedIn = utils.getUserLoginStatus(AUTH_KEY);
+    const loggedIn = utils.getUserAuthStatus(AUTH_KEY);
     displayForm(!loggedIn);
     setLoginStatus(loggedIn);
   }, []);

@@ -13,11 +13,12 @@ export default function handler(
   const { slug } = req.query;
   const params = slug ? Array.from(slug) : [];
 
+  /*
   if (req.method === 'POST') {
     if (body.Username && body.Password) {
       const data = mockServer.getUsers();
 
-      const item: User = { ITCC_UserID: data.length + 1, Username: body.Username, Password: body.Password, UserID: '' };
+      const item: User = { ITCC_UserID: data.length + 1, Username: body.Username, Password: body.Password };
       const findUser = mockServer.getUser(item);
 
       if (!findUser) {
@@ -32,10 +33,12 @@ export default function handler(
     }
 
   }
-  else if (req.method === 'PUT') {
+  else 
+  */
+  if (req.method === 'PUT') {
     if (body.Username && body.Password) {
 
-      const item: User = { ITCC_UserID: body.ITCC_UserID, Username: body.Username, Password: body.Password, UserID: body.UserID };
+      const item: User = { ITCC_UserID: body.ITCC_UserID, Username: body.Username, Password: body.Password, UserID: body.UserID, RoleNames: body.RoleNames };
 
       mockServer.updateUser(item);
 

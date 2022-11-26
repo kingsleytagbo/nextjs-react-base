@@ -19,12 +19,21 @@ class Utility implements IStorage {
 
     private constructor(){}
 
-    getUserLoginStatus(key:any) {
+    getUserAuthStatus(key:any) {
         const value:any = this.getData(key);
         const data = (value && (value.AuthID && value.RoleNames)) ? true : false;
         return data;
     }
 
+    getUserAuthRoles(key:any, role:string) {
+        const value:any = this.getData(key);
+        const hasAdmin = (value && value.RoleNames) ? value.RoleNames.find((name:string) => {
+            return name.toLowerCase() === role.toLowerCase();
+          }) : null;
+          
+        const result = {...value, IsAdmin: hasAdmin ? true : false};
+        return result;
+    }
 
     getData(key: string) {
         const storage = new SessionStorage();

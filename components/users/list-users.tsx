@@ -2,6 +2,7 @@
 
 // Import Modules
 import React, { useState, useEffect, useCallback } from "react";
+import { AUTH_KEY } from "../../services/constants";
 import { BaseUrlTypes, utils } from "../../services/utility";
 import AddUser from "./add-user";
 import UserForm from "./user-form";
@@ -10,10 +11,15 @@ const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
 
 // List Users Component
 const ListUsers = () => {
-
     const [users, setUsers] = useState([]);
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
     const [displayAddForm, setAddForm] = useState(false);
+    const [userAuth, setUserAuth] = useState();
+    const getUserAuth = () =>{
+        const userAuthResult = utils.getUserAuthRoles(AUTH_KEY, 'admin');
+        console.log({userAuthResult: userAuthResult})
+        setUserAuth(userAuthResult);
+    }
 
     const handleAddUserClick = () => {
         setAddForm(true);
@@ -112,7 +118,9 @@ const ListUsers = () => {
     }
 
     useEffect(() => {
+        //console.log({userAuth: userAuth})
         fetchUsers();
+        getUserAuth();
     }, [fetchUsers]);
 
 
@@ -225,3 +233,5 @@ const ListUsers = () => {
 }
 
 export default ListUsers;
+
+
