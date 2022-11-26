@@ -2,7 +2,9 @@ import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from "react";
 import { utils } from "../services/utility";
-const AUTH_KEY = '/login/authenticate/';
+import { subscribe, unsubscribe } from "../services/event";
+import { AUTH_KEY } from "../services/constants";
+
 
 function Header() {
     const router = useRouter();
@@ -11,12 +13,20 @@ function Header() {
     const getUserLoggedInStatus = useCallback(async () => {
         const loggedIn = utils.getUserLoginStatus(AUTH_KEY);
         setLoginStatus(loggedIn);
+        console.log({loggedIn: loggedIn, AUTH_KEY: AUTH_KEY});
     }, []);
 
 
     useEffect(() => {
+        subscribe(AUTH_KEY, () => getUserLoggedInStatus());
         getUserLoggedInStatus();
+
+        return () => {
+            unsubscribe(AUTH_KEY, () => getUserLoggedInStatus());
+        };
+
     }, [getUserLoggedInStatus]);
+
 
     return (
         <header className="container-fluid">

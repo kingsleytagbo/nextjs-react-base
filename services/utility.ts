@@ -2,7 +2,7 @@ import { json } from "stream/consumers";
 import { IStorage, SessionStorage } from "./storage";
 
 export enum BaseUrlTypes{
-    Authenticate = 'login/authenticate',
+    Authenticate = 'login/authenticate/',
     Users = 'users/'
 }
 

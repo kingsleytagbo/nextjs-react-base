@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BaseUrlTypes, utils } from '../../services/utility';
 import Loading from '../loading';
-
-const AUTH_KEY =  '/login/authenticate/';
+import { AUTH_KEY } from "../../services/constants";
+import { publish } from "../../services/event";
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Authenticate) + '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
 
@@ -71,6 +71,7 @@ export default function LoginForm() {
 
   const onClickLogout = () => {
     utils.saveData(null, AUTH_KEY);
+    publish(AUTH_KEY, {detail: ''});
     getUserLoggedInStatus();
   }
 
@@ -94,6 +95,7 @@ export default function LoginForm() {
           const authId = result.AuthID;
           const roleNames = result.RoleNames;
           if (authId && roleNames) {
+            publish(AUTH_KEY, {detail: ''});
             utils.saveData(result, AUTH_KEY);
             displayForm(false);
           }
