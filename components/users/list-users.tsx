@@ -17,7 +17,7 @@ const ListUsers = () => {
     const [userAuth, setUserAuth] = useState();
     const getUserAuth = () =>{
         const userAuthResult = utils.getUserAuthRoles(AUTH_KEY, 'admin');
-        console.log({userAuthResult: userAuthResult})
+        // console.log({userAuthResult: userAuthResult})
         setUserAuth(userAuthResult);
     }
 

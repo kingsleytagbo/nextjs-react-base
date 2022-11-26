@@ -2,7 +2,7 @@ import { User } from "../models/user";
 
 class MockData{
 
-   users: Array<User> = [{ ITCC_UserID:1, Username: 'admin', Password: 'password', UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9' }];
+   users: Array<User> = [{ ITCC_UserID:1, Username: 'admin', Password: 'password', UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9', RoleNames: ['admin'] }];
    
    private static _instance:MockData;
 

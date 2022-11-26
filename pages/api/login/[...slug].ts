@@ -19,7 +19,7 @@ export default function handler(
     const item: User = { ITCC_UserID: 0, Username: username, Password: password };
     const findUser = mockServer.getUser(item);
 
-    console.log({findUser: findUser, username: username, password: password, users: mockServer.getUsers()});
+    // console.log({findUser: findUser, username: username, password: password, users: mockServer.getUsers()});
 
     if (findUser) {
       const result = { AuthID: findUser?.UserID, RoleNames: findUser?.RoleNames, Key: privateKey };
