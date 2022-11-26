@@ -14,10 +14,10 @@ const ListUsers = () => {
     const [users, setUsers] = useState([]);
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
     const [displayAddForm, setAddForm] = useState(false);
-    const [userAuth, setUserAuth] = useState();
+    const [userAuth, setUserAuth] = useState({IsAdmin: false});
     const getUserAuth = () =>{
         const userAuthResult = utils.getUserAuthRoles(AUTH_KEY, 'admin');
-        // console.log({userAuthResult: userAuthResult})
+        console.log({userAuthResult: userAuthResult})
         setUserAuth(userAuthResult);
     }
 
@@ -160,8 +160,8 @@ const ListUsers = () => {
 
 
                     {/* <!-- BEGIN EDIT USER  --> */}
-                    {((edituser.ITCC_UserID && edituser.ITCC_UserID)
-                        > 0) &&
+                    {((edituser.ITCC_UserID && (edituser.ITCC_UserID)
+                        > 0) && (userAuth?.IsAdmin === true)) &&
                         <section className="card py-1 mt-1">
                             <UserForm {...edituser}
                                 title="Edit User"
