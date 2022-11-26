@@ -160,8 +160,8 @@ const ListUsers = () => {
 
 
                     {/* <!-- BEGIN EDIT USER  --> */}
-                    {((edituser.ITCC_UserID && (edituser.ITCC_UserID)
-                        > 0) && (userAuth?.IsAdmin === true)) &&
+                    {( (userAuth?.IsAdmin === true) && (edituser.ITCC_UserID && edituser.ITCC_UserID)
+                        > 0) &&
                         <section className="card py-1 mt-1">
                             <UserForm {...edituser}
                                 title="Edit User"
