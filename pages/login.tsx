@@ -1,18 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import LoginForm from '../components/authentication/login-form';
 import Footer from '../components/footer';
 import Header from '../components/header';
-import ListUsers from '../components/users/list-users';
-import { AuthGuard } from '../services/authGuard';
 
-const Users: NextPage = () => {
-
-  useEffect(() => {
-    AuthGuard();
-  }, []);
-
+const Home: NextPage = () => {
   return (
     <main className="bg-light">
       <Head>
@@ -25,9 +17,13 @@ const Users: NextPage = () => {
       <section className="container-fluid bg-secondary vh-100">
         <div className="row">
           <div className="col-md-12">
+            <h1 className="text-center text-light mt-2">Login</h1>
+          </div></div>
+        <div className="row">
+          <div className="col-md-12">
 
             <section>
-              <ListUsers></ListUsers>
+              <LoginForm></LoginForm>
             </section>
 
           </div></div>
@@ -38,4 +34,4 @@ const Users: NextPage = () => {
   )
 }
 
-export default Users;
+export default Home
