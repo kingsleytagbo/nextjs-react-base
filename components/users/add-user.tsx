@@ -1,4 +1,4 @@
-// CreateUser Component for add new student
+// CreateUser Component for adding new users
 
 // Import Modules
 import React, { useState } from "react";

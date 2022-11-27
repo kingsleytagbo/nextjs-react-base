@@ -1,11 +1,12 @@
-// ListUsers Component for add new student
+// ListUsers Component for fetching & listing all users
 
 // Import Modules
 import React, { useState, useEffect, useCallback } from "react";
 import { AUTH_KEY } from "../../services/constants";
 import { BaseUrlTypes, utils } from "../../services/utility";
-import AddUser from "./add-user";
 import UserForm from "./user-form";
+import AddUser from "./add-user";
+import UserDetail from "./user-detail";
 
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
 
@@ -15,11 +16,11 @@ const ListUsers = () => {
     const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
     const [displayAddForm, setAddForm] = useState(false);
     const [userAuth, setUserAuth] = useState({IsAdmin: false});
-    const getUserAuth = () =>{
+
+    const getUserAuth = () => {
         const userAuthResult = utils.getUserAuthRoles(AUTH_KEY, 'admin');
-        console.log({userAuthResult: userAuthResult})
-        setUserAuth(userAuthResult);
-    }
+        setUserAuth({...userAuthResult});
+    };
 
     const handleAddUserClick = () => {
         setAddForm(true);
@@ -82,7 +83,6 @@ const ListUsers = () => {
                 result.then(
                     (result: any) => {
                         setUsers(result);
-                        // console.log({ fetchUsers: result });
                     },
                     (error: any) => {
                         return error;
@@ -118,9 +118,8 @@ const ListUsers = () => {
     }
 
     useEffect(() => {
-        //console.log({userAuth: userAuth})
-        fetchUsers();
         getUserAuth();
+        fetchUsers();
     }, [fetchUsers]);
 
 
@@ -160,7 +159,7 @@ const ListUsers = () => {
 
 
                     {/* <!-- BEGIN EDIT USER  --> */}
-                    {( (userAuth?.IsAdmin === true) && (edituser.ITCC_UserID && edituser.ITCC_UserID)
+                    {( (edituser.ITCC_UserID && edituser.ITCC_UserID)
                         > 0) &&
                         <section className="card py-1 mt-1">
                             <UserForm {...edituser}
@@ -195,6 +194,7 @@ const ListUsers = () => {
                                                     <div className="d-grid mt-3">
                                                         <button
                                                             onClick={() => handleEditUser(item)}
+                                                            disabled={!userAuth.IsAdmin}
                                                             className="btn btn-outline-info" type="button" value="Edit">
                                                             <i className="bi bi-pencil-square"></i> &nbsp;Edit
                                                         </button>
