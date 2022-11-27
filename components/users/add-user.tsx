@@ -3,11 +3,11 @@
 // Import Modules
 import React, { useState } from "react";
 import UserForm from "./user-form";
-
+import { EmptyUser } from "../../models/user";
 // CreateUser Component
 const AddUser = (props:any) => {
     const API_FORM_URL = '/api/users';
-    const [edituser, setEditUser] = useState({ ITCC_UserID: 0, UserName: '', Password: '' });
+    const [edituser, setEditUser] = useState({ ...EmptyUser });
 
     const onChange = (e: any) => {
         const key = e.target.name;
@@ -23,7 +23,7 @@ const AddUser = (props:any) => {
     }
 
     const onCancel = () => {
-        setEditUser({ITCC_UserID: 0, UserName: '', Password: ''});
+        setEditUser({...EmptyUser});
         props.onCancelAddUser();
     }
 
