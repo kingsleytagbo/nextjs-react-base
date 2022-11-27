@@ -22,7 +22,10 @@ export default function handler(
     // console.log({findUser: findUser, username: username, password: password, users: mockServer.getUsers()});
 
     if (findUser) {
-      const result = { AuthID: findUser?.UserID, RoleNames: findUser?.RoleNames, Key: privateKey };
+      const result = {
+        AuthID: findUser.UserID, RoleNames: findUser.RoleNames, Key: privateKey,
+        FirstName: findUser.FirstName, LastName: findUser.LastName, EmailAddress: findUser.EmailAddress,
+      };
       res.status(200).json(result);
     }
     else {
