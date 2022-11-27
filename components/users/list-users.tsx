@@ -71,7 +71,6 @@ const ListUsers = () => {
     const onConfirmDelete = (value: any) => {
         setEditUser({ ...editmodes });
         setUserDetail({ ...EmptyUser });
-        console.log({ onConfirmDelete: value });
         const result = fetchUser(value, HttpRequestTypes.DELETE);
         result.then(response => {
             const result = response.json();

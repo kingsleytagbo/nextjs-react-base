@@ -34,8 +34,18 @@ export default function handler(
   else if (req.method === 'DELETE') {
     const base64AuthenticationHeader = (req.headers.authorization || '').split(' ')[1] || '';
     const [authToken] = Buffer.from(base64AuthenticationHeader, 'base64').toString().split(':');
+    const authUser = mockServer.getUser({...EmptyUser, UserID: authToken});
 
-    res.status(200).json(authToken);
+    const deleteUserId = (slug && slug.length > 0) ? Number(slug[0]) : 0;
+    const deleteUser = mockServer.getUser({...EmptyUser, ITCC_UserID: deleteUserId});
+
+    if(authUser){
+      mockServer.deleteUser(deleteUser)
+      res.status(200).json(authToken);
+    }
+    else{
+      res.status(404).json({ error: 'an error has occured' });
+    }
   }
   else if (req.method === 'GET') {
     // get one user by id

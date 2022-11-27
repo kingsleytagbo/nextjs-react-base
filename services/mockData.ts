@@ -26,14 +26,17 @@ class MockData{
         this.users = values;
     }
 
-    getUser(item: User){
-      let user:User | undefined;
-      if(this.users && this.users.length > 0 ){
-        user = this.users.find( user => 
-          (user.ITCC_UserID === item.ITCC_UserID || user.UserName === item.UserName));
-      }
-      return user;
+  getUser(item: User) {
+    let user: User | undefined;
+    if (this.users && this.users.length > 0) {
+      user = this.users.find(user =>
+      (
+        (user.ITCC_UserID === item.ITCC_UserID) ||
+        (user.UserName === item.UserName) ||
+        (user.UserID === item.UserID)));
     }
+    return user;
+  }
 
     updateUser(item: User){
       if(this.users && this.users.length > 0 ){
@@ -45,6 +48,16 @@ class MockData{
       }
       return;
     }
+
+  deleteUser(item?: User) {
+    if (item && (this.users && this.users.length > 0)) {
+      this.users.forEach((user, index) => {
+        if (item === user) {
+          this.users.splice(index, 1);
+        }
+      });
+    }
+  }
 
 }
 
