@@ -67,7 +67,7 @@ const UserForm = (props: any) => {
               <div className="col-md-6">
                 <label htmlFor="username">FirstName</label>
                 <input
-                  value={props.UserName}
+                  value={props.FirstName}
                   onChange={props.onChange}
                   className="form-control"
                   id="FirstName"
