@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { EmptyUser, User } from '../../../models/user';
 import { mockServer } from '../../../services/mockData';
 
@@ -7,37 +7,44 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-
   const query = req.query;
   const { slug, privateKey } = query;
   const params = slug ? Array.from(slug) : [];
 
   if (req.method === 'POST' && params.indexOf('authenticate') > -1) {
-    const base64AuthenticationHeader = (req.headers.authorization || '').split(' ')[1] || '';
-    const [username, password] = Buffer.from(base64AuthenticationHeader, 'base64').toString().split(':');
+    const base64AuthenticationHeader =
+      (req.headers.authorization || '').split(' ')[1] || '';
+    const [username, password] = Buffer.from(
+      base64AuthenticationHeader,
+      'base64'
+    )
+      .toString()
+      .split(':');
 
-    const item: User = {...EmptyUser, UserName: username, Password: password };
+    const item: User = { ...EmptyUser, UserName: username, Password: password };
     const findUser = mockServer.getUser(item);
 
     // console.log({findUser: findUser, username: username, password: password, users: mockServer.getUsers()});
 
     if (findUser) {
       const result = {
-        AuthID: findUser.UserID, RoleNames: findUser.RoleNames, Key: privateKey,
-        FirstName: findUser.FirstName, LastName: findUser.LastName, EmailAddress: findUser.EmailAddress,
+        AuthID: findUser.UserID,
+        RoleNames: findUser.RoleNames,
+        Key: privateKey,
+        FirstName: findUser.FirstName,
+        LastName: findUser.LastName,
+        EmailAddress: findUser.EmailAddress,
       };
       res.status(200).json(result);
-    }
-    else {
+    } else {
       setUnauthorizedHttpResponse(res);
     }
-  }
-  else {
+  } else {
     setUnauthorizedHttpResponse(res);
   }
 }
 
-const setUnauthorizedHttpResponse = (  res: NextApiResponse<any>) => {
+const setUnauthorizedHttpResponse = (res: NextApiResponse<any>) => {
   res.setHeader('WWW-Authenticate', 'Basic realm=Authorization Required');
-  res.status(403).json({error: 'unauthorized'});
-}
+  res.status(403).json({ error: 'unauthorized' });
+};

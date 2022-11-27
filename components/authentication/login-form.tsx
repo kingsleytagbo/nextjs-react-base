@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BaseUrlTypes, utils } from '../../services/utility';
 import Loading from '../loading';
-import { AUTH_KEY } from "../../services/constants";
-import { publish } from "../../services/event";
+import { AUTH_KEY } from '../../services/constants';
+import { publish } from '../../services/event';
 import { useRouter } from 'next/router';
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Authenticate) + '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
-
+const API_FORM_URL =
+  utils.getBaseApi(BaseUrlTypes.Authenticate) +
+  '/' +
+  process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
 
 export default function LoginForm() {
   const router = useRouter();
-  
+
   const [form, setFormValue] = useState({ username: '', password: '' });
   const [isValid, setValidation] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -21,7 +23,6 @@ export default function LoginForm() {
     displayForm(!loggedIn);
     setLoginStatus(loggedIn);
   }, []);
-
 
   useEffect(() => {
     getUserLoggedInStatus();
@@ -38,21 +39,22 @@ export default function LoginForm() {
         const key: any = values[i];
         const value = form[key as keyof typeof form];
 
-        if ((key === 'username' && value.length < 3) || (key === 'password' && value.length < 5)) {
+        if (
+          (key === 'username' && value.length < 3) ||
+          (key === 'password' && value.length < 5)
+        ) {
           valid = false;
           break;
-        }
-        else if (!value || value.length === 0) {
+        } else if (!value || value.length === 0) {
           valid = false;
           break;
         }
       }
-    }
-    else {
+    } else {
       valid = false;
     }
     setValidation(valid);
-  }
+  };
 
   const onChange = (e: any) => {
     const key: string = e.target.name;
@@ -63,7 +65,7 @@ export default function LoginForm() {
     setFormValue(formState);
 
     validate();
-  }
+  };
 
   const onClick = () => {
     setLoading(true);
@@ -71,30 +73,31 @@ export default function LoginForm() {
     const result = postFormRequest(form);
     processApiResponse(result);
     setLoading(false);
-    router.push({ pathname: '/'});
-  }
+    router.push({ pathname: '/' });
+  };
 
   const onClickLogout = () => {
     utils.saveData(null, AUTH_KEY);
-    publish(AUTH_KEY, {detail: ''});
+    publish(AUTH_KEY, { detail: '' });
     getUserLoggedInStatus();
-    router.push({ pathname: '/'});
-  }
+    router.push({ pathname: '/' });
+  };
 
   const postFormRequest = (formData: any) => {
     const headers = {
-      'Authorization': 'Basic ' + btoa(formData.username + ':' + formData.password),
-      'Content-Type': 'application/json'
+      Authorization:
+        'Basic ' + btoa(formData.username + ':' + formData.password),
+      'Content-Type': 'application/json',
     };
 
     return fetch(API_FORM_URL, {
       method: 'POST',
       body: JSON.stringify({}),
-      headers: headers
-    }).then(response => response.json());
-  }
+      headers: headers,
+    }).then((response) => response.json());
+  };
 
-  const processApiResponse = (result: (Promise<any> | undefined)) => {
+  const processApiResponse = (result: Promise<any> | undefined) => {
     if (result) {
       result.then(
         (result: any) => {
@@ -102,63 +105,70 @@ export default function LoginForm() {
           const roleNames = result.RoleNames;
           if (authId && roleNames) {
             utils.saveData(result, AUTH_KEY);
-            publish(AUTH_KEY, {detail: ''});
+            publish(AUTH_KEY, { detail: '' });
             displayForm(false);
-          }
-          else {
+          } else {
             displayForm(true);
           }
         },
         (error: any) => {
-         return error;
+          return error;
         }
-      )
+      );
     }
-  }
+  };
 
   return (
     <>
-
       <section className="py-5 mt-0" key="login">
-
         {/* <!-- BEGIN CONTAINER  -->} */}
         <div className="align-items-center justify-content-center">
-
           {/* <!-- BEGIN FORM  -->} */}
 
           <div className="row">
             <div className="col-md-3"></div>
 
             <div className="col-md-6">
-
               <section className="card">
-
-                {(userLoginStatus === true) &&
-                  <h3 className='card-title text-center text-dark mt-3'>Login to your account ...</h3>
-                }
-                {(showForm === false) &&
+                {userLoginStatus === true && (
+                  <h3 className="card-title text-center text-dark mt-3">
+                    Login to your account ...
+                  </h3>
+                )}
+                {showForm === false && (
                   <>
-                    <h3 className='card-title text-center text-success mt-5 mb-5'>You are logged-in ...</h3>
+                    <h3 className="card-title text-center text-success mt-5 mb-5">
+                      You are logged-in ...
+                    </h3>
 
-                    <div className="row"><div className="col-12">
-                      <div className="d-grid mt-3 p-5">
-                        <button
-                          onClick={onClickLogout}
-                          className="btn btn-warning btn-lg" type="button" value="Logout">
-                          <i className="bi bi-unlock"></i>&nbsp;Logout
-                        </button>
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="d-grid mt-3 p-5">
+                          <button
+                            onClick={onClickLogout}
+                            className="btn btn-warning btn-lg"
+                            type="button"
+                            value="Logout"
+                          >
+                            <i className="bi bi-unlock"></i>&nbsp;Logout
+                          </button>
+                        </div>
                       </div>
-                    </div></div>
+                    </div>
 
-                    <div className="d-flex justify-content-center" >
+                    <div className="d-flex justify-content-center">
                       <section id="loading">
                         <Loading isLoading={isLoading} />
                       </section>
                     </div>
                   </>
-                }
+                )}
 
-                <form className="card-body" method="post" style={{ display: showForm ? 'block' : 'none' }}>
+                <form
+                  className="card-body"
+                  method="post"
+                  style={{ display: showForm ? 'block' : 'none' }}
+                >
                   <div className="mt-3">
                     <label htmlFor="username">UserName</label>
                     <input
@@ -189,27 +199,24 @@ export default function LoginForm() {
                     <button
                       disabled={!isValid}
                       onClick={onClick}
-                      className="btn btn-primary btn-lg" type="button" value="Send Now">
+                      className="btn btn-primary btn-lg"
+                      type="button"
+                      value="Send Now"
+                    >
                       <i className="bi bi-lock"></i> &nbsp; Login
                     </button>
                   </div>
                 </form>
               </section>
-
             </div>
 
             <div className="col-md-3"></div>
           </div>
 
           {/* <!-- END FORM  -->} */}
-
         </div>
         {/* <!-- END CONTAINER  -->} */}
-
-
       </section>
-
     </>
-  )
+  );
 }
-

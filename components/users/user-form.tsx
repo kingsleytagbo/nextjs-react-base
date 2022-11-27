@@ -1,23 +1,18 @@
-import React from "react";
+import React from 'react';
 
 const UserForm = (props: any) => {
-
   return (
-
     <>
-
       <section className="py-1 mt-1" key="user-form">
-
         {/* <!-- BEGIN FORM  -->} */}
 
         <section className="card">
-
-          <h3 className='card-title text-center text-dark mt-3'><i className="bi bi-person"></i> {props.title}</h3>
+          <h3 className="card-title text-center text-dark mt-3">
+            <i className="bi bi-person"></i> {props.title}
+          </h3>
 
           <form className="card-body">
-
             <div className="row">
-
               <div className="col-md-4">
                 <label htmlFor="username">UserName</label>
                 <input
@@ -59,11 +54,9 @@ const UserForm = (props: any) => {
                   autoComplete="false"
                 />
               </div>
-
             </div>
 
             <div className="row">
-
               <div className="col-md-6">
                 <label htmlFor="username">FirstName</label>
                 <input
@@ -91,7 +84,6 @@ const UserForm = (props: any) => {
                   autoComplete="false"
                 />
               </div>
-
             </div>
 
             <div className="row">
@@ -99,7 +91,10 @@ const UserForm = (props: any) => {
                 <div className="d-grid mt-2">
                   <button
                     onClick={props.onClick}
-                    className="btn btn-primary btn-block" type="button" value="Create">
+                    className="btn btn-primary btn-block"
+                    type="button"
+                    value="Create"
+                  >
                     <i className="bi bi-user"></i> &nbsp;{props.children}
                   </button>
                 </div>
@@ -108,22 +103,21 @@ const UserForm = (props: any) => {
                 <div className="d-grid mt-2">
                   <button
                     onClick={props.onCancel}
-                    className="btn btn-secondary btn-block" type="button" value="Cancel">
+                    className="btn btn-secondary btn-block"
+                    type="button"
+                    value="Cancel"
+                  >
                     <i className="bi bi-x-octagon"></i> &nbsp;Cancel
                   </button>
                 </div>
               </div>
             </div>
-
           </form>
         </section>
 
         {/* <!-- END FORM  -->} */}
-
       </section>
-
     </>
-
   );
 };
 

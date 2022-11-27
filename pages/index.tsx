@@ -9,7 +9,10 @@ const Home: NextPage = () => {
     <main className="bg-light">
       <Head>
         <title>{process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_NAME}</title>
-        <meta name="description" content={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_DESCRIPTION} />
+        <meta
+          name="description"
+          content={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_DESCRIPTION}
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
@@ -17,17 +20,16 @@ const Home: NextPage = () => {
       <section className="container-fluid bg-secondary vh-100">
         <div className="row">
           <div className="col-md-12">
-
             <section>
               <LoginForm></LoginForm>
             </section>
-
-          </div></div>
+          </div>
+        </div>
       </section>
 
       <Footer></Footer>
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

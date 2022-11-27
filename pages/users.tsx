@@ -7,7 +7,6 @@ import ListUsers from '../components/users/list-users';
 //import { AuthGuard } from '../services/authGuard';
 
 const Users: NextPage = () => {
-
   useEffect(() => {
     //AuthGuard();
   }, []);
@@ -16,7 +15,10 @@ const Users: NextPage = () => {
     <main className="bg-light">
       <Head>
         <title>{process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_NAME}</title>
-        <meta name="description" content={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_DESCRIPTION} />
+        <meta
+          name="description"
+          content={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_DESCRIPTION}
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
@@ -24,17 +26,16 @@ const Users: NextPage = () => {
       <section className="container-fluid bg-secondary vh-100">
         <div className="row">
           <div className="col-md-12">
-
             <section>
               <ListUsers></ListUsers>
             </section>
-
-          </div></div>
+          </div>
+        </div>
       </section>
 
       <Footer></Footer>
     </main>
-  )
-}
+  );
+};
 
 export default Users;
