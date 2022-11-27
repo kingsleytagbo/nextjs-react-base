@@ -1,7 +1,7 @@
 // UserDetail Component for changing a user's details
 
 // Import Modules
-import React, { useState } from "react";
+import React from "react";
 
 // UserDetail Component
 const UserDetail = (props: any) => {
