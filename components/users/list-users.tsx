@@ -68,22 +68,14 @@ const ListUsers = () => {
         setEditUser({ ...editmodes });
         setUserDetail({ ...EmptyUser });
     }
-    const onConfirmDelete = (value:any) => {
+    const onConfirmDelete = (value: any) => {
         setEditUser({ ...editmodes });
         setUserDetail({ ...EmptyUser });
-        console.log({onConfirmDelete: value});
+        console.log({ onConfirmDelete: value });
         const result = fetchUser(value, HttpRequestTypes.DELETE);
         result.then(response => {
             const result = response.json();
-            if (result) {
-                result.then(
-                    (result: any) => {
-                    },
-                    (error: any) => {
-                        return error;
-                    }
-                )
-            }
+            return result;
         }
         );
     }

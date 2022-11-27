@@ -13,35 +13,14 @@ export default function handler(
   const { slug } = req.query;
   const params = slug ? Array.from(slug) : [];
 
-  /*
-  if (req.method === 'POST') {
-    if (body.UserName && body.Password) {
-      const data = mockServer.getUsers();
-
-      const item: User = { ITCC_UserID: data.length + 1, UserName: body.UserName, Password: body.Password };
-      const findUser = mockServer.getUser(item);
-
-      if (!findUser) {
-        data.push(item);
-        mockServer.saveUsers(data);
-      }
-
-      res.status(200).json(mockServer.getUsers());
-    }
-    else {
-      return res.status(400).json({ errors: 'username or password not found' })
-    }
-
-  }
-  else 
-  */
   if (req.method === 'PUT') {
     if (body.UserName && body.Password) {
 
-      const item: User = {...EmptyUser, ITCC_UserID: body.ITCC_UserID, UserID: body.UserID, 
+      const item: User = {
+        ...EmptyUser, ITCC_UserID: body.ITCC_UserID, UserID: body.UserID,
         UserName: body.UserName, Password: body.Password, RoleNames: body.RoleNames,
-        EmailAddress:body.EmailAddress, FirstName:body.FirstName,  LastName:body.LastName
-        };
+        EmailAddress: body.EmailAddress, FirstName: body.FirstName, LastName: body.LastName
+      };
 
       mockServer.updateUser(item);
 
@@ -52,9 +31,12 @@ export default function handler(
     }
 
   }
+  else if (req.method === 'DELETE') {
+    res.status(200).json(slug);
+  }
   else if (req.method === 'GET') {
     // get one user by id
-    if(params  && params.length === 1){
+    if (params && params.length === 1) {
       const items = mockServer.getUsers();
       const item = items.find(u => u.ITCC_UserID === Number(params[0]));
       res.status(200).json(item);
@@ -64,6 +46,6 @@ export default function handler(
     }
   }
   else {
-    res.status(404).json({error: 'an error has occured'});
+    res.status(404).json({ error: 'an error has occured' });
   }
 }
