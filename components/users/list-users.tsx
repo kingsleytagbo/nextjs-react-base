@@ -74,9 +74,11 @@ const ListUsers = () => {
         const result = fetchUser(value, HttpRequestTypes.DELETE);
         result.then(response => {
             const result = response.json();
+            fetchUsers();
             return result;
         }
         );
+        
     }
 
     const onSaveAddUser = () => {
