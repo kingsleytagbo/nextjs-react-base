@@ -1,14 +1,24 @@
 // UserDetail Component for changing a user's details
 
 // Import Modules
-import React from "react";
+import React, { useState } from "react";
 
 // UserDetail Component
 const UserDetail = (props: any) => {
+    const [confirmDelete, setConfirmDelete] = useState(false);
+
+    const handleDelete = () => {
+        setConfirmDelete(true);
+    }
+
+    const handleConfirmDelete = () => {
+        props.onConfirmDelete(props.ITCC_UserID);
+    }
     // Return User form
     return (
         <>
             <section className="card py-2 mt-2 p-2">
+                <h3 className='card-title text-center text-dark mt-3'><i className="bi bi-person"></i> {props.title}</h3>
                 <div className="row">
                     <div className="col-md-4">
                         <label>UserName</label>
@@ -33,9 +43,17 @@ const UserDetail = (props: any) => {
                         <p className="text-dark">{props.LastName}</p>
                     </div>
                 </div>
-                <div className="row gy-2 gx-3 align-items-cleft">
-                    <div className="col-auto">
+                <div className="row">
+                    <div className="col-6">
                         <button onClick={props.onCancel} type="button" className="btn btn-primary">Close</button>
+                    </div>
+                    <div className="col-6">
+                        { (props.delete && !confirmDelete) &&
+                            <button onClick={handleDelete} type="button" className="btn btn-danger">Delete</button>
+                        }
+                        {confirmDelete &&
+                            <button onClick={handleConfirmDelete} type="button" className="btn btn-danger">Confirm Delete</button>
+                        }
                     </div>
                 </div>
             </section>

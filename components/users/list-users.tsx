@@ -10,7 +10,7 @@ import UserDetail from "./user-detail";
 import { EmptyUser } from "../../models/user";
 
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
-const editmodes = { edit: false, detail: false };
+const editmodes = { edit: false, detail: false, delete:false };
 
 // List Users Component
 const ListUsers = () => {
@@ -52,7 +52,11 @@ const ListUsers = () => {
     const handleEditUser = (item: any) => {
         setEditUser({ ...editmodes, edit: true });
         getUserDetail(item);
+    };
 
+    const handleDeleteUser = (item: any) => {
+        setEditUser({ ...editmodes, delete: true });
+        getUserDetail(item);
     };
 
     const handleUserDetail = (item: any) => {
@@ -63,6 +67,9 @@ const ListUsers = () => {
     const onCancelUserDetail = () => {
         setEditUser({ ...editmodes });
         setUserDetail({ ...EmptyUser });
+    }
+    const onConfirmDelete = (value:any) => {
+        console.log({onConfirmDelete: value})
     }
 
     const onSaveAddUser = () => {
@@ -204,7 +211,25 @@ const ListUsers = () => {
                         > 0) &&
                         <section className="card py-1 mt-1">
                             <UserDetail {...userdetail}
+                                                            {...edituser}
+                              title="User Details"
                                 onCancel={onCancelUserDetail}
+                            >
+                            </UserDetail>
+                        </section>
+                    }
+                    {/* <!-- END USER DETAIL --> */}
+
+                    {/* <!-- BEGIN USER DETAIL  --> */}
+                    {((edituser.delete && userdetail.ITCC_UserID)
+                        > 0) &&
+                        <section className="card py-1 mt-1">
+                            <UserDetail 
+                                {...userdetail}
+                                {...edituser}
+                                title="Delete User"
+                                onCancel={onCancelUserDetail}
+                                onConfirmDelete ={onConfirmDelete}
                             >
                             </UserDetail>
                         </section>
@@ -238,6 +263,12 @@ const ListUsers = () => {
                                                             disabled={!userAuth.IsAdmin}
                                                             className="btn btn-outline-warning btn-sm" type="button" value="Edit">
                                                             <i className="bi bi-pencil-square"></i> &nbsp;
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDeleteUser(item)}
+                                                            disabled={!userAuth.IsAdmin}
+                                                            className="btn btn-outline-danger btn-sm" type="button" value="Delete">
+                                                            <i className="bi bi-trash3"></i> &nbsp;
                                                         </button>
                                                     </div>
                                                 </div>
