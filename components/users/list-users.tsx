@@ -21,7 +21,7 @@ const ListUsers = () => {
     const [userAuth, setUserAuth] = useState({ IsAdmin: false });
 
     const getUserAuth = () => {
-        const userAuthResult = utils.getUserAuthRoles(AUTH_KEY, 'admin');
+        const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
         setUserAuth({ ...userAuthResult });
     };
 
@@ -146,7 +146,9 @@ const ListUsers = () => {
     const fetchUser = (id: number, method:HttpRequestTypes) => {
         const url = API_FORM_URL + '/' + id;
         return fetch(url, {
-            method: method
+            method: method,
+            headers: utils.getUserAuthHeader(AUTH_KEY),
+            credentials: 'include',
         });
     }
 

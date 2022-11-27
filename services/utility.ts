@@ -30,14 +30,18 @@ class Utility implements IStorage {
         return data;
     }
 
-    getUserAuthRoles(key:any, role:string) {
+    getUserAuthRoles(key:any) {
         const value:any = this.getData(key);
         const hasAdmin = (value && value.RoleNames) ? value.RoleNames.find((name:string) => {
-            return name.toLowerCase() === role.toLowerCase();
+            return name.toLowerCase() === 'admin';
           }) : null;
-          
         const result = {...value, IsAdmin: hasAdmin ? true : false};
         return result;
+    }
+
+    getUserAuthHeader(key:string){
+        const authValue = this.getUserAuthRoles(key);
+        return { Authorization: `Basic ${authValue}`, 'Content-Type': 'application/json' };
     }
 
     getData(key: string) {
