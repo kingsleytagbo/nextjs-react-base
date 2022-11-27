@@ -69,6 +69,8 @@ const ListUsers = () => {
         setUserDetail({ ...EmptyUser });
     }
     const onConfirmDelete = (value:any) => {
+        setEditUser({ ...editmodes });
+        setUserDetail({ ...EmptyUser });
         console.log({onConfirmDelete: value})
     }
 
@@ -90,10 +92,6 @@ const ListUsers = () => {
     }
 
     const onCancelEditUser = () => {
-        /*
-        setUserDetail({ ...EmptyUser });
-        setAddForm(false);
-        */
         setEditUser({ ...editmodes });
         setUserDetail({ ...EmptyUser });
     }

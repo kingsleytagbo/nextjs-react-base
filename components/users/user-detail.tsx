@@ -43,17 +43,28 @@ const UserDetail = (props: any) => {
                         <p className="text-dark">{props.LastName}</p>
                     </div>
                 </div>
+
+                <div className="row">
+                    <div className="col-12">
+                        <hr className="pt-1 bg-info" />
+                    </div>
+                </div>
+
                 <div className="row">
                     <div className="col-6">
-                        <button onClick={props.onCancel} type="button" className="btn btn-primary">Close</button>
+                        <div className="d-grid mt-2">
+                            <button onClick={props.onCancel} type="button" className="btn btn-primary">Close</button>
+                        </div>
                     </div>
                     <div className="col-6">
-                        { (props.delete && !confirmDelete) &&
-                            <button onClick={handleDelete} type="button" className="btn btn-danger">Delete</button>
-                        }
-                        {confirmDelete &&
-                            <button onClick={handleConfirmDelete} type="button" className="btn btn-danger">Confirm Delete</button>
-                        }
+                        <div className="d-grid mt-2">
+                            {(props.delete && !confirmDelete) &&
+                                <button onClick={handleDelete} type="button" className="btn btn-danger">Delete</button>
+                            }
+                            {confirmDelete &&
+                                <button onClick={handleConfirmDelete} type="button" className="btn btn-danger">Confirm Delete</button>
+                            }
+                        </div>
                     </div>
                 </div>
             </section>
