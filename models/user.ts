@@ -1,7 +1,14 @@
+
 export type User = {
     ITCC_UserID: number,
-    Username: string,
+    UserID: string,
+    UserName: string,
     Password: string,
-    UserID?: string,
+    EmailAddress: string,
+    FirstName:string,
+    LastName:string,
     RoleNames?: Array<string>
 };
+
+export const EmptyUser: User = { ITCC_UserID: 0, UserID:'', UserName: '', Password: '', 
+EmailAddress: '',  FirstName:'', LastName:'', RoleNames: []};

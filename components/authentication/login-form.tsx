@@ -160,7 +160,7 @@ export default function LoginForm() {
 
                 <form className="card-body" method="post" style={{ display: showForm ? 'block' : 'none' }}>
                   <div className="mt-3">
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="username">UserName</label>
                     <input
                       value={form.username}
                       onChange={onChange}

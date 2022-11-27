@@ -7,7 +7,7 @@ import UserForm from "./user-form";
 // CreateUser Component
 const AddUser = (props:any) => {
     const API_FORM_URL = '/api/users';
-    const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
+    const [edituser, setEditUser] = useState({ ITCC_UserID: 0, UserName: '', Password: '' });
 
     const onChange = (e: any) => {
         const key = e.target.name;
@@ -23,14 +23,14 @@ const AddUser = (props:any) => {
     }
 
     const onCancel = () => {
-        setEditUser({ITCC_UserID: 0, Username: '', Password: ''});
+        setEditUser({ITCC_UserID: 0, UserName: '', Password: ''});
         props.onCancelAddUser();
     }
 
 
     const postFormRequest = (formData: any) => {
         const headers = {
-          'Authorization': 'Basic ' + btoa(formData.Username + ':' + formData.Password),
+          'Authorization': 'Basic ' + btoa(formData.UserName + ':' + formData.Password),
           'Content-Type': 'application/json'
         };
     

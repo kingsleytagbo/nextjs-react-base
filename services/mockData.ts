@@ -2,8 +2,13 @@ import { User } from "../models/user";
 
 class MockData{
 
-   users: Array<User> = [{ ITCC_UserID:1, Username: 'admin', Password: 'password', UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9', RoleNames: ['admin'] }];
-   
+  users: Array<User> = [{
+    ITCC_UserID: 1, UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9',
+    UserName: 'admin', EmailAddress: '', FirstName: 'System', LastName: 'Admin',
+    Password: 'password',
+    RoleNames: ['admin']
+  }];
+
    private static _instance:MockData;
 
    public static get Instance()
@@ -25,7 +30,7 @@ class MockData{
       let user:User | undefined;
       if(this.users && this.users.length > 0 ){
         user = this.users.find( user => 
-          (user.ITCC_UserID === item.ITCC_UserID || user.Username === item.Username));
+          (user.ITCC_UserID === item.ITCC_UserID || user.UserName === item.UserName));
       }
       return user;
     }

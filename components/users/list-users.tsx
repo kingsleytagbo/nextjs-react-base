@@ -13,7 +13,7 @@ const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
 // List Users Component
 const ListUsers = () => {
     const [users, setUsers] = useState([]);
-    const [edituser, setEditUser] = useState({ ITCC_UserID: 0, Username: '', Password: '' });
+    const [edituser, setEditUser] = useState({ ITCC_UserID: 0, UserName: '', Password: '' });
     const [displayAddForm, setAddForm] = useState(false);
     const [userAuth, setUserAuth] = useState({IsAdmin: false});
 
@@ -49,20 +49,20 @@ const ListUsers = () => {
     }
 
     const onCancelEditUser = () => {
-        setEditUser({ ITCC_UserID: 0, Username: '', Password: '' });
+        setEditUser({ ITCC_UserID: 0, UserName: '', Password: '' });
         setAddForm(false);
     }
 
     const onSaveEditUser = () => {
         postFormRequest(edituser);
         fetchUsers();
-        setEditUser({ ITCC_UserID: 0, Username: '', Password: '' });
+        setEditUser({ ITCC_UserID: 0, UserName: '', Password: '' });
         setAddForm(false);
     }
 
     const postFormRequest = (formData: any) => {
         const headers = {
-            'Authorization': 'Basic ' + btoa(formData.Username + ':' + formData.Password),
+            'Authorization': 'Basic ' + btoa(formData.UserName + ':' + formData.Password),
             'Content-Type': 'application/json'
         };
 
@@ -202,8 +202,8 @@ const ListUsers = () => {
                                                 </div>
 
                                                 <div className="col-md-5">
-                                                    <label htmlFor="username">Username</label>
-                                                    <p className="text-dark">{item.Username}</p>
+                                                    <label htmlFor="username">UserName</label>
+                                                    <p className="text-dark">{item.UserName}</p>
                                                 </div>
 
                                                 <div className="col-md-5">

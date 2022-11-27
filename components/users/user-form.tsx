@@ -19,13 +19,13 @@ const UserForm = (props: any) => {
                   <div className="row">
 
                     <div className="col-md-6">
-                      <label htmlFor="username">Username</label>
+                      <label htmlFor="username">UserName</label>
                       <input
-                        value={props.Username}
+                        value={props.UserName}
                         onChange={props.onChange}
                         className="form-control"
-                        id="Username"
-                        name="Username"
+                        id="UserName"
+                        name="UserName"
                         placeholder="Your username ..."
                         type="text"
                         autoComplete="false"
