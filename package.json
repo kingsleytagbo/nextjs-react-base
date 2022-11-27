@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
+    "prettier": "prettier --check --ignore-path .gitignore .",
+    "prettier:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
     "bootstrap": "^5.2.1",

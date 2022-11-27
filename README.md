@@ -134,5 +134,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Create a NextJs project with Typescript, ESLint, Prettier https://www.sandromaglione.com/techblog/create-nextjs-project-with-typescript-eslint-prettier-tailwindcss
 - - npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier
 - - npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript
-- [Next.js] Prettier
-https://dev-yakuza.posstree.com/en/react/nextjs/prettier/
+- [Next.js] Prettier https://dev-yakuza.posstree.com/en/react/nextjs/prettier/
+- npm run prettier
+- npm run prettier:fix 
