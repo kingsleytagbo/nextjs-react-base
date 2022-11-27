@@ -3,7 +3,7 @@
 // Import Modules
 import React, { useState, useEffect, useCallback } from "react";
 import { AUTH_KEY } from "../../services/constants";
-import { BaseUrlTypes, utils } from "../../services/utility";
+import { BaseUrlTypes, HttpRequestTypes, utils } from "../../services/utility";
 import UserForm from "./user-form";
 import AddUser from "./add-user";
 import UserDetail from "./user-detail";
@@ -27,7 +27,7 @@ const ListUsers = () => {
 
     
     const getUserDetail = (item: any) => {
-        const result = fetchUser(item.ITCC_UserID);
+        const result = fetchUser(item.ITCC_UserID, HttpRequestTypes.GET);
         result.then(response => {
             const result = response.json();
             if (result) {
@@ -71,7 +71,21 @@ const ListUsers = () => {
     const onConfirmDelete = (value:any) => {
         setEditUser({ ...editmodes });
         setUserDetail({ ...EmptyUser });
-        console.log({onConfirmDelete: value})
+        console.log({onConfirmDelete: value});
+        const result = fetchUser(value, HttpRequestTypes.DELETE);
+        result.then(response => {
+            const result = response.json();
+            if (result) {
+                result.then(
+                    (result: any) => {
+                    },
+                    (error: any) => {
+                        return error;
+                    }
+                )
+            }
+        }
+        );
     }
 
     const onSaveAddUser = () => {
@@ -137,11 +151,10 @@ const ListUsers = () => {
         );
     }, []);
 
-    const fetchUser = (id: number) => {
+    const fetchUser = (id: number, method:HttpRequestTypes) => {
         const url = API_FORM_URL + '/' + id;
-        //console.log({ fetchUser: id, url: url });
         return fetch(url, {
-            method: 'GET'
+            method: method
         });
     }
 
