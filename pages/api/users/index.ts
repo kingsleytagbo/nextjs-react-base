@@ -37,8 +37,7 @@ export default function handler(
       return res.status(400).json({ errors: 'UserName or password not found' });
     }
   } else if (req.method === 'GET') {
-
-  /*
+    /*
   else if (req.method === 'PUT') {
     if (body.UserName && body.Password) {
 
