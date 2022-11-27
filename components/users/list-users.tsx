@@ -7,29 +7,63 @@ import { BaseUrlTypes, utils } from "../../services/utility";
 import UserForm from "./user-form";
 import AddUser from "./add-user";
 import UserDetail from "./user-detail";
+import { EmptyUser } from "../../models/user";
 
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
+const editmodes = { edit: false, detail: false };
 
 // List Users Component
 const ListUsers = () => {
     const [users, setUsers] = useState([]);
-    const [edituser, setEditUser] = useState({ ITCC_UserID: 0, UserName: '', Password: '' });
+    const [edituser, setEditUser] = useState({ ...editmodes });
+    const [userdetail, setUserDetail] = useState({ ...EmptyUser });
     const [displayAddForm, setAddForm] = useState(false);
-    const [userAuth, setUserAuth] = useState({IsAdmin: false});
+    const [userAuth, setUserAuth] = useState({ IsAdmin: false });
 
     const getUserAuth = () => {
         const userAuthResult = utils.getUserAuthRoles(AUTH_KEY, 'admin');
-        setUserAuth({...userAuthResult});
+        setUserAuth({ ...userAuthResult });
     };
+
+    
+    const getUserDetail = (item: any) => {
+        const result = fetchUser(item.ITCC_UserID);
+        result.then(response => {
+            const result = response.json();
+            if (result) {
+                result.then(
+                    (result: any) => {
+                        setUserDetail(result);
+                    },
+                    (error: any) => {
+                        return error;
+                    }
+                )
+            }
+        }
+        );
+    };
+
 
     const handleAddUserClick = () => {
         setAddForm(true);
     };
 
     const handleEditUser = (item: any) => {
-        setEditUser(item);
-        fetchUser(item.ITCC_UserID);
+        setEditUser({ ...editmodes, edit: true });
+        getUserDetail(item);
+
     };
+
+    const handleUserDetail = (item: any) => {
+        setEditUser({ ...editmodes, detail: true });
+        getUserDetail(item);
+    };
+
+    const onCancelUserDetail = () => {
+        setEditUser({ ...editmodes });
+        setUserDetail({ ...EmptyUser });
+    }
 
     const onSaveAddUser = () => {
         fetchUsers();
@@ -43,20 +77,24 @@ const ListUsers = () => {
     const onChangeEditUser = (e: any) => {
         const key: any = e.target.name;
         const value: any = e.target.value;
-        const formState: any = ({ ...edituser, [key]: value });
+        const formState: any = ({ ...userdetail, [key]: value });
 
-        setEditUser(formState);
+        setUserDetail(formState);
     }
 
     const onCancelEditUser = () => {
-        setEditUser({ ITCC_UserID: 0, UserName: '', Password: '' });
+        /*
+        setUserDetail({ ...EmptyUser });
         setAddForm(false);
+        */
+        setEditUser({ ...editmodes });
+        setUserDetail({ ...EmptyUser });
     }
 
     const onSaveEditUser = () => {
-        postFormRequest(edituser);
+        postFormRequest(userdetail);
         fetchUsers();
-        setEditUser({ ITCC_UserID: 0, UserName: '', Password: '' });
+        setUserDetail({ ...EmptyUser });
         setAddForm(false);
     }
 
@@ -97,24 +135,9 @@ const ListUsers = () => {
     const fetchUser = (id: number) => {
         const url = API_FORM_URL + '/' + id;
         //console.log({ fetchUser: id, url: url });
-        fetch(url, {
+        return fetch(url, {
             method: 'GET'
-        }).then(response => {
-            const result = response.json();
-            if (result) {
-                result.then(
-                    (result: any) => {
-                        setEditUser(result);
-                        //console.log({ fetchUser: result });
-                    },
-                    (error: any) => {
-                        return error;
-                        //console.log(error);
-                    }
-                )
-            }
-        }
-        );
+        });
     }
 
     useEffect(() => {
@@ -132,7 +155,7 @@ const ListUsers = () => {
 
                     {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-                    {(!displayAddForm && (edituser.ITCC_UserID
+                    {(!displayAddForm && (userdetail.ITCC_UserID
                         === 0)) &&
 
                         <div className="d-grid mt-1">
@@ -159,10 +182,10 @@ const ListUsers = () => {
 
 
                     {/* <!-- BEGIN EDIT USER  --> */}
-                    {( (edituser.ITCC_UserID && edituser.ITCC_UserID)
+                    {((edituser.edit && userdetail.ITCC_UserID)
                         > 0) &&
                         <section className="card py-1 mt-1">
-                            <UserForm {...edituser}
+                            <UserForm {...userdetail}
                                 title="Edit User"
                                 onChange={onChangeEditUser}
                                 onCancel={onCancelEditUser}
@@ -173,12 +196,25 @@ const ListUsers = () => {
                             </UserForm>
                         </section>
                     }
-                    {/* <!-- BEGIN EDIT USER  --> */}
+                    {/* <!-- END EDIT USER  --> */}
+
+
+                    {/* <!-- BEGIN USER DETAIL  --> */}
+                    {((edituser.detail && userdetail.ITCC_UserID)
+                        > 0) &&
+                        <section className="card py-1 mt-1">
+                            <UserDetail {...userdetail}
+                                onCancel={onCancelUserDetail}
+                            >
+                            </UserDetail>
+                        </section>
+                    }
+                    {/* <!-- END USER DETAIL --> */}
 
 
                     {/* <!-- BEGIN LIST USERS  --> */}
 
-                    {(edituser.ITCC_UserID === 0) &&
+                    {(userdetail.ITCC_UserID === 0) &&
 
                         <section className="card py-1 mt-2">
 
@@ -193,10 +229,15 @@ const ListUsers = () => {
                                                 <div className="col-md-2">
                                                     <div className="d-grid mt-3">
                                                         <button
+                                                            onClick={() => handleUserDetail(item)}
+                                                            className="btn btn-outline-dark btn-sm" type="button" value="Detail">
+                                                            <i className="bi bi bi-ticket-detailed"></i> &nbsp;
+                                                        </button>
+                                                        <button
                                                             onClick={() => handleEditUser(item)}
                                                             disabled={!userAuth.IsAdmin}
-                                                            className="btn btn-outline-info" type="button" value="Edit">
-                                                            <i className="bi bi-pencil-square"></i> &nbsp;Edit
+                                                            className="btn btn-outline-warning btn-sm" type="button" value="Edit">
+                                                            <i className="bi bi-pencil-square"></i> &nbsp;
                                                         </button>
                                                     </div>
                                                 </div>

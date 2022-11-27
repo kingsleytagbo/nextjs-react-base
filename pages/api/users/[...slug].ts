@@ -38,7 +38,10 @@ export default function handler(
   if (req.method === 'PUT') {
     if (body.UserName && body.Password) {
 
-      const item: User = {...EmptyUser, ITCC_UserID: body.ITCC_UserID, UserID: body.UserID, UserName: body.UserName, Password: body.Password, RoleNames: body.RoleNames };
+      const item: User = {...EmptyUser, ITCC_UserID: body.ITCC_UserID, UserID: body.UserID, 
+        UserName: body.UserName, Password: body.Password, RoleNames: body.RoleNames,
+        EmailAddress:body.EmailAddress, FirstName:body.FirstName,  LastName:body.LastName
+        };
 
       mockServer.updateUser(item);
 

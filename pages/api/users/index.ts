@@ -15,7 +15,8 @@ export default function handler(
     if (body.UserName && body.Password) {
       const data = mockServer.getUsers();
 
-      const item: User = {...EmptyUser, ITCC_UserID: data.length + 1, UserName: body.UserName, Password: body.Password };
+      const item: User = {...EmptyUser, ITCC_UserID: data.length + 1, UserName: body.UserName, Password: body.Password,
+        EmailAddress:body.EmailAddress, FirstName:body.FirstName,  LastName:body.LastName };
       const findUser = mockServer.getUser(item);
 
       if (!findUser) {
