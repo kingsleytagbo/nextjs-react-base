@@ -32,7 +32,10 @@ export default function handler(
 
   }
   else if (req.method === 'DELETE') {
-    res.status(200).json(slug);
+    const base64AuthenticationHeader = (req.headers.authorization || '').split(' ')[1] || '';
+    const [authToken] = Buffer.from(base64AuthenticationHeader, 'base64').toString().split(':');
+
+    res.status(200).json(authToken);
   }
   else if (req.method === 'GET') {
     // get one user by id

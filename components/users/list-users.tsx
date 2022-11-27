@@ -10,7 +10,7 @@ import UserDetail from "./user-detail";
 import { EmptyUser } from "../../models/user";
 
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
-const editmodes = { edit: false, detail: false, delete:false };
+const editmodes = { edit: false, detail: false, delete: false };
 
 // List Users Component
 const ListUsers = () => {
@@ -25,7 +25,7 @@ const ListUsers = () => {
         setUserAuth({ ...userAuthResult });
     };
 
-    
+
     const getUserDetail = (item: any) => {
         const result = fetchUser(item.ITCC_UserID, HttpRequestTypes.GET);
         result.then(response => {
@@ -143,11 +143,16 @@ const ListUsers = () => {
         );
     }, []);
 
-    const fetchUser = (id: number, method:HttpRequestTypes) => {
+    const fetchUser = (id: number, method: HttpRequestTypes) => {
         const url = API_FORM_URL + '/' + id;
+        const headers = {
+            'Content-Type': 'application/json',
+            ...utils.getUserAuthHeader(AUTH_KEY),
+        };
+
         return fetch(url, {
             method: method,
-            headers: utils.getUserAuthHeader(AUTH_KEY),
+            headers: headers,
             credentials: 'include',
         });
     }
@@ -216,8 +221,8 @@ const ListUsers = () => {
                         > 0) &&
                         <section className="card py-1 mt-1">
                             <UserDetail {...userdetail}
-                                                            {...edituser}
-                              title="User Details"
+                                {...edituser}
+                                title="User Details"
                                 onCancel={onCancelUserDetail}
                             >
                             </UserDetail>
@@ -229,12 +234,12 @@ const ListUsers = () => {
                     {((edituser.delete && userdetail.ITCC_UserID)
                         > 0) &&
                         <section className="card py-1 mt-1">
-                            <UserDetail 
+                            <UserDetail
                                 {...userdetail}
                                 {...edituser}
                                 title="Delete User"
                                 onCancel={onCancelUserDetail}
-                                onConfirmDelete ={onConfirmDelete}
+                                onConfirmDelete={onConfirmDelete}
                             >
                             </UserDetail>
                         </section>

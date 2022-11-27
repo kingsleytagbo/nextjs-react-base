@@ -40,8 +40,8 @@ class Utility implements IStorage {
     }
 
     getUserAuthHeader(key:string){
-        const authValue = this.getUserAuthRoles(key);
-        return { Authorization: `Basic ${authValue}`, 'Content-Type': 'application/json' };
+        const authValue = btoa(this.getUserAuthRoles(key)?.AuthID || '');
+        return { Authorization: `Basic ${authValue}` };
     }
 
     getData(key: string) {
