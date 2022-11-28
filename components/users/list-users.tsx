@@ -121,8 +121,15 @@ const ListUsers = () => {
   };
 
   const fetchUsers = useCallback(async () => {
+    const headers = {
+      'Content-Type': 'application/json',
+      ...utils.getUserAuthHeader(AUTH_KEY),
+    };
+
     fetch(API_FORM_URL, {
       method: 'GET',
+      headers: headers,
+      credentials: 'include'
     }).then((response) => {
       const result = response.json();
       if (result) {
