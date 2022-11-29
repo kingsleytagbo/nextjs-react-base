@@ -1,20 +1,17 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import LoginForm from '../components/authentication/login-form';
 import Footer from '../components/footer';
 import Header from '../components/header';
+import Meta from '../components/metatags';
 
 const Home: NextPage = () => {
   return (
     <main className="bg-light">
-      <Head>
-        <title>{process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_NAME}</title>
-        <meta
-          name="description"
-          content={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_DESCRIPTION}
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta
+        description={'Login Page'}
+        title={'Login'}
+        canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/login'}
+      />
       <Header></Header>
 
       <section className="container-fluid bg-secondary vh-100">
