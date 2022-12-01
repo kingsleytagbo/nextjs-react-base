@@ -21,7 +21,33 @@ class Utility implements IStorage {
     return this._instance || (this._instance = new this());
   }
 
-  private constructor() {}
+  private constructor() { }
+
+  getAppData() {
+    const storage = new SessionStorage();
+    const value = storage.getData(this.appStorageKey);
+    const data = value ? JSON.parse(value) : {};
+    return data;
+  }
+
+  getData(key?: string) {
+    const data = this.getAppData();
+    if (key && !data[key]) {
+      data[key] = {};
+    }
+    return data;
+  }
+
+  saveData(value: any, key: any) {
+    const storage = new SessionStorage();
+    const appStorage = this.getAppData();
+    appStorage[key] = value;
+
+    storage.saveData(appStorage, this.appStorageKey);
+    const keyData = this.getData(key);
+    const database = this.getData();
+    console.log({ keyData: keyData, appStorage: appStorage, database: database });
+  }
 
   getUserAuthStatus(key: any) {
     const value: any = this.getData(key);
@@ -34,8 +60,8 @@ class Utility implements IStorage {
     const hasAdmin =
       value && value.RoleNames
         ? value.RoleNames.find((name: string) => {
-            return name.toLowerCase() === 'admin';
-          })
+          return name.toLowerCase() === 'admin';
+        })
         : null;
     const result = { ...value, IsAdmin: hasAdmin ? true : false };
     return result;
@@ -46,20 +72,6 @@ class Utility implements IStorage {
     return { Authorization: `Basic ${authValue}` };
   }
 
-  getData(key: string) {
-    const storage = new SessionStorage();
-    const value = storage.getData(this.appStorageKey + key);
-    const data = value ? JSON.parse(value) : {};
-    return data;
-  }
-
-  saveData(value: any, key: any) {
-    const storage = new SessionStorage();
-    storage.saveData(value, this.appStorageKey + key);
-
-    const database = storage.getData(key);
-    console.log({database: database});
-  }
 
   getBaseApi(urlType: BaseUrlTypes) {
     const baseUrl =
