@@ -21,7 +21,7 @@ class Utility implements IStorage {
     return this._instance || (this._instance = new this());
   }
 
-  private constructor() { }
+  private constructor() {}
 
   getAppData() {
     const storage = new SessionStorage();
@@ -60,8 +60,8 @@ class Utility implements IStorage {
     const hasAdmin =
       value && value.RoleNames
         ? value.RoleNames.find((name: string) => {
-          return name.toLowerCase() === 'admin';
-        })
+            return name.toLowerCase() === 'admin';
+          })
         : null;
     const result = { ...value, IsAdmin: hasAdmin ? true : false };
     return result;
@@ -71,7 +71,6 @@ class Utility implements IStorage {
     const authValue = btoa(this.getUserAuthRoles(key)?.AuthID || '');
     return { Authorization: `Basic ${authValue}` };
   }
-
 
   getBaseApi(urlType: BaseUrlTypes) {
     const baseUrl =

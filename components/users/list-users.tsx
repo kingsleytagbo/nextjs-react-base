@@ -129,7 +129,7 @@ const ListUsers = () => {
     fetch(API_FORM_URL, {
       method: 'GET',
       headers: headers,
-      credentials: 'include'
+      credentials: 'include',
     }).then((response) => {
       const result = response.json();
       if (result) {

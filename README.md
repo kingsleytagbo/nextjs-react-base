@@ -167,4 +167,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - npm run prettier:fix
 
 ### Next.js SEO
+
 - Incremental Static Generation: https://blog.logrocket.com/incremental-static-regeneration-next-js/
