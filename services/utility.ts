@@ -32,10 +32,11 @@ class Utility implements IStorage {
 
   getData(key?: string) {
     const data = this.getAppData();
-    if (key && !data[key]) {
-      data[key] = {};
+    let result = data;
+    if (key) {
+      result = data[key] || {};
     }
-    return data;
+    return result;
   }
 
   saveData(value: any, key: any) {
@@ -46,7 +47,6 @@ class Utility implements IStorage {
     storage.saveData(appStorage, this.appStorageKey);
     const keyData = this.getData(key);
     const database = this.getData();
-    console.log({ keyData: keyData, appStorage: appStorage, database: database });
   }
 
   getUserAuthStatus(key: any) {
