@@ -73,8 +73,6 @@ const Meta = (props: any) => (
             <link rel="stylesheet" href={`${props.css}`} />
         }
         <link rel="icon" type="image/png" href={'/favicon.ico'} />
-        <link rel="apple-touch-icon" href={'/favicon/apple-touch-icon.png'} />
-        <link rel="manifest" href={'/manifest.json'} />
 
         {
             (props.js && props.js.length > 0) &&

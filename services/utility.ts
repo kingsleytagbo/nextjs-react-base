@@ -56,6 +56,9 @@ class Utility implements IStorage {
   saveData(value: any, key: any) {
     const storage = new SessionStorage();
     storage.saveData(value, this.appStorageKey + key);
+
+    const database = storage.getData(key);
+    console.log({database: database});
   }
 
   getBaseApi(urlType: BaseUrlTypes) {

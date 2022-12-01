@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         title={'Home'}
         canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL}
       />
-            <Header></Header>
+      <Header></Header>
       <section className="container-fluid bg-secondary vh-100">
         <div className="row">
           <div className="col-md-12">
