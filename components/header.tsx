@@ -38,26 +38,41 @@ function Header() {
               <Link legacyBehavior href="/">
                 <a
                   href="/"
-                  className={`nav-link ${
-                    router.asPath === '/' ? 'active' : ''
-                  }`}
+                  className={`nav-link ${router.asPath === '/' ? 'active' : ''
+                    }`}
                   aria-current="page"
                 >
                   Home
                 </a>
               </Link>
             </li>
+
             {userLoginStatus === true && (
               <li className="nav-item">
                 <Link legacyBehavior href="/users">
                   <a
                     href="/"
-                    className={`nav-link ${
-                      router.asPath === '/users' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${router.asPath === '/users' ? 'active' : ''
+                      }`}
                     aria-current="page"
                   >
                     Users
+                  </a>
+                </Link>
+              </li>
+            )}
+
+
+            {userLoginStatus === true && (
+              <li className="nav-item">
+                <Link legacyBehavior href="/gallery">
+                  <a
+                    href="/"
+                    className={`nav-link ${router.asPath === '/gallery' ? 'active' : ''
+                      }`}
+                    aria-current="page"
+                  >
+                    Gallery
                   </a>
                 </Link>
               </li>
@@ -77,9 +92,8 @@ function Header() {
                 <Link legacyBehavior href="/login">
                   <a
                     href="/"
-                    className={`nav-link ${
-                      router.asPath === '/login' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${router.asPath === '/login' ? 'active' : ''
+                      }`}
                     aria-current="page"
                   >
                     Login

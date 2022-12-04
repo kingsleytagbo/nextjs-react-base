@@ -4,6 +4,7 @@ import { IStorage, SessionStorage } from './storage';
 export enum BaseUrlTypes {
   Authenticate = 'login/authenticate/',
   Users = 'users/',
+  Gallery = 'gallery/'
 }
 
 export enum HttpRequestTypes {
@@ -21,7 +22,7 @@ class Utility implements IStorage {
     return this._instance || (this._instance = new this());
   }
 
-  private constructor() {}
+  private constructor() { }
 
   getAppData() {
     const storage = new SessionStorage();
@@ -60,8 +61,8 @@ class Utility implements IStorage {
     const hasAdmin =
       value && value.RoleNames
         ? value.RoleNames.find((name: string) => {
-            return name.toLowerCase() === 'admin';
-          })
+          return name.toLowerCase() === 'admin';
+        })
         : null;
     const result = { ...value, IsAdmin: hasAdmin ? true : false };
     return result;
@@ -86,6 +87,9 @@ class Utility implements IStorage {
         break;
       case BaseUrlTypes.Users:
         baseApiPath = 'users';
+        break;
+      case BaseUrlTypes.Gallery:
+        baseApiPath = 'gallery';
         break;
       default:
         break;

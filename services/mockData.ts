@@ -1,6 +1,7 @@
+import { Gallery } from '../models/gallery';
 import { User } from '../models/user';
 
-class MockData {
+class MockUserData {
   users: Array<User> = [
     {
       ITCC_UserID: 1,
@@ -14,7 +15,7 @@ class MockData {
     },
   ];
 
-  private static _instance: MockData;
+  private static _instance: MockUserData;
 
   public static get Instance() {
     return this._instance || (this._instance = new this());
@@ -65,4 +66,69 @@ class MockData {
   }
 }
 
-export const mockServer = MockData.Instance;
+class MockGalleryData {
+  users: Array<Gallery> = [
+    {
+      ITCC_UserID: 1,
+      UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9',
+      UserName: 'admin',
+      EmailAddress: '',
+      FirstName: 'System',
+      LastName: 'Admin',
+      Password: 'password',
+      RoleNames: ['admin'],
+    },
+  ];
+
+  private static _instance: MockGalleryData;
+
+  public static get Instance() {
+    return this._instance || (this._instance = new this());
+  }
+
+  private constructor() {}
+
+  getGallerys() {
+    return this.users;
+  }
+
+  saveGallerys(values: any) {
+    this.users = values;
+  }
+
+  getGallery(item: Gallery) {
+    let user: Gallery | undefined;
+    if (this.users && this.users.length > 0) {
+      user = this.users.find(
+        (user) =>
+          user.ITCC_UserID === item.ITCC_UserID ||
+          user.UserName === item.UserName ||
+          user.UserID === item.UserID
+      );
+    }
+    return user;
+  }
+
+  updateGallery(item: Gallery) {
+    if (this.users && this.users.length > 0) {
+      for (let u = 0; u < this.users.length; u++) {
+        if (this.users[u].ITCC_UserID === item.ITCC_UserID) {
+          this.users[u] = item;
+        }
+      }
+    }
+    return;
+  }
+
+  deleteGallery(item?: Gallery) {
+    if (item && this.users && this.users.length > 0) {
+      this.users.forEach((user, index) => {
+        if (item === user) {
+          this.users.splice(index, 1);
+        }
+      });
+    }
+  }
+}
+
+export const MockServer = {UserData : MockUserData.Instance, GalleryData: MockGalleryData.Instance };

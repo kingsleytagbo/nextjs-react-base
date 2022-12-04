@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { EmptyUser, User } from '../../../models/user';
-import { mockServer } from '../../../services/mockData';
+import { MockServer } from '../../../services/mockData';
 
 export default function handler(
   req: NextApiRequest,
@@ -22,9 +22,7 @@ export default function handler(
       .split(':');
 
     const item: User = { ...EmptyUser, UserName: username, Password: password };
-    const findUser = mockServer.getUser(item);
-
-    // console.log({findUser: findUser, username: username, password: password, users: mockServer.getUsers()});
+    const findUser = MockServer.UserData.getUser(item);
 
     if (findUser) {
       const result = {

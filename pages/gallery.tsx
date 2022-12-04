@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Meta from '../components/metatags';
-import ListUsers from '../components/users/list-users';
+import ListGallerys from '../components/gallery/list-gallery';
 import { AuthGuard } from '../services/authGuard';
 
-const UsersPage: NextPage = () => {
+const GalleryPage: NextPage = () => {
   useEffect(() => {
     AuthGuard();
   }, []);
@@ -14,8 +14,8 @@ const UsersPage: NextPage = () => {
   return (
     <main className="bg-light">
       <Meta
-        description={'Manage Users Page'}
-        title={'Users'}
+        description={'Manage Gallerys Page'}
+        title={'Gallerys'}
         canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/users'}
       />
       <Header></Header>
@@ -24,7 +24,7 @@ const UsersPage: NextPage = () => {
         <div className="row">
           <div className="col-md-12">
             <section>
-              <ListUsers></ListUsers>
+              <ListGallerys></ListGallerys>
             </section>
           </div>
         </div>
@@ -35,4 +35,4 @@ const UsersPage: NextPage = () => {
   );
 };
 
-export default UsersPage;
+export default GalleryPage;
