@@ -15,30 +15,30 @@ export class MockAuthenticator {
     const [authToken] = Buffer.from(base64AuthenticationHeader, 'base64')
       .toString()
       .split(':');
-    const authUser = MockServer.UserData.getUser({ ...EmptyUser, UserID: authToken });
+    const authUser = MockServer.UserData.getUser({
+      ...EmptyUser,
+      UserID: authToken,
+    });
     return authUser;
   }
 
-  hasAdminRole(authUser?: User){
+  hasAdminRole(authUser?: User) {
     const userRoles = authUser?.RoleNames || [''];
-    if(userRoles.indexOf('admin') > -1){
+    if (userRoles.indexOf('admin') > -1) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
 
-  hasSubscriberRole(authUser?: User){
+  hasSubscriberRole(authUser?: User) {
     const userRoles = authUser?.RoleNames || [''];
-    if(userRoles.indexOf('subscriber') > -1){
+    if (userRoles.indexOf('subscriber') > -1) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
-
 }
 
 class MockUserData {
@@ -171,4 +171,7 @@ class MockGalleryData {
   }
 }
 
-export const MockServer = {UserData : MockUserData.Instance, GalleryData: MockGalleryData.Instance };
+export const MockServer = {
+  UserData: MockUserData.Instance,
+  GalleryData: MockGalleryData.Instance,
+};

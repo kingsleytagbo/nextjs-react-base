@@ -11,28 +11,33 @@ export default function handler(
   const body = req.body;
   const authUser = MockAuthenticator.Instance.getAuthUser(req);
   const hasAdminRole = MockAuthenticator.Instance.hasAdminRole(authUser);
-  const hasSubscriberRole = MockAuthenticator.Instance.hasSubscriberRole(authUser);
+  const hasSubscriberRole =
+    MockAuthenticator.Instance.hasSubscriberRole(authUser);
 
   switch (req.method) {
     case 'POST':
       if (!hasAdminRole) {
-        res.status(403).json({ message: 'you do not have permission to access this / POST' });
+        res.status(403).json({
+          message: 'you do not have permission to access this / POST',
+        });
       }
       break;
     case 'GET':
       if (!hasSubscriberRole && !hasAdminRole) {
-        res.status(403).json({ message: 'you do not have permission to access this / GET' });
+        res
+          .status(403)
+          .json({ message: 'you do not have permission to access this / GET' });
       }
       break;
     default:
-      res.status(403).json({ message: 'you do not have permission to access this / ' });
+      res
+        .status(403)
+        .json({ message: 'you do not have permission to access this / ' });
       break;
   }
 
-  if ((req.method === 'POST') && hasAdminRole) {
-
+  if (req.method === 'POST' && hasAdminRole) {
     const data = MockServer.GalleryData.getGallerys();
-
     const item: Gallery = {
       ...EmptyGallery,
       ITCC_UserID: data.length + 1,
@@ -52,15 +57,14 @@ export default function handler(
     }
 
     res.status(200).json(MockServer.GalleryData.getGallerys());
-
-  } else if ((req.method === 'GET') && (hasAdminRole || hasSubscriberRole) ) {
+  } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
     const data = MockServer.GalleryData.getGallerys();
     console.log({
-      method: req.method, 
-      hasAdminRole: hasAdminRole, hasSubscriberRole: hasSubscriberRole,
-      data: data
-    })
+      method: req.method,
+      hasAdminRole: hasAdminRole,
+      hasSubscriberRole: hasSubscriberRole,
+      data: data,
+    });
     res.status(200).json(data);
   }
-
 }

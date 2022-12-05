@@ -38,8 +38,9 @@ function Header() {
               <Link legacyBehavior href="/">
                 <a
                   href="/"
-                  className={`nav-link ${router.asPath === '/' ? 'active' : ''
-                    }`}
+                  className={`nav-link ${
+                    router.asPath === '/' ? 'active' : ''
+                  }`}
                   aria-current="page"
                 >
                   Home
@@ -52,8 +53,9 @@ function Header() {
                 <Link legacyBehavior href="/users">
                   <a
                     href="/"
-                    className={`nav-link ${router.asPath === '/users' ? 'active' : ''
-                      }`}
+                    className={`nav-link ${
+                      router.asPath === '/users' ? 'active' : ''
+                    }`}
                     aria-current="page"
                   >
                     Users
@@ -62,14 +64,14 @@ function Header() {
               </li>
             )}
 
-
             {userLoginStatus === true && (
               <li className="nav-item">
                 <Link legacyBehavior href="/gallery">
                   <a
                     href="/"
-                    className={`nav-link ${router.asPath === '/gallery' ? 'active' : ''
-                      }`}
+                    className={`nav-link ${
+                      router.asPath === '/gallery' ? 'active' : ''
+                    }`}
                     aria-current="page"
                   >
                     Gallery
@@ -92,8 +94,9 @@ function Header() {
                 <Link legacyBehavior href="/login">
                   <a
                     href="/"
-                    className={`nav-link ${router.asPath === '/login' ? 'active' : ''
-                      }`}
+                    className={`nav-link ${
+                      router.asPath === '/login' ? 'active' : ''
+                    }`}
                     aria-current="page"
                   >
                     Login
