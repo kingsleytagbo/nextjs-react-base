@@ -107,9 +107,8 @@ const ListUsers = () => {
 
   const postFormRequest = (formData: any) => {
     const headers = {
-      Authorization:
-        'Basic ' + btoa(formData.UserName + ':' + formData.Password),
       'Content-Type': 'application/json',
+      ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
     const url = API_FORM_URL + '/' + formData.ITCC_UserID;

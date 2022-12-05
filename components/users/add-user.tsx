@@ -4,6 +4,9 @@
 import React, { useState } from 'react';
 import UserForm from './user-form';
 import { EmptyUser } from '../../models/user';
+import { AUTH_KEY } from '../../services/constants';
+import { utils } from '../../services/utility';
+
 // CreateUser Component
 const AddUser = (props: any) => {
   const API_FORM_URL = '/api/users';
@@ -29,9 +32,8 @@ const AddUser = (props: any) => {
 
   const postFormRequest = (formData: any) => {
     const headers = {
-      Authorization:
-        'Basic ' + btoa(formData.UserName + ':' + formData.Password),
       'Content-Type': 'application/json',
+      ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
     return fetch(API_FORM_URL, {

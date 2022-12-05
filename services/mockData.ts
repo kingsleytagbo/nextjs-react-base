@@ -1,5 +1,45 @@
+import { NextApiRequest } from 'next';
 import { Gallery } from '../models/gallery';
-import { User } from '../models/user';
+import { User, EmptyUser } from '../models/user';
+
+export class MockAuthenticator {
+  private static _instance: MockAuthenticator;
+  public static get Instance() {
+    return this._instance || (this._instance = new this());
+  }
+
+  private constructor() {}
+  getAuthUser(req: NextApiRequest) {
+    const base64AuthenticationHeader =
+      (req.headers.authorization || '').split(' ')[1] || '';
+    const [authToken] = Buffer.from(base64AuthenticationHeader, 'base64')
+      .toString()
+      .split(':');
+    const authUser = MockServer.UserData.getUser({ ...EmptyUser, UserID: authToken });
+    return authUser;
+  }
+
+  hasAdminRole(authUser?: User){
+    const userRoles = authUser?.RoleNames || [''];
+    if(userRoles.indexOf('admin') > -1){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  hasSubscriberRole(authUser?: User){
+    const userRoles = authUser?.RoleNames || [''];
+    if(userRoles.indexOf('subscriber') > -1){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+}
 
 class MockUserData {
   users: Array<User> = [
@@ -67,7 +107,7 @@ class MockUserData {
 }
 
 class MockGalleryData {
-  users: Array<Gallery> = [
+  items: Array<Gallery> = [
     {
       ITCC_UserID: 1,
       UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9',
@@ -89,17 +129,17 @@ class MockGalleryData {
   private constructor() {}
 
   getGallerys() {
-    return this.users;
+    return this.items;
   }
 
   saveGallerys(values: any) {
-    this.users = values;
+    this.items = values;
   }
 
   getGallery(item: Gallery) {
     let user: Gallery | undefined;
-    if (this.users && this.users.length > 0) {
-      user = this.users.find(
+    if (this.items && this.items.length > 0) {
+      user = this.items.find(
         (user) =>
           user.ITCC_UserID === item.ITCC_UserID ||
           user.UserName === item.UserName ||
@@ -110,10 +150,10 @@ class MockGalleryData {
   }
 
   updateGallery(item: Gallery) {
-    if (this.users && this.users.length > 0) {
-      for (let u = 0; u < this.users.length; u++) {
-        if (this.users[u].ITCC_UserID === item.ITCC_UserID) {
-          this.users[u] = item;
+    if (this.items && this.items.length > 0) {
+      for (let u = 0; u < this.items.length; u++) {
+        if (this.items[u].ITCC_UserID === item.ITCC_UserID) {
+          this.items[u] = item;
         }
       }
     }
@@ -121,10 +161,10 @@ class MockGalleryData {
   }
 
   deleteGallery(item?: Gallery) {
-    if (item && this.users && this.users.length > 0) {
-      this.users.forEach((user, index) => {
+    if (item && this.items && this.items.length > 0) {
+      this.items.forEach((user, index) => {
         if (item === user) {
-          this.users.splice(index, 1);
+          this.items.splice(index, 1);
         }
       });
     }

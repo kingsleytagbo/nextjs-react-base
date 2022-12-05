@@ -167,5 +167,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - npm run prettier:fix
 
 ### Next.js SEO
-
 - Incremental Static Generation: https://blog.logrocket.com/incremental-static-regeneration-next-js/
+
+### Http Error Codes
+#### 401 vs. 403 http error codes
+https://www.freecodecamp.org/news/http-401-error-vs-http-403-error-status-code-responses-explained/

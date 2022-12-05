@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import GalleryForm from './gallery-form';
 import { EmptyGallery } from '../../models/gallery';
 import { BaseUrlTypes, utils } from '../../services/utility';
+import { AUTH_KEY } from '../../services/constants';
+
 // CreateGallery Component
 const AddGallery = (props: any) => {
   const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
@@ -30,9 +32,8 @@ const AddGallery = (props: any) => {
 
   const postFormRequest = (formData: any) => {
     const headers = {
-      Authorization:
-        'Basic ' + btoa(formData.UserName + ':' + formData.Password),
       'Content-Type': 'application/json',
+      ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
     return fetch(API_FORM_URL, {
