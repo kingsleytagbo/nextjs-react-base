@@ -2,7 +2,6 @@
 
 // Import Modules
 import React, { useState } from 'react';
-import Image from 'next/image';
 
 // GalleryDetail Component
 const GalleryDetail = (props: any) => {
@@ -30,7 +29,8 @@ const GalleryDetail = (props: any) => {
           <div className="col-md-4">
             
           <label>Image</label>
-            <Image alt="Image" src={props.Password} className="img-fluid" />
+            <img 
+            alt="Image" src={props.Password} className="img-fluid" />
           </div>
           <div className="col-md-4">
             <label>Email</label>

@@ -2,7 +2,6 @@
 
 // Import Modules
 import React, { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
 import { AUTH_KEY } from '../../services/constants';
 import { BaseUrlTypes, HttpRequestTypes, utils } from '../../services/utility';
 import GalleryForm from './gallery-form';
@@ -312,7 +311,7 @@ const ListGallerys = () => {
                         <div className="col-md-5">
                           {item.Password && <div>
                             <label> Image</label>
-                            <Image alt="Image" className="img-fluid" src={item.Password} />
+                            <img alt="image" className="img-fluid" src={item.Password} />
                           </div>
                           }
                         </div>
