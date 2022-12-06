@@ -69,7 +69,7 @@ export default function handler(
         ...EmptyGallery,
         ...value,
         ITCC_UserID: data.length + 1,
-        Password: filePath
+        Password: '/api/' + filePath
       };
 
       const findItem = MockServer.GalleryData.getGallery(item);
