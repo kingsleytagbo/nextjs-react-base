@@ -13,7 +13,7 @@ export default function handler(
   // get one image by id
   if (params && params.length === 1) {
 
-    const uploadDir = 'C:\\Users\\kings\\Downloads';
+    const uploadDir = process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY;
     const filePath = uploadDir + '\\' + params[0];
     const blankImagePath = 'img\\blank_image.png';
 

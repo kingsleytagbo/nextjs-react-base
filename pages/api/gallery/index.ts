@@ -47,7 +47,7 @@ export default function handler(
 
   if (req.method === 'POST' && hasAdminRole) {
     const form = new formidable.IncomingForm(
-      { uploadDir: 'C:\\Users\\kings\\Downloads', keepExtensions: true }
+      { uploadDir: process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY, keepExtensions: true }
     );
     form.parse(req, async function (err, fields, files) {
       const filePath = await saveFile(files.file);
