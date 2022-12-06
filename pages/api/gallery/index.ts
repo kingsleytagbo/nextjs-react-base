@@ -5,25 +5,24 @@ import fs from "fs";
 import { EmptyGallery, Gallery } from '../../../models/gallery';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 import { utils } from '../../../services/utility';
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+
   const body = req.body;
   const authUser = MockAuthenticator.Instance.getAuthUser(req);
   const hasAdminRole = MockAuthenticator.Instance.hasAdminRole(authUser);
   const hasSubscriberRole =
     MockAuthenticator.Instance.hasSubscriberRole(authUser);
 
-  const saveFile = async (file: any) => {
-    const data = fs.readFileSync(file.path);
-    console.log({data: data})
-    fs.writeFileSync(`./public/${file.name}`, data);
-    await fs.unlinkSync(file.path);
-    return;
-  };
-    
+
 
   switch (req.method) {
     case 'POST':
@@ -48,32 +47,43 @@ export default function handler(
   }
 
   if (req.method === 'POST' && hasAdminRole) {
-    const data = MockServer.GalleryData.getGallerys();
-    const item: Gallery = {
-      ...EmptyGallery,
-      ITCC_UserID: data.length + 1,
-      UserName: body.UserName,
-      Password: body.Password,
-      EmailAddress: body.EmailAddress,
-      FirstName: body.FirstName,
-      LastName: body.LastName,
-    };
-    const findItem = MockServer.GalleryData.getGallery(item);
-
-    if (!findItem) {
-      item.UserID = utils.generateUUID();
-      item.RoleNames = ['subscriber'];
-      data.push(item);
-      MockServer.GalleryData.saveGallerys(data);
-    }
-
-    const form = new formidable.IncomingForm();
-    console.log({req: form})
+    const form = new formidable.IncomingForm(
+      { uploadDir: 'C:\\Users\\kings\\Downloads', keepExtensions: true }
+    );
     form.parse(req, async function (err, fields, files) {
-      console.log({fields: fields, files: files, err: err});
+      createGallery(fields);
       await saveFile(files.file);
     });
-    res.status(200).json(MockServer.GalleryData.getGallerys());
+
+    const saveFile = async (file: any) => {
+      const data = fs.readFileSync(file.filePath);
+      const url = `${file.newFilename}`;
+      console.log({url: url, data : data})
+      fs.writeFileSync(url, data);
+      await fs.unlinkSync(url);
+      return;
+    };
+
+    const createGallery = (value: any) =>{
+      const data = MockServer.GalleryData.getGallerys();
+      const item: Gallery = {
+        ...EmptyGallery,
+        ...value,
+        ITCC_UserID: data.length + 1,
+      };
+      console.log({NewGallery: item})
+      const findItem = MockServer.GalleryData.getGallery(item);
+
+      if (!findItem) {
+        item.UserID = utils.generateUUID();
+        item.RoleNames = ['subscriber'];
+        data.push(item);
+        MockServer.GalleryData.saveGallerys(data);
+      }
+
+      res.status(200).json(MockServer.GalleryData.getGallerys());
+    }
+
 
   } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
     const data = MockServer.GalleryData.getGallerys();
