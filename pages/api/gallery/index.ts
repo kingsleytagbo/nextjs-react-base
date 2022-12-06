@@ -60,7 +60,6 @@ export default function handler(
       const url = `${file.newFilename}`;
       fs.writeFileSync(url, data);
       await fs.unlinkSync(url);
-      console.log({ url: url, data: data })
       return url;
     };
 
@@ -70,10 +69,11 @@ export default function handler(
         ...EmptyGallery,
         ...value,
         ITCC_UserID: data.length + 1,
-        UserName: filePath
+        Password: filePath
       };
-      console.log({ NewGallery: item })
+
       const findItem = MockServer.GalleryData.getGallery(item);
+      //console.log({ NewGallery: item, findItem: findItem });
 
       if (!findItem) {
         item.UserID = utils.generateUUID();
