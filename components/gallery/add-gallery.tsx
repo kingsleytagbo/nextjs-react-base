@@ -21,7 +21,7 @@ const AddGallery = (props: any) => {
   };
 
   const onSave = () => {
-    postFormRequest(editgallery);
+    postFormRequest();
     props.onSaveAddGallery();
   };
 
@@ -32,7 +32,6 @@ const AddGallery = (props: any) => {
 
   const onChangeImageHandle = (event: any) => {
     const file = event.target.files[0];
-    const fileName = file.name || 'image.png';
     const fileSize = file.size / 1024;
 
     if ((fileSize * 1024) > 100000) {
@@ -42,21 +41,10 @@ const AddGallery = (props: any) => {
 
     setEditGallery(editgallery);
 
-    /*
-    const formData = new FormData();
 
-    formData.append('File', file, fileName);
-    Object.entries(editgallery).forEach(([key,value]) => {
-      const item:any = value || '';
-      console.log(key,item);
-      formData.append(key, item);
-    });
-
-    console.log({formData: formData, file: file, filename: fileName, fileSize: fileSize})
-    */
   }
 
-  const postFormRequest = (data: any) => {
+  const postFormRequest = () => {
 
     const headers = {
       ...utils.getUserAuthHeader(AUTH_KEY),
@@ -76,7 +64,6 @@ const AddGallery = (props: any) => {
       }
     });
 
-    console.log({formData: Array.from(formData), file: file, fileName: fileName});
 
     return fetch(API_FORM_URL, {
       method: 'POST',

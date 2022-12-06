@@ -65,5 +65,6 @@ export default function handler(
 
     });
 
+    res.status(200);
   }
 }

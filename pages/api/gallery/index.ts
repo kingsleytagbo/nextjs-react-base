@@ -16,7 +16,6 @@ export default function handler(
   res: NextApiResponse<any>
 ) {
 
-  const body = req.body;
   const authUser = MockAuthenticator.Instance.getAuthUser(req);
   const hasAdminRole = MockAuthenticator.Instance.hasAdminRole(authUser);
   const hasSubscriberRole =

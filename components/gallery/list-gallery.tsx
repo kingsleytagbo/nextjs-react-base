@@ -2,6 +2,7 @@
 
 // Import Modules
 import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { AUTH_KEY } from '../../services/constants';
 import { BaseUrlTypes, HttpRequestTypes, utils } from '../../services/utility';
 import GalleryForm from './gallery-form';
@@ -71,7 +72,7 @@ const ListGallerys = () => {
     const result = fetchGallery(value, HttpRequestTypes.DELETE);
     result.then((response) => {
       const result = response.json();
-      fetchGallerys().then(() => { });
+      fetchGallerys().then();
       return result;
     });
   };
@@ -100,7 +101,7 @@ const ListGallerys = () => {
 
   const onSaveEditGallery = () => {
     postFormRequest(userdetail);
-    fetchGallerys().then(() => { });
+    fetchGallerys().then();
     setGalleryDetail({ ...EmptyGallery });
     setAddForm(false);
   };
@@ -311,7 +312,7 @@ const ListGallerys = () => {
                         <div className="col-md-5">
                           {item.Password && <div>
                             <label> Image</label>
-                            <img className="img-fluid" src={item.Password} />
+                            <Image alt="Image" className="img-fluid" src={item.Password} />
                           </div>
                           }
                         </div>
