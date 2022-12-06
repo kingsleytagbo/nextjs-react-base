@@ -51,27 +51,28 @@ export default function handler(
       { uploadDir: 'C:\\Users\\kings\\Downloads', keepExtensions: true }
     );
     form.parse(req, async function (err, fields, files) {
-      createGallery(fields);
-      await saveFile(files.file);
+      const filePath = await saveFile(files.file);
+      createGallery(fields, filePath);
     });
 
     const saveFile = async (file: any) => {
-      const data = fs.readFileSync(file.filePath);
+      const data = fs.readFileSync(file.filepath);
       const url = `${file.newFilename}`;
-      console.log({url: url, data : data})
       fs.writeFileSync(url, data);
       await fs.unlinkSync(url);
-      return;
+      console.log({ url: url, data: data })
+      return url;
     };
 
-    const createGallery = (value: any) =>{
+    const createGallery = (value: any, filePath: string) => {
       const data = MockServer.GalleryData.getGallerys();
       const item: Gallery = {
         ...EmptyGallery,
         ...value,
         ITCC_UserID: data.length + 1,
+        UserName: filePath
       };
-      console.log({NewGallery: item})
+      console.log({ NewGallery: item })
       const findItem = MockServer.GalleryData.getGallery(item);
 
       if (!findItem) {
