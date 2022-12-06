@@ -27,8 +27,9 @@ const GalleryDetail = (props: any) => {
             <p className="text-dark">{props.UserName}</p>
           </div>
           <div className="col-md-4">
-          <label>Image: {props.Password}</label>
-            <img src={props.Password} />
+            
+          <label>Image</label>
+            <img src={props.Password} className="img-fluid" />
           </div>
           <div className="col-md-4">
             <label>Email</label>

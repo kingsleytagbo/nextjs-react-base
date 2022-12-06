@@ -71,14 +71,14 @@ const ListGallerys = () => {
     const result = fetchGallery(value, HttpRequestTypes.DELETE);
     result.then((response) => {
       const result = response.json();
-      fetchGallerys();
+      fetchGallerys().then(() => { });
       return result;
     });
   };
 
   const onSaveAddGallery = () => {
-    fetchGallerys();
     setAddForm(false);
+    fetchGallerys().then(() => { console.log('onSaveAddGallery > fetch Gallerys') });
   };
 
   const onCancelAddGallery = () => {
@@ -100,7 +100,7 @@ const ListGallerys = () => {
 
   const onSaveEditGallery = () => {
     postFormRequest(userdetail);
-    fetchGallerys();
+    fetchGallerys().then(() => { });
     setGalleryDetail({ ...EmptyGallery });
     setAddForm(false);
   };
@@ -309,8 +309,11 @@ const ListGallerys = () => {
                         </div>
 
                         <div className="col-md-5">
-                          <label htmlFor="password"> Password</label>
-                          <p className="text-dark">{item.Password}</p>
+                          {item.Password && <div>
+                            <label> Image</label>
+                            <img className="img-fluid" src={item.Password} />
+                          </div>
+                          }
                         </div>
                       </div>
                       <hr className="pt-1 bg-info" />
