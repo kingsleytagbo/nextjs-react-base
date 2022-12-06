@@ -30,6 +30,26 @@ const AddGallery = (props: any) => {
     props.onCancelAddGallery();
   };
 
+  const onChangeImageHandle = (event: any) => {
+    const file = event.target.files[0];
+    const fileName = file.name || 'image.png';
+    const fileSize = file.size / 1024;
+
+    if ((fileSize * 1024) > 100000) {
+        return;
+    }
+    const formData = new FormData();
+
+    formData.append('file', file, fileName);
+    Object.entries(edituser).forEach(([key,value]) => {
+      const item:any = value || '';
+      console.log(key,item);
+      formData.append(key, item);
+    });
+
+    console.log({formData: formData, file: file, filename: fileName, fileSize: fileSize})
+}
+
   const postFormRequest = (formData: any) => {
     const headers = {
       'Content-Type': 'application/json',
@@ -52,6 +72,7 @@ const AddGallery = (props: any) => {
         onClick={onSave}
         onChange={onChange}
         onCancel={onCancel}
+        onChangeImageHandle={onChangeImageHandle}
       >
         <i className="bi bi-sticky"></i>&nbsp;Save
       </GalleryForm>

@@ -86,6 +86,15 @@ const GalleryForm = (props: any) => {
               </div>
             </div>
 
+            
+            <div className="row">
+              <div className="form-group col-12">
+                <label>Choose an Image:</label>
+                <input onChange={props.onChangeImageHandle} type="file" className="form-control input-md" id="ImageUpload" name="ImageUpload" />
+              </div>
+
+            </div>
+
             <div className="row">
               <div className="col-6">
                 <div className="d-grid mt-2">
@@ -112,6 +121,7 @@ const GalleryForm = (props: any) => {
                 </div>
               </div>
             </div>
+
           </form>
         </section>
 

@@ -105,6 +105,25 @@ const ListGallerys = () => {
     setAddForm(false);
   };
 
+  const onChangeImageHandle = (event: any) => {
+    const file = event.target.files[0];
+    const fileName = file.name || 'image.png';
+    const fileSize = file.size / 1024;
+
+    if ((fileSize * 1024) > 100000) {
+      return;
+    }
+    const formData = new FormData();
+
+    formData.append('file', file, fileName);
+    Object.entries(userdetail).forEach(([key, value]) => {
+      const item: any = value || '';
+      formData.append(key, item);
+    });
+
+    //console.log({formData: Array.from(formData.entries()), file: file, filename: fileName, fileSize: fileSize})
+  }
+
   const postFormRequest = (formData: any) => {
     const headers = {
       'Content-Type': 'application/json',
@@ -204,6 +223,7 @@ const ListGallerys = () => {
                 onChange={onChangeEditGallery}
                 onCancel={onCancelEditGallery}
                 onClick={onSaveEditGallery}
+                onChangeImageHandle={onChangeImageHandle}
               >
                 <i className="bi bi-sticky"> &nbsp; </i>Save
               </GalleryForm>
