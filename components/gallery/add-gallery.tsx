@@ -10,18 +10,18 @@ import { AUTH_KEY } from '../../services/constants';
 // CreateGallery Component
 const AddGallery = (props: any) => {
   const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
-  const [edituser, setEditGallery] = useState({ ...EmptyGallery });
+  const [editgallery, setEditGallery] = useState({ ...EmptyGallery });
 
   const onChange = (e: any) => {
     const key = e.target.name;
     const value = e.target.value;
-    const formState = { ...edituser, [key]: value };
+    const formState = { ...editgallery, [key]: value };
 
     setEditGallery(formState);
   };
 
   const onSave = () => {
-    postFormRequest(edituser);
+    postFormRequest(editgallery);
     props.onSaveAddGallery();
   };
 
@@ -36,29 +36,51 @@ const AddGallery = (props: any) => {
     const fileSize = file.size / 1024;
 
     if ((fileSize * 1024) > 100000) {
-        return;
+      return;
     }
+    editgallery.File = file;
+
+    setEditGallery(editgallery);
+
+    /*
     const formData = new FormData();
 
-    formData.append('file', file, fileName);
-    Object.entries(edituser).forEach(([key,value]) => {
+    formData.append('File', file, fileName);
+    Object.entries(editgallery).forEach(([key,value]) => {
       const item:any = value || '';
       console.log(key,item);
       formData.append(key, item);
     });
 
     console.log({formData: formData, file: file, filename: fileName, fileSize: fileSize})
-}
+    */
+  }
 
-  const postFormRequest = (formData: any) => {
+  const postFormRequest = (data: any) => {
+
     const headers = {
-      'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
+    const formData = new FormData();
+    const file = editgallery.File;
+    const fileName = editgallery.File?.name || 'image.png';
+    
+    if (file) {
+      formData.append('file', file, fileName);
+    }
+    Object.entries(editgallery).forEach(([key, value]) => {
+      if (key !== 'File') {
+        const item: any = value || '';
+        formData.append(key, item);
+      }
+    });
+
+    console.log({formData: Array.from(formData), file: file, fileName: fileName});
+
     return fetch(API_FORM_URL, {
       method: 'POST',
-      body: JSON.stringify(formData),
+      body: formData,
       headers: headers,
     }).then((response) => response.json());
   };
@@ -67,7 +89,7 @@ const AddGallery = (props: any) => {
   return (
     <section>
       <GalleryForm
-        {...edituser}
+        {...editgallery}
         title="Create A New Gallery"
         onClick={onSave}
         onChange={onChange}

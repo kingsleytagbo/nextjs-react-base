@@ -1,5 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
+import formidable from "formidable";
+import fs from "fs";
 import { EmptyGallery, Gallery } from '../../../models/gallery';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 import { utils } from '../../../services/utility';
@@ -13,6 +15,15 @@ export default function handler(
   const hasAdminRole = MockAuthenticator.Instance.hasAdminRole(authUser);
   const hasSubscriberRole =
     MockAuthenticator.Instance.hasSubscriberRole(authUser);
+
+  const saveFile = async (file: any) => {
+    const data = fs.readFileSync(file.path);
+    console.log({data: data})
+    fs.writeFileSync(`./public/${file.name}`, data);
+    await fs.unlinkSync(file.path);
+    return;
+  };
+    
 
   switch (req.method) {
     case 'POST':
@@ -56,15 +67,16 @@ export default function handler(
       MockServer.GalleryData.saveGallerys(data);
     }
 
+    const form = new formidable.IncomingForm();
+    console.log({req: form})
+    form.parse(req, async function (err, fields, files) {
+      console.log({fields: fields, files: files, err: err});
+      await saveFile(files.file);
+    });
     res.status(200).json(MockServer.GalleryData.getGallerys());
+
   } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
     const data = MockServer.GalleryData.getGallerys();
-    console.log({
-      method: req.method,
-      hasAdminRole: hasAdminRole,
-      hasSubscriberRole: hasSubscriberRole,
-      data: data,
-    });
     res.status(200).json(data);
   }
 }

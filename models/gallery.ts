@@ -7,6 +7,7 @@ export type Gallery = {
   FirstName: string;
   LastName: string;
   RoleNames?: Array<string>;
+  File?:File;
 };
 
 export const EmptyGallery: Gallery = {
@@ -17,5 +18,5 @@ export const EmptyGallery: Gallery = {
   EmailAddress: '',
   FirstName: '',
   LastName: '',
-  RoleNames: [],
+  RoleNames: []
 };
