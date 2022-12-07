@@ -18,7 +18,6 @@ export default function handler(
     const blankImagePath = 'img\\blank_image.png';
 
     fs.exists(filePath, function (exists) {
-      console.log({ filePath: filePath, exists: exists });
 
       if (!exists) {
         res.writeHead(200, {
@@ -47,8 +46,6 @@ export default function handler(
           fileExtension: fileExtension, contentType: contentType,
           params: params
         };
-
-        console.log(payload);
 
         // Setting the headers
         res.writeHead(200, {

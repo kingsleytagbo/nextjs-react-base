@@ -100,7 +100,7 @@ const ListGallerys = () => {
 
   const onSaveEditGallery = () => {
     postFormRequest(userdetail);
-    fetchGallerys().then(() =>{console.log('onSaveEditGallery > fetch Gallerys')});
+    fetchGallerys().then(() => { console.log('onSaveEditGallery > fetch Gallerys') });
     setGalleryDetail({ ...EmptyGallery });
     setAddForm(false);
   };
@@ -304,23 +304,32 @@ const ListGallerys = () => {
                         </div>
 
                         <div className="col-md-5">
-                          <label htmlFor="username">Name</label>
                           <p className="text-dark">{item.Name}</p>
                         </div>
 
                         <div className="col-md-5">
                           {item.FilePath && <div>
-                            <label> Image</label>
                             <img alt="image" className="img-fluid" src={item.FilePath} />
                           </div>
                           }
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <a
+                            href={item.PublishUrl}
+                            className="text-primary"
+                            target="_blank"
+                          >
+                            {item.PublishUrl}
+                          </a>
+                          <p className="text-dark">{item.Description}</p>
+                        </div>
+                      </div>
                       <hr className="pt-1 bg-info" />
                     </section>
-                  );
+                  )
                 })}
-                ;
               </div>
             </section>
           )}

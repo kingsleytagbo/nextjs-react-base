@@ -62,18 +62,19 @@ export default function handler(
       return url;
     };
 
-    const createGallery = (value: any, filePath: string) => {
+    const createGallery = (value: any, path: string) => {
       const data = MockServer.GalleryData.getGallerys();
+      const filePath = '/api/image/' + path;
+
       const item: Gallery = {
         ...EmptyGallery,
         ...value,
         ITCC_ImageID: data.length + 1,
-        FilePath: '/api/image/' + filePath
+        FilePath: filePath,
+        PublishUrl: process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + '/image/' + path
       };
 
       const findItem = MockServer.GalleryData.getGallery(item);
-      //console.log({ NewGallery: item, findItem: findItem });
-
       if (!findItem) {
         data.push(item);
         MockServer.GalleryData.saveGallerys(data);
