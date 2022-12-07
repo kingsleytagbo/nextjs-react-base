@@ -14,42 +14,42 @@ const GalleryForm = (props: any) => {
           <form className="card-body">
             <div className="row">
               <div className="col-md-4">
-                <label htmlFor="username">UserName</label>
+                <label htmlFor="Name">Name</label>
                 <input
-                  value={props.UserName}
+                  value={props.Name}
                   onChange={props.onChange}
                   className="form-control"
-                  id="UserName"
-                  name="UserName"
-                  placeholder="Your username ..."
+                  id="Name"
+                  name="Name"
+                  placeholder="Your Name ..."
                   type="text"
                   autoComplete="false"
                 />
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="password"> Password</label>
+                <label htmlFor="Description"> Description</label>
                 <input
-                  value={props.Password}
+                  value={props.Description}
                   onChange={props.onChange}
                   className="form-control"
-                  id="Password"
-                  name="Password"
-                  placeholder="Your password ..."
-                  type="password"
+                  id="Description"
+                  name="Description"
+                  placeholder="Your Description ..."
+                  type="text"
                   autoComplete="false"
                 />
               </div>
 
               <div className="col-md-4">
-                <label htmlFor="password"> Email</label>
+                <label htmlFor="FilePath"> FilePath</label>
                 <input
-                  value={props.EmailAddress}
+                  value={props.FilePath}
                   onChange={props.onChange}
                   className="form-control"
-                  id="EmailAddress"
-                  name="EmailAddress"
-                  placeholder="Your email address ..."
+                  id="FilePath"
+                  name="FilePath"
+                  placeholder="Your FilePath ..."
                   type="text"
                   autoComplete="false"
                 />
@@ -58,28 +58,28 @@ const GalleryForm = (props: any) => {
 
             <div className="row">
               <div className="col-md-6">
-                <label htmlFor="username">FirstName</label>
+                <label htmlFor="FileGroup">FileGroup</label>
                 <input
-                  value={props.FirstName}
+                  value={props.FileGroup}
                   onChange={props.onChange}
                   className="form-control"
-                  id="FirstName"
-                  name="FirstName"
-                  placeholder="Your firstname ..."
+                  id="FileGroup"
+                  name="FileGroup"
+                  placeholder="Your FileGroup ..."
                   type="text"
                   autoComplete="false"
                 />
               </div>
 
               <div className="col-md-6">
-                <label htmlFor="password"> LastName</label>
+                <label htmlFor="PublishUrl"> PublishUrl</label>
                 <input
-                  value={props.LastName}
+                  value={props.PublishUrl}
                   onChange={props.onChange}
                   className="form-control"
-                  id="LastName"
-                  name="LastName"
-                  placeholder="Your last name ..."
+                  id="PublishUrl"
+                  name="PublishUrl"
+                  placeholder="Your PublishUrl ..."
                   type="text"
                   autoComplete="false"
                 />

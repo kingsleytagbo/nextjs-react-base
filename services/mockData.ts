@@ -108,16 +108,6 @@ class MockUserData {
 
 class MockGalleryData {
   items: Array<Gallery> = [
-    {
-      ITCC_UserID: 1,
-      UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9',
-      UserName: 'admin',
-      EmailAddress: '',
-      FirstName: 'System',
-      LastName: 'Admin',
-      Password: 'password',
-      RoleNames: ['admin'],
-    },
   ];
 
   private static _instance: MockGalleryData;
@@ -141,9 +131,8 @@ class MockGalleryData {
     if (this.items && this.items.length > 0) {
       user = this.items.find(
         (user) =>
-          user.ITCC_UserID === item.ITCC_UserID ||
-          user.UserName === item.UserName ||
-          user.UserID === item.UserID
+          user.ITCC_ImageID === item.ITCC_ImageID ||
+          user.FilePath === item.FilePath
       );
     }
     return user;
@@ -152,7 +141,7 @@ class MockGalleryData {
   updateGallery(item: Gallery) {
     if (this.items && this.items.length > 0) {
       for (let u = 0; u < this.items.length; u++) {
-        if (this.items[u].ITCC_UserID === item.ITCC_UserID) {
+        if (this.items[u].ITCC_ImageID === item.ITCC_ImageID) {
           this.items[u] = item;
         }
       }

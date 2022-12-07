@@ -22,29 +22,33 @@ const GalleryDetail = (props: any) => {
           <i className="bi bi-person"></i> {props.title}
         </h3>
         <div className="row">
-          <div className="col-md-4">
-            <label>UserName</label>
-            <p className="text-dark">{props.UserName}</p>
+          <div className="col-md-6">
+            <label>Name</label>
+            <p className="text-dark">{props.Name}</p>
+          </div>
+
+          <div className="col-md-6">
+            <label>Description</label>
+            <p className="text-dark">{props.Description}</p>
+          </div>
+        </div>
+
+        <div className="row">
+        <div className="col-md-6">
+            <label>FileGroup</label>
+            <p className="text-dark">{props.FileGroup}</p>
           </div>
           <div className="col-md-4">
-            
+            <label htmlFor="username">FilePath</label>
+            <p className="text-dark">{props.FilePath}</p>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-12">
           <label>Image</label>
             <img 
             alt="Image" src={props.Password} className="img-fluid" />
-          </div>
-          <div className="col-md-4">
-            <label>Email</label>
-            <p className="text-dark">{props.EmailAddress}</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-4">
-            <label htmlFor="username">FirstName</label>
-            <p className="text-dark">{props.FirstName}</p>
-          </div>
-          <div className="col-md-4">
-            <label htmlFor="username">LastName</label>
-            <p className="text-dark">{props.LastName}</p>
           </div>
         </div>
 

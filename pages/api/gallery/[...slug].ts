@@ -48,14 +48,12 @@ export default function handler(
   if (req.method === 'PUT' && hasAdminRole) {
     const item: Gallery = {
       ...EmptyGallery,
-      ITCC_UserID: body.ITCC_UserID,
-      UserID: body.UserID,
-      UserName: body.UserName,
-      Password: body.Password,
-      RoleNames: body.RoleNames,
-      EmailAddress: body.EmailAddress,
-      FirstName: body.FirstName,
-      LastName: body.LastName,
+      ITCC_ImageID: body.ITCC_ImageID,
+      Name: body.Name,
+      Description: body.Description,
+      FilePath: body.FilePath,
+      FileGroup: body.FileGroup,
+      File: body.File
     };
 
     MockServer.GalleryData.updateGallery(item);
@@ -64,7 +62,7 @@ export default function handler(
     const deleteUserId = slug && slug.length > 0 ? Number(slug[0]) : 0;
     const deleteUser = MockServer.GalleryData.getGallery({
       ...EmptyGallery,
-      ITCC_UserID: deleteUserId,
+      ITCC_ImageID: deleteUserId,
     });
 
     MockServer.GalleryData.deleteGallery(deleteUser);
@@ -75,7 +73,7 @@ export default function handler(
       const items = MockServer.GalleryData.getGallerys();
 
       const item =
-        items.find((u) => u.ITCC_UserID === Number(params[0])) || EmptyGallery;
+        items.find((u) => u.ITCC_ImageID === Number(params[0])) || EmptyGallery;
 
       res.status(200).json(item);
     } else {

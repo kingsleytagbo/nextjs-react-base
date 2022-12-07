@@ -12,7 +12,7 @@ const GalleryPage: NextPage = () => {
   }, []);
 
   return (
-    <main className="bg-light">
+    <main className="container-fluid bg-light">
       <Meta
         description={'Manage Gallerys Page'}
         title={'Gallerys'}
@@ -20,7 +20,7 @@ const GalleryPage: NextPage = () => {
       />
       <Header></Header>
 
-      <section className="container-fluid bg-secondary vh-100">
+      <section className="bg-secondary mb-5">
         <div className="row">
           <div className="col-md-12">
             <section>

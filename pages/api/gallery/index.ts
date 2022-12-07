@@ -67,16 +67,14 @@ export default function handler(
       const item: Gallery = {
         ...EmptyGallery,
         ...value,
-        ITCC_UserID: data.length + 1,
-        Password: '/api/image/' + filePath
+        ITCC_ImageID: data.length + 1,
+        FilePath: '/api/image/' + filePath
       };
 
       const findItem = MockServer.GalleryData.getGallery(item);
       //console.log({ NewGallery: item, findItem: findItem });
 
       if (!findItem) {
-        item.UserID = utils.generateUUID();
-        item.RoleNames = ['subscriber'];
         data.push(item);
         MockServer.GalleryData.saveGallerys(data);
       }

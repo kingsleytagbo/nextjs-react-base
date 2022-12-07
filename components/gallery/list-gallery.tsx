@@ -26,7 +26,7 @@ const ListGallerys = () => {
   };
 
   const getGalleryDetail = (item: any) => {
-    const result = fetchGallery(item.ITCC_UserID, HttpRequestTypes.GET);
+    const result = fetchGallery(item.ITCC_ImageID, HttpRequestTypes.GET);
     result.then((response) => {
       const result = response.json();
       if (result) {
@@ -77,8 +77,8 @@ const ListGallerys = () => {
   };
 
   const onSaveAddGallery = () => {
-    setAddForm(false);
     fetchGallerys().then(() => { console.log('onSaveAddGallery > fetch Gallerys') });
+    setAddForm(false);
   };
 
   const onCancelAddGallery = () => {
@@ -100,7 +100,7 @@ const ListGallerys = () => {
 
   const onSaveEditGallery = () => {
     postFormRequest(userdetail);
-    fetchGallerys().then();
+    fetchGallerys().then(() =>{console.log('onSaveEditGallery > fetch Gallerys')});
     setGalleryDetail({ ...EmptyGallery });
     setAddForm(false);
   };
@@ -130,7 +130,7 @@ const ListGallerys = () => {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
-    const url = API_FORM_URL + '/' + formData.ITCC_UserID;
+    const url = API_FORM_URL + '/' + formData.ITCC_ImageID;
     return fetch(url, {
       method: 'PUT',
       body: JSON.stringify(formData),
@@ -184,13 +184,13 @@ const ListGallerys = () => {
   }, [fetchGallerys]);
 
   return (
-    <div className="align-items-center justify-content-center mt-5 mb-5">
+    <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-          {!displayAddForm && userdetail.ITCC_UserID === 0 && (
+          {!displayAddForm && userdetail.ITCC_ImageID === 0 && (
             <div className="d-grid mt-1">
               <button
                 onClick={() => handleAddGalleryClick()}
@@ -215,7 +215,7 @@ const ListGallerys = () => {
           {/* <!-- END ADD USER  --> */}
 
           {/* <!-- BEGIN EDIT USER  --> */}
-          {(edituser.edit && userdetail.ITCC_UserID) > 0 && (
+          {(edituser.edit && userdetail.ITCC_ImageID) > 0 && (
             <section className="card py-1 mt-1">
               <GalleryForm
                 {...userdetail}
@@ -232,7 +232,7 @@ const ListGallerys = () => {
           {/* <!-- END EDIT USER  --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(edituser.detail && userdetail.ITCC_UserID) > 0 && (
+          {(edituser.detail && userdetail.ITCC_ImageID) > 0 && (
             <section className="card py-1 mt-1">
               <GalleryDetail
                 {...userdetail}
@@ -245,7 +245,7 @@ const ListGallerys = () => {
           {/* <!-- END USER DETAIL --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(edituser.delete && userdetail.ITCC_UserID) > 0 && (
+          {(edituser.delete && userdetail.ITCC_ImageID) > 0 && (
             <section className="card py-1 mt-1">
               <GalleryDetail
                 {...userdetail}
@@ -260,7 +260,7 @@ const ListGallerys = () => {
 
           {/* <!-- BEGIN LIST USERS  --> */}
 
-          {userdetail.ITCC_UserID === 0 && (
+          {userdetail.ITCC_ImageID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
                 <i className="bi bi-people"></i> Gallerys
@@ -304,14 +304,14 @@ const ListGallerys = () => {
                         </div>
 
                         <div className="col-md-5">
-                          <label htmlFor="username">UserName</label>
-                          <p className="text-dark">{item.UserName}</p>
+                          <label htmlFor="username">Name</label>
+                          <p className="text-dark">{item.Name}</p>
                         </div>
 
                         <div className="col-md-5">
-                          {item.Password && <div>
+                          {item.FilePath && <div>
                             <label> Image</label>
-                            <img alt="image" className="img-fluid" src={item.Password} />
+                            <img alt="image" className="img-fluid" src={item.FilePath} />
                           </div>
                           }
                         </div>
