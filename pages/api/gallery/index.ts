@@ -4,7 +4,6 @@ import formidable from "formidable";
 import fs from "fs";
 import { EmptyGallery, Gallery } from '../../../models/gallery';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
-import { utils } from '../../../services/utility';
 export const config = {
   api: {
     bodyParser: false,

@@ -10,14 +10,14 @@ import { AUTH_KEY } from '../../services/constants';
 // CreateGallery Component
 const AddGallery = (props: any) => {
   const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
-  const [editgallery, setEditGallery] = useState({ ...EmptyGallery });
+  const [editItem, setEditItem] = useState({ ...EmptyGallery });
 
   const onChange = (e: any) => {
     const key = e.target.name;
     const value = e.target.value;
-    const formState = { ...editgallery, [key]: value };
+    const formState = { ...editItem, [key]: value };
 
-    setEditGallery(formState);
+    setEditItem(formState);
   };
 
   const onSave = () => {
@@ -26,7 +26,7 @@ const AddGallery = (props: any) => {
   };
 
   const onCancel = () => {
-    setEditGallery({ ...EmptyGallery });
+    setEditItem({ ...EmptyGallery });
     props.onCancelAddGallery();
   };
 
@@ -37,9 +37,9 @@ const AddGallery = (props: any) => {
     if ((fileSize * 1024) > 100000) {
       return;
     }
-    editgallery.File = file;
+    editItem.File = file;
 
-    setEditGallery(editgallery);
+    setEditItem(editItem);
 
 
   }
@@ -51,13 +51,13 @@ const AddGallery = (props: any) => {
     };
 
     const formData = new FormData();
-    const file = editgallery.File;
-    const fileName = editgallery.File?.name || 'image.png';
+    const file = editItem.File;
+    const fileName = editItem.File?.name || 'image.png';
     
     if (file) {
       formData.append('file', file, fileName);
     }
-    Object.entries(editgallery).forEach(([key, value]) => {
+    Object.entries(editItem).forEach(([key, value]) => {
       if (key !== 'File') {
         const item: any = value || '';
         formData.append(key, item);
@@ -76,7 +76,7 @@ const AddGallery = (props: any) => {
   return (
     <section>
       <GalleryForm
-        {...editgallery}
+        {...editItem}
         title="Create A New Gallery"
         onClick={onSave}
         onChange={onChange}

@@ -1,4 +1,4 @@
-// ListGallerys Component for fetching & listing all users
+// ListGallerys Component for fetching & listing all items
 
 // Import Modules
 import React, { useState, useEffect, useCallback } from 'react';
@@ -14,9 +14,9 @@ const editmodes = { edit: false, detail: false, delete: false };
 
 // List Gallerys Component
 const ListGallerys = () => {
-  const [users, setGallerys] = useState([]);
-  const [edituser, setEditGallery] = useState({ ...editmodes });
-  const [userdetail, setGalleryDetail] = useState({ ...EmptyGallery });
+  const [items, setItems] = useState([]);
+  const [editItem, setEditItem] = useState({ ...editmodes });
+  const [itemDetail, setItemDetail] = useState({ ...EmptyGallery });
   const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
 
@@ -32,7 +32,7 @@ const ListGallerys = () => {
       if (result) {
         result.then(
           (result: any) => {
-            setGalleryDetail(result);
+            setItemDetail(result);
           },
           (error: any) => {
             return error;
@@ -47,27 +47,27 @@ const ListGallerys = () => {
   };
 
   const handleEditGallery = (item: any) => {
-    setEditGallery({ ...editmodes, edit: true });
+    setEditItem({ ...editmodes, edit: true });
     getGalleryDetail(item);
   };
 
   const handleDeleteGallery = (item: any) => {
-    setEditGallery({ ...editmodes, delete: true });
+    setEditItem({ ...editmodes, delete: true });
     getGalleryDetail(item);
   };
 
   const handleGalleryDetail = (item: any) => {
-    setEditGallery({ ...editmodes, detail: true });
+    setEditItem({ ...editmodes, detail: true });
     getGalleryDetail(item);
   };
 
   const onCancelGalleryDetail = () => {
-    setEditGallery({ ...editmodes });
-    setGalleryDetail({ ...EmptyGallery });
+    setEditItem({ ...editmodes });
+    setItemDetail({ ...EmptyGallery });
   };
   const onConfirmDelete = (value: any) => {
-    setEditGallery({ ...editmodes });
-    setGalleryDetail({ ...EmptyGallery });
+    setEditItem({ ...editmodes });
+    setItemDetail({ ...EmptyGallery });
     const result = fetchGallery(value, HttpRequestTypes.DELETE);
     result.then((response) => {
       const result = response.json();
@@ -88,20 +88,20 @@ const ListGallerys = () => {
   const onChangeEditGallery = (e: any) => {
     const key: any = e.target.name;
     const value: any = e.target.value;
-    const formState: any = { ...userdetail, [key]: value };
+    const formState: any = { ...itemDetail, [key]: value };
 
-    setGalleryDetail(formState);
+    setItemDetail(formState);
   };
 
   const onCancelEditGallery = () => {
-    setEditGallery({ ...editmodes });
-    setGalleryDetail({ ...EmptyGallery });
+    setEditItem({ ...editmodes });
+    setItemDetail({ ...EmptyGallery });
   };
 
   const onSaveEditGallery = () => {
-    postFormRequest(userdetail);
+    postFormRequest(itemDetail);
     fetchGallerys().then(() => { console.log('onSaveEditGallery > fetch Gallerys') });
-    setGalleryDetail({ ...EmptyGallery });
+    setItemDetail({ ...EmptyGallery });
     setAddForm(false);
   };
 
@@ -116,7 +116,7 @@ const ListGallerys = () => {
     const formData = new FormData();
 
     formData.append('file', file, fileName);
-    Object.entries(userdetail).forEach(([key, value]) => {
+    Object.entries(itemDetail).forEach(([key, value]) => {
       const item: any = value || '';
       formData.append(key, item);
     });
@@ -153,7 +153,7 @@ const ListGallerys = () => {
       if (result) {
         result.then(
           (result: any) => {
-            setGallerys(result);
+            setItems(result);
           },
           (error: any) => {
             return error;
@@ -190,7 +190,7 @@ const ListGallerys = () => {
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-          {!displayAddForm && userdetail.ITCC_ImageID === 0 && (
+          {!displayAddForm && itemDetail.ITCC_ImageID === 0 && (
             <div className="d-grid mt-1">
               <button
                 onClick={() => handleAddGalleryClick()}
@@ -215,10 +215,10 @@ const ListGallerys = () => {
           {/* <!-- END ADD USER  --> */}
 
           {/* <!-- BEGIN EDIT USER  --> */}
-          {(edituser.edit && userdetail.ITCC_ImageID) > 0 && (
+          {(editItem.edit && itemDetail.ITCC_ImageID) > 0 && (
             <section className="card py-1 mt-1">
               <GalleryForm
-                {...userdetail}
+                {...itemDetail}
                 title="Edit Gallery"
                 onChange={onChangeEditGallery}
                 onCancel={onCancelEditGallery}
@@ -232,11 +232,11 @@ const ListGallerys = () => {
           {/* <!-- END EDIT USER  --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(edituser.detail && userdetail.ITCC_ImageID) > 0 && (
+          {(editItem.detail && itemDetail.ITCC_ImageID) > 0 && (
             <section className="card py-1 mt-1">
               <GalleryDetail
-                {...userdetail}
-                {...edituser}
+                {...itemDetail}
+                {...editItem}
                 title="Gallery Details"
                 onCancel={onCancelGalleryDetail}
               ></GalleryDetail>
@@ -245,11 +245,11 @@ const ListGallerys = () => {
           {/* <!-- END USER DETAIL --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(edituser.delete && userdetail.ITCC_ImageID) > 0 && (
+          {(editItem.delete && itemDetail.ITCC_ImageID) > 0 && (
             <section className="card py-1 mt-1">
               <GalleryDetail
-                {...userdetail}
-                {...edituser}
+                {...itemDetail}
+                {...editItem}
                 title="Delete Gallery"
                 onCancel={onCancelGalleryDetail}
                 onConfirmDelete={onConfirmDelete}
@@ -260,14 +260,14 @@ const ListGallerys = () => {
 
           {/* <!-- BEGIN LIST USERS  --> */}
 
-          {userdetail.ITCC_ImageID === 0 && (
+          {itemDetail.ITCC_ImageID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
                 <i className="bi bi-people"></i> Gallerys
               </h3>
 
               <div className="card-body">
-                {users.map((item: any, index: number) => {
+                {items.map((item: any, index: number) => {
                   return (
                     <section key={index}>
                       <div className="row">
@@ -319,6 +319,7 @@ const ListGallerys = () => {
                           <a
                             href={item.PublishUrl}
                             className="text-primary"
+                            rel="noreferrer"
                             target="_blank"
                           >
                             {item.PublishUrl}

@@ -41,11 +41,6 @@ export default function handler(
         else if (fileExtension === ".jpeg") {
           contentType = "image/jpeg";
         }
-        const payload = {
-          filePath: filePath,
-          fileExtension: fileExtension, contentType: contentType,
-          params: params
-        };
 
         // Setting the headers
         res.writeHead(200, {
