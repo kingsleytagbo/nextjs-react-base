@@ -38,9 +38,8 @@ function Header() {
               <Link legacyBehavior href="/">
                 <a
                   href="/"
-                  className={`nav-link ${
-                    router.asPath === '/' ? 'active' : ''
-                  }`}
+                  className={`nav-link ${router.asPath === '/' ? 'active' : ''
+                    }`}
                   aria-current="page"
                 >
                   Home
@@ -49,32 +48,44 @@ function Header() {
             </li>
 
             {userLoginStatus === true && (
-              <li className="nav-item">
-                <Link legacyBehavior href="/users">
-                  <a
-                    href="/"
-                    className={`nav-link ${
-                      router.asPath === '/users' ? 'active' : ''
-                    }`}
-                    aria-current="page"
-                  >
-                    Users
-                  </a>
-                </Link>
-              </li>
+              <>
+                <li className="nav-item">
+                  <Link legacyBehavior href="/blogs">
+                    <a
+                      href="/blogs"
+                      className={`nav-link ${router.asPath === '/blogs' ? 'active' : ''
+                        }`}
+                      aria-current="page"
+                    >
+                      Blogs
+                    </a>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link legacyBehavior href="/gallery">
+                    <a
+                      href="/gallery"
+                      className={`nav-link ${router.asPath === '/gallery' ? 'active' : ''
+                        }`}
+                      aria-current="page"
+                    >
+                      Gallery
+                    </a>
+                  </Link>
+                </li>
+              </>
             )}
 
             {userLoginStatus === true && (
               <li className="nav-item">
-                <Link legacyBehavior href="/gallery">
+                <Link legacyBehavior href="/users">
                   <a
                     href="/"
-                    className={`nav-link ${
-                      router.asPath === '/gallery' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${router.asPath === '/users' ? 'active' : ''
+                      }`}
                     aria-current="page"
                   >
-                    Gallery
+                    Users
                   </a>
                 </Link>
               </li>
@@ -94,9 +105,8 @@ function Header() {
                 <Link legacyBehavior href="/login">
                   <a
                     href="/"
-                    className={`nav-link ${
-                      router.asPath === '/login' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${router.asPath === '/login' ? 'active' : ''
+                      }`}
                     aria-current="page"
                   >
                     Login
