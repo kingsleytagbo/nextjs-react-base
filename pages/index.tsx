@@ -1,23 +1,24 @@
 import type { NextPage } from 'next';
-import LoginForm from '../components/authentication/login-form';
+import ListBlogs from '../components/blogs/list-blogs';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Meta from '../components/metatags';
 
 const Home: NextPage = () => {
   return (
-    <main className="bg-light">
+    <main className="container-fluid bg-light">
       <Meta
-        description={'Home Page'}
+        description={'Home'}
         title={'Home'}
-        canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL}
+        canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/'}
       />
       <Header></Header>
-      <section className="container-fluid bg-secondary vh-100">
+
+      <section className="bg-secondary mb-5">
         <div className="row">
           <div className="col-md-12">
             <section>
-              <LoginForm></LoginForm>
+              <ListBlogs></ListBlogs>
             </section>
           </div>
         </div>

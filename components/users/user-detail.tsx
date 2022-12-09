@@ -37,11 +37,11 @@ const UserDetail = (props: any) => {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label htmlFor="username">FirstName</label>
+            <label>FirstName</label>
             <p className="text-dark">{props.FirstName}</p>
           </div>
           <div className="col-md-4">
-            <label htmlFor="username">LastName</label>
+            <label>LastName</label>
             <p className="text-dark">{props.LastName}</p>
           </div>
         </div>

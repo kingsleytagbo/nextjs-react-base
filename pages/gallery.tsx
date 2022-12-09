@@ -16,7 +16,7 @@ const GalleryPage: NextPage = () => {
       <Meta
         description={'Manage Gallerys Page'}
         title={'Gallerys'}
-        canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/users'}
+        canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/gallery'}
       />
       <Header></Header>
 

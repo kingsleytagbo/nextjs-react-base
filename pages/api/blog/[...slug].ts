@@ -51,9 +51,12 @@ export default function handler(
       ITCC_BlogID: body.ITCC_BlogID,
       Name: body.Name,
       Description: body.Description,
-      FilePath: body.FilePath,
-      FileGroup: body.FileGroup,
-      File: body.File
+      Slug: (body.Slug || ''),
+      Permalink: (body.Permalink || ''),
+      ImageUrl: (body.ImageUrl || ''),
+      Category: (body.Category || ''),
+      BlogType: (body.BlogType || ''),
+      Tags: (body.Tags || '')
     };
 
     MockServer.BlogData.updateBlog(item);

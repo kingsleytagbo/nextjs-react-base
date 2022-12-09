@@ -21,7 +21,7 @@ const AddBlog = (props: any) => {
   };
 
   const onSave = () => {
-    postFormRequest();
+    postFormRequest(editItem);
     props.onSaveAddBlog();
   };
 
@@ -30,44 +30,16 @@ const AddBlog = (props: any) => {
     props.onCancelAddBlog();
   };
 
-  const onChangeImageHandle = (event: any) => {
-    const file = event.target.files[0];
-    const fileSize = file.size / 1024;
 
-    if ((fileSize * 1024) > 100000) {
-      return;
-    }
-    editItem.File = file;
-
-    setEditItem(editItem);
-
-
-  }
-
-  const postFormRequest = () => {
-
+  const postFormRequest = (formData: any) => {
     const headers = {
+      'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
-    const formData = new FormData();
-    const file = editItem.File;
-    const fileName = editItem.File?.name || 'image.png';
-    
-    if (file) {
-      formData.append('file', file, fileName);
-    }
-    Object.entries(editItem).forEach(([key, value]) => {
-      if (key !== 'File') {
-        const item: any = value || '';
-        formData.append(key, item);
-      }
-    });
-
-
     return fetch(API_FORM_URL, {
       method: 'POST',
-      body: formData,
+      body: JSON.stringify(formData),
       headers: headers,
     }).then((response) => response.json());
   };
@@ -81,7 +53,6 @@ const AddBlog = (props: any) => {
         onClick={onSave}
         onChange={onChange}
         onCancel={onCancel}
-        onChangeImageHandle={onChangeImageHandle}
       >
         <i className="bi bi-sticky"></i>&nbsp;Save
       </BlogForm>

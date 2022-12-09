@@ -308,25 +308,28 @@ const ListBlogs = () => {
                         </div>
 
                         <div className="col-md-5">
-                          {item.FilePath && <div>
-                            <img alt="image" className="img-fluid" src={item.FilePath} />
+                          <p className="text-dark">{item.Category}</p>
+                        </div>
+
+                      </div>
+
+                      {item.ImageUrl &&
+                        <div className="row">
+                          <div className="col-md-12">
+                            <a
+                              href={item.ImageUrl}
+                              className="text-primary"
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              <img
+                                alt="Image" src={item.ImageUrl} className="img-fluid" />
+                            </a>
+                            <p className="text-dark">{item.Description}</p>
                           </div>
-                          }
                         </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-12">
-                          <a
-                            href={item.PublishUrl}
-                            className="text-primary"
-                            rel="noreferrer"
-                            target="_blank"
-                          >
-                            {item.PublishUrl}
-                          </a>
-                          <p className="text-dark">{item.Description}</p>
-                        </div>
-                      </div>
+                      }
+
                       <hr className="pt-1 bg-info" />
                     </section>
                   )

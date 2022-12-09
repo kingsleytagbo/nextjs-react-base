@@ -4,6 +4,7 @@ import formidable from "formidable";
 import fs from "fs";
 import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
+import { utils } from '../../../services/utility';
 export const config = {
   api: {
     bodyParser: false,
@@ -31,11 +32,6 @@ export default function handler(
       }
       break;
     case 'GET':
-      if (!hasSubscriberRole && !hasAdminRole) {
-        res
-          .status(403)
-          .json({ message: 'you do not have permission to access this / GET' });
-      }
       break;
     default:
       res
@@ -74,6 +70,7 @@ export default function handler(
 
       const findItem = MockServer.BlogData.getBlog(item);
       if (!findItem) {
+        item.Permalink = utils.generateUUID();
         data.push(item);
         MockServer.BlogData.saveBlogs(data);
       }

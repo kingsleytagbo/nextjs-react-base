@@ -187,7 +187,8 @@ class MockBlogData {
       user = this.items.find(
         (user) =>
           user.ITCC_BlogID === item.ITCC_BlogID ||
-          user.FilePath === item.FilePath
+          user.Slug === item.Slug || 
+          user.Permalink === item.Permalink
       );
     }
     return user;

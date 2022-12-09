@@ -13,7 +13,7 @@ const BlogForm = (props: any) => {
 
           <form className="card-body">
             <div className="row">
-              <div className="col-md-4">
+              <div className="col-md-12">
                 <label htmlFor="Name">Name</label>
                 <input
                   value={props.Name}
@@ -21,13 +21,15 @@ const BlogForm = (props: any) => {
                   className="form-control"
                   id="Name"
                   name="Name"
-                  placeholder="Your Name ..."
+                  placeholder="Name ..."
                   type="text"
                   autoComplete="false"
                 />
               </div>
+            </div>
 
-              <div className="col-md-4">
+            <div className="row">
+              <div className="col-md-12">
                 <label htmlFor="Description"> Description</label>
                 <input
                   value={props.Description}
@@ -35,21 +37,7 @@ const BlogForm = (props: any) => {
                   className="form-control"
                   id="Description"
                   name="Description"
-                  placeholder="Your Description ..."
-                  type="text"
-                  autoComplete="false"
-                />
-              </div>
-
-              <div className="col-md-4">
-                <label htmlFor="FilePath"> FilePath</label>
-                <input
-                  value={props.FilePath}
-                  onChange={props.onChange}
-                  className="form-control"
-                  id="FilePath"
-                  name="FilePath"
-                  placeholder="Your FilePath ..."
+                  placeholder="Description ..."
                   type="text"
                   autoComplete="false"
                 />
@@ -58,41 +46,48 @@ const BlogForm = (props: any) => {
 
             <div className="row">
               <div className="col-md-6">
-                <label htmlFor="FileGroup">FileGroup</label>
+                <label htmlFor="FilePath"> Category</label>
                 <input
-                  value={props.FileGroup}
+                  value={props.Category}
                   onChange={props.onChange}
                   className="form-control"
-                  id="FileGroup"
-                  name="FileGroup"
-                  placeholder="Your FileGroup ..."
+                  id="Category"
+                  name="Category"
+                  placeholder="Category ..."
                   type="text"
                   autoComplete="false"
                 />
               </div>
 
               <div className="col-md-6">
-                <label htmlFor="PublishUrl"> PublishUrl</label>
+                <label htmlFor="BlogType">BlogType</label>
                 <input
-                  value={props.PublishUrl}
+                  value={props.BlogType}
                   onChange={props.onChange}
                   className="form-control"
-                  id="PublishUrl"
-                  name="PublishUrl"
-                  placeholder="Your PublishUrl ..."
+                  id="BlogType"
+                  name="BlogType"
+                  placeholder="BlogType ..."
                   type="text"
                   autoComplete="false"
                 />
               </div>
             </div>
 
-            
             <div className="row">
-              <div className="form-group col-12">
-                <label>Choose an Image:</label>
-                <input onChange={props.onChangeImageHandle} type="file" className="form-control input-md" id="ImageUpload" name="ImageUpload" />
+              <div className="col-md-12">
+                <label htmlFor="ImageUrl"> ImageUrl</label>
+                <input
+                  value={props.ImageUrl}
+                  onChange={props.onChange}
+                  className="form-control"
+                  id="ImageUrl"
+                  name="ImageUrl"
+                  placeholder="ImageUrl ..."
+                  type="text"
+                  autoComplete="false"
+                />
               </div>
-
             </div>
 
             <div className="row">

@@ -22,35 +22,47 @@ const BlogDetail = (props: any) => {
           <i className="bi bi-person"></i> {props.title}
         </h3>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label>Name</label>
             <p className="text-dark">{props.Name}</p>
           </div>
+        </div>
 
+        <div className="row">
           <div className="col-md-6">
+            <label>Category</label>
+            <p className="text-dark">{props.Category}</p>
+          </div>
+          <div className="col-md-4">
+            <label>BlogType</label>
+            <p className="text-dark">{props.BlogType}</p>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-12">
             <label>Description</label>
             <p className="text-dark">{props.Description}</p>
           </div>
         </div>
 
-        <div className="row">
-        <div className="col-md-6">
-            <label>FileGroup</label>
-            <p className="text-dark">{props.FileGroup}</p>
+        {props.Tags &&
+          <div className="row">
+            <div className="col-md-12">
+              <label>Tags</label>
+              <p className="text-dark">{props.Tags}</p>
+            </div>
           </div>
-          <div className="col-md-4">
-            <label htmlFor="username">FilePath</label>
-            <p className="text-dark">{props.FilePath}</p>
-          </div>
-        </div>
+        }
 
-        <div className="row">
-          <div className="col-12">
-          <label>Image</label>
-            <img 
-            alt="Image" src={props.Password} className="img-fluid" />
+        {props.ImageUrl &&
+          <div className="row">
+            <div className="col-12">
+              <img
+                alt="Image" src={props.ImageUrl} className="img-fluid" />
+            </div>
           </div>
-        </div>
+        }
 
         <div className="row">
           <div className="col-12">

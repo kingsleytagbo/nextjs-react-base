@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Meta from '../components/metatags';
-import ListBlogs from '../components/blogs/list-blogs';
+import IndexBlogs from '../components/blogs/index-blogs';
 import { AuthGuard } from '../services/authGuard';
 
 const BlogsPage: NextPage = () => {
@@ -14,9 +14,9 @@ const BlogsPage: NextPage = () => {
   return (
     <main className="container-fluid bg-light">
       <Meta
-        description={'Manage Gallerys Page'}
-        title={'Gallerys'}
-        canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/users'}
+        description={'Manage Blogs Page'}
+        title={'Blogs'}
+        canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/blogs'}
       />
       <Header></Header>
 
@@ -24,7 +24,7 @@ const BlogsPage: NextPage = () => {
         <div className="row">
           <div className="col-md-12">
             <section>
-              <ListBlogs></ListBlogs>
+              <IndexBlogs></IndexBlogs>
             </section>
           </div>
         </div>
