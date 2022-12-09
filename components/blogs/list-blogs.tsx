@@ -7,16 +7,16 @@ import { BaseUrlTypes, HttpRequestTypes, utils } from '../../services/utility';
 import BlogForm from './blog-form';
 import AddBlog from './add-blog';
 import BlogDetail from './blog-detail';
-import { EmptyGallery } from '../../models/gallery';
+import { EmptyBlog } from '../../models/blog';
 
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
+const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog);
 const editmodes = { edit: false, detail: false, delete: false };
 
 // List Blogs Component
 const ListBlogs = () => {
   const [items, setItems] = useState([]);
   const [editItem, setEditItem] = useState({ ...editmodes });
-  const [itemDetail, setItemDetail] = useState({ ...EmptyGallery });
+  const [itemDetail, setItemDetail] = useState({ ...EmptyBlog });
   const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
 
@@ -26,7 +26,7 @@ const ListBlogs = () => {
   };
 
   const getBlogDetail = (item: any) => {
-    const result = fetchBlog(item.ITCC_ImageID, HttpRequestTypes.GET);
+    const result = fetchBlog(item.ITCC_BlogID, HttpRequestTypes.GET);
     result.then((response) => {
       const result = response.json();
       if (result) {
@@ -63,11 +63,11 @@ const ListBlogs = () => {
 
   const onCancelBlogDetail = () => {
     setEditItem({ ...editmodes });
-    setItemDetail({ ...EmptyGallery });
+    setItemDetail({ ...EmptyBlog });
   };
   const onConfirmDelete = (value: any) => {
     setEditItem({ ...editmodes });
-    setItemDetail({ ...EmptyGallery });
+    setItemDetail({ ...EmptyBlog });
     const result = fetchBlog(value, HttpRequestTypes.DELETE);
     result.then((response) => {
       const result = response.json();
@@ -95,17 +95,17 @@ const ListBlogs = () => {
 
   const onCancelEditBlog = () => {
     setEditItem({ ...editmodes });
-    setItemDetail({ ...EmptyGallery });
+    setItemDetail({ ...EmptyBlog });
   };
 
   const onSaveEditBlog = () => {
     postFormRequest(itemDetail);
     fetchBlogs().then(() => { console.log('onSaveEditBlog > fetch Blogs') });
-    setItemDetail({ ...EmptyGallery });
+    setItemDetail({ ...EmptyBlog });
     setAddForm(false);
   };
 
-  const onChangeImageHandle = (event: any) => {
+  const onChangeBlogHandle = (event: any) => {
     const file = event.target.files[0];
     const fileName = file.name || 'image.png';
     const fileSize = file.size / 1024;
@@ -130,7 +130,7 @@ const ListBlogs = () => {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
-    const url = API_FORM_URL + '/' + formData.ITCC_ImageID;
+    const url = API_FORM_URL + '/' + formData.ITCC_BlogID;
     return fetch(url, {
       method: 'PUT',
       body: JSON.stringify(formData),
@@ -190,7 +190,7 @@ const ListBlogs = () => {
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-          {!displayAddForm && itemDetail.ITCC_ImageID === 0 && (
+          {!displayAddForm && itemDetail.ITCC_BlogID === 0 && (
             <div className="d-grid mt-1">
               <button
                 onClick={() => handleAddBlogClick()}
@@ -215,7 +215,7 @@ const ListBlogs = () => {
           {/* <!-- END ADD USER  --> */}
 
           {/* <!-- BEGIN EDIT USER  --> */}
-          {(editItem.edit && itemDetail.ITCC_ImageID) > 0 && (
+          {(editItem.edit && itemDetail.ITCC_BlogID) > 0 && (
             <section className="card py-1 mt-1">
               <BlogForm
                 {...itemDetail}
@@ -223,7 +223,7 @@ const ListBlogs = () => {
                 onChange={onChangeEditBlog}
                 onCancel={onCancelEditBlog}
                 onClick={onSaveEditBlog}
-                onChangeImageHandle={onChangeImageHandle}
+                onChangeBlogHandle={onChangeBlogHandle}
               >
                 <i className="bi bi-sticky"> &nbsp; </i>Save
               </BlogForm>
@@ -232,7 +232,7 @@ const ListBlogs = () => {
           {/* <!-- END EDIT USER  --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(editItem.detail && itemDetail.ITCC_ImageID) > 0 && (
+          {(editItem.detail && itemDetail.ITCC_BlogID) > 0 && (
             <section className="card py-1 mt-1">
               <BlogDetail
                 {...itemDetail}
@@ -245,7 +245,7 @@ const ListBlogs = () => {
           {/* <!-- END USER DETAIL --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(editItem.delete && itemDetail.ITCC_ImageID) > 0 && (
+          {(editItem.delete && itemDetail.ITCC_BlogID) > 0 && (
             <section className="card py-1 mt-1">
               <BlogDetail
                 {...itemDetail}
@@ -260,7 +260,7 @@ const ListBlogs = () => {
 
           {/* <!-- BEGIN LIST USERS  --> */}
 
-          {itemDetail.ITCC_ImageID === 0 && (
+          {itemDetail.ITCC_BlogID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
                 <i className="bi bi-people"></i> Blogs

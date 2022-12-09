@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable from "formidable";
 import fs from "fs";
-import { EmptyGallery, Gallery } from '../../../models/gallery';
+import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 export const config = {
   api: {
@@ -49,8 +49,7 @@ export default function handler(
       { uploadDir: process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY, keepExtensions: true }
     );
     form.parse(req, async function (err, fields, files) {
-      const filePath = await saveFile(files.file);
-      createGallery(fields, filePath);
+      createBlog(fields);
     });
 
     const saveFile = async (file: any) => {
@@ -61,30 +60,30 @@ export default function handler(
       return url;
     };
 
-    const createGallery = (value: any, path: string) => {
-      const data = MockServer.GalleryData.getGallerys();
+    const createBlog = (value: any, path?: string) => {
+      const data = MockServer.BlogData.getBlogs();
       const filePath = '/api/image/' + path;
 
-      const item: Gallery = {
-        ...EmptyGallery,
+      const item: Blog = {
+        ...EmptyBlog,
         ...value,
-        ITCC_ImageID: data.length + 1,
+        ITCC_BlogID: data.length + 1,
         FilePath: filePath,
         PublishUrl: process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + '/image/' + path
       };
 
-      const findItem = MockServer.GalleryData.getGallery(item);
+      const findItem = MockServer.BlogData.getBlog(item);
       if (!findItem) {
         data.push(item);
-        MockServer.GalleryData.saveGallerys(data);
+        MockServer.BlogData.saveBlogs(data);
       }
 
-      res.status(200).json(MockServer.GalleryData.getGallerys());
+      res.status(200).json(MockServer.BlogData.getBlogs());
     }
 
 
   } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
-    const data = MockServer.GalleryData.getGallerys();
+    const data = MockServer.BlogData.getBlogs();
     res.status(200).json(data);
   }
 }

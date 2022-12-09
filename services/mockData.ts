@@ -1,4 +1,5 @@
 import { NextApiRequest } from 'next';
+import { Blog } from '../models/blog';
 import { Gallery } from '../models/gallery';
 import { User, EmptyUser } from '../models/user';
 
@@ -160,7 +161,62 @@ class MockGalleryData {
   }
 }
 
+class MockBlogData {
+  items: Array<Blog> = [
+  ];
+
+  private static _instance: MockBlogData;
+
+  public static get Instance() {
+    return this._instance || (this._instance = new this());
+  }
+
+  private constructor() {}
+
+  getBlogs() {
+    return this.items;
+  }
+
+  saveBlogs(values: any) {
+    this.items = values;
+  }
+
+  getBlog(item: Blog) {
+    let user: Blog | undefined;
+    if (this.items && this.items.length > 0) {
+      user = this.items.find(
+        (user) =>
+          user.ITCC_BlogID === item.ITCC_BlogID ||
+          user.FilePath === item.FilePath
+      );
+    }
+    return user;
+  }
+
+  updateBlog(item: Blog) {
+    if (this.items && this.items.length > 0) {
+      for (let u = 0; u < this.items.length; u++) {
+        if (this.items[u].ITCC_BlogID === item.ITCC_BlogID) {
+          this.items[u] = item;
+        }
+      }
+    }
+    return;
+  }
+
+  deleteBlog(item?: Blog) {
+    if (item && this.items && this.items.length > 0) {
+      this.items.forEach((user, index) => {
+        if (item === user) {
+          this.items.splice(index, 1);
+        }
+      });
+    }
+  }
+}
+
 export const MockServer = {
   UserData: MockUserData.Instance,
   GalleryData: MockGalleryData.Instance,
+  BlogData: MockBlogData.Instance
 };

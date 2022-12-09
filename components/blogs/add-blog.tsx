@@ -3,14 +3,14 @@
 // Import Modules
 import React, { useState } from 'react';
 import BlogForm from './blog-form';
-import { EmptyGallery } from '../../models/gallery';
+import { EmptyBlog } from '../../models/blog';
 import { BaseUrlTypes, utils } from '../../services/utility';
 import { AUTH_KEY } from '../../services/constants';
 
 // CreateBlog Component
 const AddBlog = (props: any) => {
-  const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
-  const [editItem, setEditItem] = useState({ ...EmptyGallery });
+  const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog);
+  const [editItem, setEditItem] = useState({ ...EmptyBlog });
 
   const onChange = (e: any) => {
     const key = e.target.name;
@@ -26,7 +26,7 @@ const AddBlog = (props: any) => {
   };
 
   const onCancel = () => {
-    setEditItem({ ...EmptyGallery });
+    setEditItem({ ...EmptyBlog });
     props.onCancelAddBlog();
   };
 

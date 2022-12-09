@@ -12,7 +12,7 @@ const BlogDetail = (props: any) => {
   };
 
   const handleConfirmDelete = () => {
-    props.onConfirmDelete(props.ITCC_UserID);
+    props.onConfirmDelete(props.ITCC_BlogID);
   };
   // Return Blog form
   return (

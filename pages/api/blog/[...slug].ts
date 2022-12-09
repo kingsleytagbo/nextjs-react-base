@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { EmptyGallery, Gallery } from '../../../models/gallery';
+import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 
 export default function handler(
@@ -46,9 +46,9 @@ export default function handler(
   }
 
   if (req.method === 'PUT' && hasAdminRole) {
-    const item: Gallery = {
-      ...EmptyGallery,
-      ITCC_ImageID: body.ITCC_ImageID,
+    const item: Blog = {
+      ...EmptyBlog,
+      ITCC_BlogID: body.ITCC_BlogID,
       Name: body.Name,
       Description: body.Description,
       FilePath: body.FilePath,
@@ -56,28 +56,28 @@ export default function handler(
       File: body.File
     };
 
-    MockServer.GalleryData.updateGallery(item);
+    MockServer.BlogData.updateBlog(item);
     res.status(200).json(item);
   } else if (req.method === 'DELETE' && hasAdminRole) {
     const deleteUserId = slug && slug.length > 0 ? Number(slug[0]) : 0;
-    const deleteUser = MockServer.GalleryData.getGallery({
-      ...EmptyGallery,
-      ITCC_ImageID: deleteUserId,
+    const deleteUser = MockServer.BlogData.getBlog({
+      ...EmptyBlog,
+      ITCC_BlogID: deleteUserId,
     });
 
-    MockServer.GalleryData.deleteGallery(deleteUser);
+    MockServer.BlogData.deleteBlog(deleteUser);
     res.status(200).json(deleteUserId);
   } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
     // get one user by id
     if (params && params.length === 1) {
-      const items = MockServer.GalleryData.getGallerys();
+      const items = MockServer.BlogData.getBlogs();
 
       const item =
-        items.find((u) => u.ITCC_ImageID === Number(params[0])) || EmptyGallery;
+        items.find((u) => u.ITCC_BlogID === Number(params[0])) || EmptyBlog;
 
       res.status(200).json(item);
     } else {
-      res.status(404).json({ messge: 'Gallery not found' });
+      res.status(404).json({ messge: 'Blog not found' });
     }
   }
 }
