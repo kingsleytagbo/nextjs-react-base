@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Meta from '../components/metatags';
-import IndexBlogs from '../components/blogs/index-blogs';
+import ListBlogs from '../components/blogs/list-blogs';
 import { AuthGuard } from '../services/authGuard';
 
 const BlogsPage: NextPage = () => {
@@ -24,7 +24,7 @@ const BlogsPage: NextPage = () => {
         <div className="row">
           <div className="col-md-12">
             <section>
-              <IndexBlogs></IndexBlogs>
+              <ListBlogs></ListBlogs>
             </section>
           </div>
         </div>

@@ -180,8 +180,8 @@ const ListBlogs = () => {
   };
 
   useEffect(() => {
-    const result = getUserAuth();
-    if (result.IsAdmin) { fetchBlogs(); }
+      getUserAuth();
+    fetchBlogs(); 
   }, [fetchBlogs]);
 
   return (
@@ -191,7 +191,7 @@ const ListBlogs = () => {
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-          {!displayAddForm && itemDetail.ITCC_BlogID === 0 && (
+          {!displayAddForm && (itemDetail.ITCC_BlogID === 0) && (userAuth.IsAdmin === true)  && (
             <div className="d-grid mt-1">
               <button
                 onClick={() => handleAddBlogClick()}

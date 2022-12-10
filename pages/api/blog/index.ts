@@ -70,7 +70,7 @@ export default function handler(
     }
 
 
-  } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
+  } else if (req.method === 'GET') {
     const data = MockServer.BlogData.getBlogs();
     res.status(200).json(data);
   }
