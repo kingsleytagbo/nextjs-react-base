@@ -5,7 +5,7 @@ export enum BaseUrlTypes {
   Authenticate = 'login/authenticate/',
   Users = 'users/',
   Gallery = 'gallery/',
-  Blog = 'blog/'
+  Blog = 'blog/',
 }
 
 export enum HttpRequestTypes {
@@ -23,7 +23,7 @@ class Utility implements IStorage {
     return this._instance || (this._instance = new this());
   }
 
-  private constructor() { }
+  private constructor() {}
 
   getAppData() {
     const storage = new SessionStorage();
@@ -60,10 +60,10 @@ class Utility implements IStorage {
   getUserAuthRoles(key: any) {
     const value: any = this.getData(key);
     const hasAdmin =
-      (value && value.RoleNames && value.RoleNames.length > 0)
+      value && value.RoleNames && value.RoleNames.length > 0
         ? value.RoleNames.find((name: string) => {
-          return name.toLowerCase() === 'admin';
-        })
+            return name.toLowerCase() === 'admin';
+          })
         : null;
     // console.log({getUserAuthRole: value, hasAdmin: hasAdmin, RoleNames: value.RoleNames})
     const result = { ...value, IsAdmin: hasAdmin ? true : false };
@@ -76,11 +76,13 @@ class Utility implements IStorage {
   }
 
   getBaseApi(urlType: BaseUrlTypes, pageNumber?: number) {
-    const useRemote = process.env.NEXT_PUBLIC_USE_REMOTE_API?.toLowerCase() === 'true' ? true : false;
-    const baseUrl =
-      useRemote
-        ? process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API
-        : 'api';
+    const useRemote =
+      process.env.NEXT_PUBLIC_USE_REMOTE_API?.toLowerCase() === 'true'
+        ? true
+        : false;
+    const baseUrl = useRemote
+      ? process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API
+      : 'api';
     // console.log({Remote : process.env.NEXT_PUBLIC_USE_REMOTE_API, local: process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API});
 
     /*
@@ -106,8 +108,13 @@ class Utility implements IStorage {
         break;
     }
 
-    let url = baseUrl + '/' + baseApiPath + (useRemote ? ('/' +
-      process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE) : '');
+    let url =
+      baseUrl +
+      '/' +
+      baseApiPath +
+      (useRemote
+        ? '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE
+        : '');
 
     if (useRemote && pageNumber) {
       url += '/page/' + pageNumber;

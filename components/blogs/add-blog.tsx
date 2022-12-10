@@ -30,7 +30,6 @@ const AddBlog = (props: any) => {
     props.onCancelAddBlog();
   };
 
-
   const postFormRequest = (formData: any) => {
     const headers = {
       'Content-Type': 'application/json',

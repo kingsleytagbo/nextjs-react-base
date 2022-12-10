@@ -34,18 +34,15 @@ const AddGallery = (props: any) => {
     const file = event.target.files[0];
     const fileSize = file.size / 1024;
 
-    if ((fileSize * 1024) > 100000) {
+    if (fileSize * 1024 > 100000) {
       return;
     }
     editItem.File = file;
 
     setEditItem(editItem);
-
-
-  }
+  };
 
   const postFormRequest = () => {
-
     const headers = {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
@@ -53,7 +50,7 @@ const AddGallery = (props: any) => {
     const formData = new FormData();
     const file = editItem.File;
     const fileName = editItem.File?.name || 'image.png';
-    
+
     if (file) {
       formData.append('file', file, fileName);
     }
@@ -63,7 +60,6 @@ const AddGallery = (props: any) => {
         formData.append(key, item);
       }
     });
-
 
     return fetch(API_FORM_URL, {
       method: 'POST',

@@ -38,8 +38,9 @@ function Header() {
               <Link legacyBehavior href="/">
                 <a
                   href="/"
-                  className={`nav-link ${router.asPath === '/' ? 'active' : ''
-                    }`}
+                  className={`nav-link ${
+                    router.asPath === '/' ? 'active' : ''
+                  }`}
                   aria-current="page"
                 >
                   Home
@@ -53,8 +54,9 @@ function Header() {
                   <Link legacyBehavior href="/blogs">
                     <a
                       href="/blogs"
-                      className={`nav-link ${router.asPath === '/blogs' ? 'active' : ''
-                        }`}
+                      className={`nav-link ${
+                        router.asPath === '/blogs' ? 'active' : ''
+                      }`}
                       aria-current="page"
                     >
                       Blogs
@@ -65,8 +67,9 @@ function Header() {
                   <Link legacyBehavior href="/gallery">
                     <a
                       href="/gallery"
-                      className={`nav-link ${router.asPath === '/gallery' ? 'active' : ''
-                        }`}
+                      className={`nav-link ${
+                        router.asPath === '/gallery' ? 'active' : ''
+                      }`}
                       aria-current="page"
                     >
                       Gallery
@@ -81,8 +84,9 @@ function Header() {
                 <Link legacyBehavior href="/users">
                   <a
                     href="/"
-                    className={`nav-link ${router.asPath === '/users' ? 'active' : ''
-                      }`}
+                    className={`nav-link ${
+                      router.asPath === '/users' ? 'active' : ''
+                    }`}
                     aria-current="page"
                   >
                     Users
@@ -105,8 +109,9 @@ function Header() {
                 <Link legacyBehavior href="/login">
                   <a
                     href="/"
-                    className={`nav-link ${router.asPath === '/login' ? 'active' : ''
-                      }`}
+                    className={`nav-link ${
+                      router.asPath === '/login' ? 'active' : ''
+                    }`}
                     aria-current="page"
                   >
                     Login

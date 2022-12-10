@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import formidable from "formidable";
+import formidable from 'formidable';
 import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 import { utils } from '../../../services/utility';
@@ -14,14 +14,12 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-
   const authUser = MockAuthenticator.Instance.getAuthUser(req);
   const hasAdminRole = MockAuthenticator.Instance.hasAdminRole(authUser);
   /*
   const hasSubscriberRole =
     MockAuthenticator.Instance.hasSubscriberRole(authUser);
 */
-
 
   switch (req.method) {
     case 'POST':
@@ -41,9 +39,10 @@ export default function handler(
   }
 
   if (req.method === 'POST' && hasAdminRole) {
-    const form = new formidable.IncomingForm(
-      { uploadDir: process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY, keepExtensions: true }
-    );
+    const form = new formidable.IncomingForm({
+      uploadDir: process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY,
+      keepExtensions: true,
+    });
     form.parse(req, async function (err, fields) {
       createBlog(fields);
     });
@@ -57,7 +56,8 @@ export default function handler(
         ...value,
         ITCC_BlogID: data.length + 1,
         FilePath: filePath,
-        PublishUrl: process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + '/image/' + path
+        PublishUrl:
+          process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + '/image/' + path,
       };
 
       const findItem = MockServer.BlogData.getBlog(item);
@@ -68,9 +68,7 @@ export default function handler(
       }
 
       res.status(200).json(MockServer.BlogData.getBlogs());
-    }
-
-
+    };
   } else if (req.method === 'GET') {
     const data = MockServer.BlogData.getBlogs();
     res.status(200).json(data);

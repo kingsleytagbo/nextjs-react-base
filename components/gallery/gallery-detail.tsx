@@ -29,12 +29,12 @@ const GalleryDetail = (props: any) => {
 
           <div className="col-md-6">
             <label>Description</label>
-            <p className="text-dark">{props.Description}</p>
+            <div dangerouslySetInnerHTML={{ __html: props.Description }}></div>
           </div>
         </div>
 
         <div className="row">
-        <div className="col-md-6">
+          <div className="col-md-6">
             <label>FileGroup</label>
             <p className="text-dark">{props.FileGroup}</p>
           </div>
@@ -46,9 +46,8 @@ const GalleryDetail = (props: any) => {
 
         <div className="row">
           <div className="col-12">
-          <label>Image</label>
-            <img 
-            alt="Image" src={props.Password} className="img-fluid" />
+            <label>Image</label>
+            <img alt="Image" src={props.Password} className="img-fluid" />
           </div>
         </div>
 

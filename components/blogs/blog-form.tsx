@@ -116,7 +116,6 @@ const BlogForm = (props: any) => {
                 </div>
               </div>
             </div>
-
           </form>
         </section>
 

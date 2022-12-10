@@ -108,8 +108,7 @@ class MockUserData {
 }
 
 class MockGalleryData {
-  items: Array<Gallery> = [
-  ];
+  items: Array<Gallery> = [];
 
   private static _instance: MockGalleryData;
 
@@ -162,8 +161,7 @@ class MockGalleryData {
 }
 
 class MockBlogData {
-  items: Array<Blog> = [
-  ];
+  items: Array<Blog> = [];
 
   private static _instance: MockBlogData;
 
@@ -187,7 +185,7 @@ class MockBlogData {
       user = this.items.find(
         (user) =>
           user.ITCC_BlogID === item.ITCC_BlogID ||
-          user.Slug === item.Slug || 
+          user.Slug === item.Slug ||
           user.Permalink === item.Permalink
       );
     }
@@ -219,5 +217,5 @@ class MockBlogData {
 export const MockServer = {
   UserData: MockUserData.Instance,
   GalleryData: MockGalleryData.Instance,
-  BlogData: MockBlogData.Instance
+  BlogData: MockBlogData.Instance,
 };

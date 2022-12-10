@@ -42,29 +42,26 @@ const BlogDetail = (props: any) => {
         <div className="row">
           <div className="col-md-12">
             <label>Description</label>
-            <div
-              dangerouslySetInnerHTML={{ __html: props.Description }}>
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: props.Description }}></div>
           </div>
         </div>
 
-        {props.Tags &&
+        {props.Tags && (
           <div className="row">
             <div className="col-md-12">
               <label>Tags</label>
               <p className="text-dark">{props.Tags}</p>
             </div>
           </div>
-        }
+        )}
 
-        {props.ImageUrl &&
+        {props.ImageUrl && (
           <div className="row">
             <div className="col-12">
-              <img
-                alt="Image" src={props.ImageUrl} className="img-fluid" />
+              <img alt="Image" src={props.ImageUrl} className="img-fluid" />
             </div>
           </div>
-        }
+        )}
 
         <div className="row">
           <div className="col-12">

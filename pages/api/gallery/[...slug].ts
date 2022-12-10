@@ -53,7 +53,7 @@ export default function handler(
       Description: body.Description,
       FilePath: body.FilePath,
       FileGroup: body.FileGroup,
-      File: body.File
+      File: body.File,
     };
 
     MockServer.GalleryData.updateGallery(item);

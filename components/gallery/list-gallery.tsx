@@ -28,22 +28,23 @@ const ListGallerys = () => {
 
   const getGalleryDetail = (item: any) => {
     const result = fetchGallery(item.ITCC_ImageID, HttpRequestTypes.GET);
-    result.then((response) => {
-      const result = response.json();
-      if (result) {
-        result.then(
-          (result: any) => {
-            setItemDetail(result);
-          },
-          (error: any) => {
-            return error;
-          }
-        );
-      }
-    })
-    .catch(error => {
-      console.log({catch: error});
-    });
+    result
+      .then((response) => {
+        const result = response.json();
+        if (result) {
+          result.then(
+            (result: any) => {
+              setItemDetail(result);
+            },
+            (error: any) => {
+              return error;
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        console.log({ catch: error });
+      });
   };
 
   const handleAddGalleryClick = () => {
@@ -114,7 +115,7 @@ const ListGallerys = () => {
     const fileName = file.name || 'image.png';
     const fileSize = file.size / 1024;
 
-    if ((fileSize * 1024) > 100000) {
+    if (fileSize * 1024 > 100000) {
       return;
     }
     const formData = new FormData();
@@ -126,7 +127,7 @@ const ListGallerys = () => {
     });
 
     //console.log({formData: Array.from(formData.entries()), file: file, filename: fileName, fileSize: fileSize})
-  }
+  };
 
   const postFormRequest = (formData: any) => {
     const headers = {
@@ -150,24 +151,25 @@ const ListGallerys = () => {
 
     fetch(API_FORM_URL, {
       method: 'GET',
-      headers: headers
-    }).then((response) => {
-      const result = response.json();
-      if (result) {
-        result.then(
-          (result: any) => {
-            setItems(result);
-          },
-          (error: any) => {
-            return error;
-            //console.log(error);
-          }
-        );
-      }
+      headers: headers,
     })
-    .catch(error => {
-      console.log({catch: error});
-    });
+      .then((response) => {
+        const result = response.json();
+        if (result) {
+          result.then(
+            (result: any) => {
+              setItems(result);
+            },
+            (error: any) => {
+              return error;
+              //console.log(error);
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        console.log({ catch: error });
+      });
   }, []);
 
   const fetchGallery = (id: number, method: HttpRequestTypes) => {
@@ -179,13 +181,15 @@ const ListGallerys = () => {
 
     return fetch(url, {
       method: method,
-      headers: headers
+      headers: headers,
     });
   };
 
   useEffect(() => {
     const result = getUserAuth();
-    if (result.IsAdmin) { fetchGallerys(); }
+    if (result.IsAdmin) {
+      fetchGallerys();
+    }
   }, [fetchGallerys]);
 
   return (
@@ -313,10 +317,15 @@ const ListGallerys = () => {
                         </div>
 
                         <div className="col-md-5">
-                          {item.FilePath && <div>
-                            <img alt="image" className="img-fluid" src={item.FilePath} />
-                          </div>
-                          }
+                          {item.FilePath && (
+                            <div>
+                              <img
+                                alt="image"
+                                className="img-fluid"
+                                src={item.FilePath}
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div className="row">
@@ -329,12 +338,16 @@ const ListGallerys = () => {
                           >
                             {item.PublishUrl}
                           </a>
-                          <p className="text-dark">{item.Description}</p>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: item.Description,
+                            }}
+                          ></div>
                         </div>
                       </div>
                       <hr className="pt-1 bg-info" />
                     </section>
-                  )
+                  );
                 })}
               </div>
             </section>

@@ -15,27 +15,27 @@ export default function handler(
   const hasSubscriberRole =
     MockAuthenticator.Instance.hasSubscriberRole(authUser);
 
-    switch (req.method) {
-      case 'POST':
-        if (!hasAdminRole) {
-          res.status(403).json({
-            message: 'you do not have permission to access this / POST',
-          });
-        }
-        break;
-      case 'GET':
-        if (!hasSubscriberRole && !hasAdminRole) {
-          res
-            .status(403)
-            .json({ message: 'you do not have permission to access this / GET' });
-        }
-        break;
-      default:
+  switch (req.method) {
+    case 'POST':
+      if (!hasAdminRole) {
+        res.status(403).json({
+          message: 'you do not have permission to access this / POST',
+        });
+      }
+      break;
+    case 'GET':
+      if (!hasSubscriberRole && !hasAdminRole) {
         res
           .status(403)
-          .json({ message: 'you do not have permission to access this / ' });
-        break;
-    }  
+          .json({ message: 'you do not have permission to access this / GET' });
+      }
+      break;
+    default:
+      res
+        .status(403)
+        .json({ message: 'you do not have permission to access this / ' });
+      break;
+  }
 
   if (req.method === 'POST' && hasAdminRole) {
     const data = MockServer.UserData.getUsers();

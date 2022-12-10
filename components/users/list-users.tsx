@@ -129,24 +129,25 @@ const ListUsers = () => {
 
     fetch(API_FORM_URL, {
       method: 'GET',
-      headers: headers
-    }).then((response) => {
-      const result = response.json();
-      if (result) {
-        result.then(
-          (result: any) => {
-            setUsers(result);
-          },
-          (error: any) => {
-            return error;
-            //console.log(error);
-          }
-        );
-      }
+      headers: headers,
     })
-    .catch(error => {
-      console.log({catch: error});
-    });
+      .then((response) => {
+        const result = response.json();
+        if (result) {
+          result.then(
+            (result: any) => {
+              setUsers(result);
+            },
+            (error: any) => {
+              return error;
+              //console.log(error);
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        console.log({ catch: error });
+      });
   }, []);
 
   const fetchUser = (id: number, method: HttpRequestTypes) => {
@@ -159,13 +160,15 @@ const ListUsers = () => {
 
     return fetch(url, {
       method: method,
-      headers: headers
+      headers: headers,
     });
   };
 
   useEffect(() => {
     const result = getUserAuth();
-    if (result.IsAdmin) {  fetchUsers(); }
+    if (result.IsAdmin) {
+      fetchUsers();
+    }
   }, [fetchUsers]);
 
   return (

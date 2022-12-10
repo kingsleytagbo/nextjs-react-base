@@ -6,7 +6,7 @@ export type Gallery = {
   FileGroup: string;
   PublishUrl?: string;
   SourceUrl?: string;
-  File?:File | null;
+  File?: File | null;
   ITCC_WebsiteID?: number;
 };
 
@@ -19,5 +19,5 @@ export const EmptyGallery: Gallery = {
   PublishUrl: '',
   SourceUrl: '',
   File: null,
-  ITCC_WebsiteID:1
+  ITCC_WebsiteID: 1,
 };
