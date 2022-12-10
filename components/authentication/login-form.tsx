@@ -4,10 +4,8 @@ import Loading from '../loading';
 import { AUTH_KEY } from '../../services/constants';
 import { publish } from '../../services/event';
 import { useRouter } from 'next/router';
-const API_FORM_URL =
-  utils.getBaseApi(BaseUrlTypes.Authenticate) +
-  '/' +
-  process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
+
+const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Authenticate);
 
 export default function LoginForm() {
   const router = useRouter();
@@ -103,6 +101,7 @@ export default function LoginForm() {
         (result: any) => {
           const authId = result.AuthID;
           const roleNames = result.RoleNames;
+          console.log({processApiResponse: result})
           if (authId && roleNames) {
             utils.saveData(result, AUTH_KEY);
             publish(AUTH_KEY, { detail: '' });

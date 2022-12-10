@@ -2,12 +2,13 @@
 
 // Import Modules
 import React, { useState, useEffect, useCallback } from 'react';
-import { AUTH_KEY } from '../../services/constants';
 import { BaseUrlTypes, HttpRequestTypes, utils } from '../../services/utility';
 import BlogForm from './blog-form';
 import AddBlog from './add-blog';
 import BlogDetail from './blog-detail';
 import { EmptyBlog } from '../../models/blog';
+import { AUTH_KEY } from '../../services/constants';
+import { CLIENT_STATIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 
 const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog);
 const editmodes = { edit: false, detail: false, delete: false };
@@ -20,11 +21,11 @@ const ListBlogs = () => {
   const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
 
-  const getUserAuth = () => {
+  const getUserAuth = useCallback(async () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
     setUserAuth({ ...userAuthResult });
     return userAuthResult;
-  };
+  }, []);
 
   const getBlogDetail = (item: any) => {
     const result = fetchBlog(item.ITCC_BlogID, HttpRequestTypes.GET);
@@ -145,24 +146,35 @@ const ListBlogs = () => {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
-    fetch(API_FORM_URL, {
-      method: 'GET',
-      headers: headers,
-      credentials: 'include',
-    }).then((response) => {
-      const result = response.json();
-      if (result) {
-        result.then(
-          (result: any) => {
-            setItems(result);
-          },
-          (error: any) => {
-            return error;
-            //console.log(error);
-          }
-        );
-      }
-    });
+    try{
+      fetch(API_FORM_URL, {
+        method: 'GET',
+        headers: headers,
+        credentials: 'include',
+      })
+      .then((response) => {
+        const result = response.json();
+        if (result) {
+          result.then(
+            (result: any) => {
+              setItems(result);
+            },
+            (error: any) => {
+              return error;
+              //console.log(error);
+            }
+          );
+        }
+      })
+      .catch(error => {
+        console.log({catch: error});
+      });
+    }
+    catch(error){
+      console.log(error)
+      //setItems
+    }
+
   }, []);
 
   const fetchBlog = (id: number, method: HttpRequestTypes) => {
@@ -180,9 +192,10 @@ const ListBlogs = () => {
   };
 
   useEffect(() => {
-      getUserAuth();
+    getUserAuth().then( () => {
     fetchBlogs(); 
-  }, [fetchBlogs]);
+    });
+  }, [getUserAuth]);
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">

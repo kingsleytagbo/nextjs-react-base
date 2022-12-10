@@ -23,7 +23,7 @@ class Utility implements IStorage {
     return this._instance || (this._instance = new this());
   }
 
-  private constructor() {}
+  private constructor() { }
 
   getAppData() {
     const storage = new SessionStorage();
@@ -60,11 +60,12 @@ class Utility implements IStorage {
   getUserAuthRoles(key: any) {
     const value: any = this.getData(key);
     const hasAdmin =
-      value && value.RoleNames
+      (value && value.RoleNames && value.RoleNames.length > 0)
         ? value.RoleNames.find((name: string) => {
-            return name.toLowerCase() === 'admin';
-          })
+          return name.toLowerCase() === 'admin';
+        })
         : null;
+    // console.log({getUserAuthRole: value, hasAdmin: hasAdmin, RoleNames: value.RoleNames})
     const result = { ...value, IsAdmin: hasAdmin ? true : false };
     return result;
   }
@@ -74,12 +75,18 @@ class Utility implements IStorage {
     return { Authorization: `Basic ${authValue}` };
   }
 
-  getBaseApi(urlType: BaseUrlTypes) {
+  getBaseApi(urlType: BaseUrlTypes, pageNumber?: number) {
+    const useRemote = process.env.NEXT_PUBLIC_USE_REMOTE_API?.toLowerCase() === 'true' ? true : false;
     const baseUrl =
-      process.env.NEXT_PUBLIC_USE_REMOTE_API === 'true'
+      useRemote
         ? process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API
         : 'api';
     // console.log({Remote : process.env.NEXT_PUBLIC_USE_REMOTE_API, local: process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API});
+
+    /*
+      '/' +
+  process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE;
+  */
 
     let baseApiPath = '';
     switch (urlType) {
@@ -92,13 +99,27 @@ class Utility implements IStorage {
       case BaseUrlTypes.Gallery:
         baseApiPath = 'gallery';
         break;
-        case BaseUrlTypes.Blog:
-          baseApiPath = 'blog';
-          break;
+      case BaseUrlTypes.Blog:
+        baseApiPath = 'blog';
+        break;
       default:
         break;
     }
-    return baseUrl + '/' + baseApiPath;
+
+    let url = baseUrl + '/' + baseApiPath + (useRemote ? ('/' +
+      process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE) : '');
+
+    if (useRemote && pageNumber) {
+      url += '/page/' + pageNumber;
+    }
+
+    /*
+    console.log({getBaseApi: {
+      url: url, baseUrl: baseUrl,  baseApiPath:  baseApiPath,
+      remoteApi: process.env.NEXT_PUBLIC_USE_REMOTE_API
+    }});
+*/
+    return url;
   }
 
   generateUUID() {

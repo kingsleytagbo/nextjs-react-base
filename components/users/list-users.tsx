@@ -9,7 +9,7 @@ import AddUser from './add-user';
 import UserDetail from './user-detail';
 import { EmptyUser } from '../../models/user';
 
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
+const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users, 1);
 const editmodes = { edit: false, detail: false, delete: false };
 
 // List Users Component
@@ -143,6 +143,9 @@ const ListUsers = () => {
           }
         );
       }
+    })
+    .catch(error => {
+      console.log({catch: error});
     });
   }, []);
 
