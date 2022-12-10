@@ -23,6 +23,7 @@ const ListBlogs = () => {
   const getUserAuth = () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
     setUserAuth({ ...userAuthResult });
+    return userAuthResult;
   };
 
   const getBlogDetail = (item: any) => {
@@ -77,7 +78,7 @@ const ListBlogs = () => {
   };
 
   const onSaveAddBlog = () => {
-    fetchBlogs().then(() => { console.log('onSaveAddBlog > fetch Blogs') });
+    fetchBlogs().then();
     setAddForm(false);
   };
 
@@ -100,7 +101,7 @@ const ListBlogs = () => {
 
   const onSaveEditBlog = () => {
     postFormRequest(itemDetail);
-    fetchBlogs().then(() => { console.log('onSaveEditBlog > fetch Blogs') });
+    fetchBlogs().then();
     setItemDetail({ ...EmptyBlog });
     setAddForm(false);
   };
@@ -179,8 +180,8 @@ const ListBlogs = () => {
   };
 
   useEffect(() => {
-    getUserAuth();
-    fetchBlogs();
+    const result = getUserAuth();
+    if (result.IsAdmin) { fetchBlogs(); }
   }, [fetchBlogs]);
 
   return (

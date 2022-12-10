@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable from "formidable";
-import fs from "fs";
 import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 import { utils } from '../../../services/utility';
@@ -44,17 +43,9 @@ export default function handler(
     const form = new formidable.IncomingForm(
       { uploadDir: process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY, keepExtensions: true }
     );
-    form.parse(req, async function (err, fields, files) {
+    form.parse(req, async function (err, fields) {
       createBlog(fields);
     });
-
-    const saveFile = async (file: any) => {
-      const data = fs.readFileSync(file.filepath);
-      const url = `${file.newFilename}`;
-      fs.writeFileSync(url, data);
-      await fs.unlinkSync(url);
-      return url;
-    };
 
     const createBlog = (value: any, path?: string) => {
       const data = MockServer.BlogData.getBlogs();

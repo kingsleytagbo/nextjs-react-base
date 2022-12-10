@@ -23,6 +23,7 @@ const ListUsers = () => {
   const getUserAuth = () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
     setUserAuth({ ...userAuthResult });
+    return userAuthResult;
   };
 
   const getUserDetail = (item: any) => {
@@ -160,8 +161,8 @@ const ListUsers = () => {
   };
 
   useEffect(() => {
-    getUserAuth();
-    fetchUsers();
+    const result = getUserAuth();
+    if (result.IsAdmin) {  fetchUsers(); }
   }, [fetchUsers]);
 
   return (

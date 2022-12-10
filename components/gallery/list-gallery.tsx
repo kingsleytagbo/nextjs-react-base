@@ -23,6 +23,7 @@ const ListGallerys = () => {
   const getUserAuth = () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
     setUserAuth({ ...userAuthResult });
+    return userAuthResult;
   };
 
   const getGalleryDetail = (item: any) => {
@@ -77,7 +78,7 @@ const ListGallerys = () => {
   };
 
   const onSaveAddGallery = () => {
-    fetchGallerys().then(() => { console.log('onSaveAddGallery > fetch Gallerys') });
+    fetchGallerys().then();
     setAddForm(false);
   };
 
@@ -100,7 +101,7 @@ const ListGallerys = () => {
 
   const onSaveEditGallery = () => {
     postFormRequest(itemDetail);
-    fetchGallerys().then(() => { console.log('onSaveEditGallery > fetch Gallerys') });
+    fetchGallerys().then();
     setItemDetail({ ...EmptyGallery });
     setAddForm(false);
   };
@@ -179,8 +180,8 @@ const ListGallerys = () => {
   };
 
   useEffect(() => {
-    getUserAuth();
-    fetchGallerys();
+    const result = getUserAuth();
+    if (result.IsAdmin) { fetchGallerys(); }
   }, [fetchGallerys]);
 
   return (
