@@ -8,9 +8,8 @@ import AddBlog from './add-blog';
 import BlogDetail from './blog-detail';
 import { EmptyBlog } from '../../models/blog';
 import { AUTH_KEY } from '../../services/constants';
-import { CLIENT_STATIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog);
+const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1);
 const editmodes = { edit: false, detail: false, delete: false };
 
 // List Blogs Component
@@ -195,7 +194,7 @@ const ListBlogs = () => {
     getUserAuth().then( () => {
     fetchBlogs(); 
     });
-  }, [getUserAuth]);
+  }, [fetchBlogs, getUserAuth]);
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">

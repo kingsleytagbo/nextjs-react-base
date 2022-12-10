@@ -9,7 +9,7 @@ import AddGallery from './add-gallery';
 import GalleryDetail from './gallery-detail';
 import { EmptyGallery } from '../../models/gallery';
 
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
+const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery, 1);
 const editmodes = { edit: false, detail: false, delete: false };
 
 // List Gallerys Component
