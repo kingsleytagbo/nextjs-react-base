@@ -9,9 +9,8 @@ import BlogDetail from './blog-detail';
 import { EmptyBlog } from '../../models/blog';
 import { AUTH_KEY } from '../../services/constants';
 
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1);
-const editmodes = { edit: false, detail: false, delete: false };
 
+const editmodes = { edit: false, detail: false, delete: false };
 // List Blogs Component
 const ListBlogs = () => {
   const [items, setItems] = useState([]);
@@ -131,6 +130,7 @@ const ListBlogs = () => {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog);
     const url = API_FORM_URL + '/' + formData.ITCC_BlogID;
     return fetch(url, {
       method: 'PUT',
@@ -140,6 +140,7 @@ const ListBlogs = () => {
   };
 
   const fetchBlogs = useCallback(async () => {
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1);
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
@@ -148,8 +149,7 @@ const ListBlogs = () => {
     try{
       fetch(API_FORM_URL, {
         method: 'GET',
-        headers: headers,
-        credentials: 'include',
+        headers: headers
       })
       .then((response) => {
         const result = response.json();
@@ -177,6 +177,7 @@ const ListBlogs = () => {
   }, []);
 
   const fetchBlog = (id: number, method: HttpRequestTypes) => {
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog);
     const url = API_FORM_URL + '/' + id;
     const headers = {
       'Content-Type': 'application/json',
@@ -185,8 +186,7 @@ const ListBlogs = () => {
 
     return fetch(url, {
       method: method,
-      headers: headers,
-      credentials: 'include',
+      headers: headers
     });
   };
 
@@ -338,7 +338,9 @@ const ListBlogs = () => {
                               <img
                                 alt="Image" src={item.ImageUrl} className="img-fluid" />
                             </a>
-                            <p className="text-dark">{item.Description}</p>
+                            <div
+                              dangerouslySetInnerHTML={{ __html: item.Description }}>
+                            </div>
                           </div>
                         </div>
                       }

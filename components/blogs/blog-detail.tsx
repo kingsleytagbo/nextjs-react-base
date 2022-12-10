@@ -42,7 +42,9 @@ const BlogDetail = (props: any) => {
         <div className="row">
           <div className="col-md-12">
             <label>Description</label>
-            <p className="text-dark">{props.Description}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: props.Description }}>
+            </div>
           </div>
         </div>
 

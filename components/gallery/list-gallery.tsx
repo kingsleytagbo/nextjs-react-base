@@ -150,8 +150,7 @@ const ListGallerys = () => {
 
     fetch(API_FORM_URL, {
       method: 'GET',
-      headers: headers,
-      credentials: 'include',
+      headers: headers
     }).then((response) => {
       const result = response.json();
       if (result) {
@@ -180,8 +179,7 @@ const ListGallerys = () => {
 
     return fetch(url, {
       method: method,
-      headers: headers,
-      credentials: 'include',
+      headers: headers
     });
   };
 

@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import UserForm from './user-form';
 import { EmptyUser } from '../../models/user';
 import { AUTH_KEY } from '../../services/constants';
-import { utils } from '../../services/utility';
+import { BaseUrlTypes, utils } from '../../services/utility';
 
 // CreateUser Component
 const AddUser = (props: any) => {
-  const API_FORM_URL = '/api/users';
+  const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
   const [edituser, setEditUser] = useState({ ...EmptyUser });
 
   const onChange = (e: any) => {

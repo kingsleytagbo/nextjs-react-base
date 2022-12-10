@@ -9,9 +9,7 @@ import AddUser from './add-user';
 import UserDetail from './user-detail';
 import { EmptyUser } from '../../models/user';
 
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users, 1);
 const editmodes = { edit: false, detail: false, delete: false };
-
 // List Users Component
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
@@ -112,6 +110,7 @@ const ListUsers = () => {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
     const url = API_FORM_URL + '/' + formData.ITCC_UserID;
     return fetch(url, {
       method: 'PUT',
@@ -121,6 +120,8 @@ const ListUsers = () => {
   };
 
   const fetchUsers = useCallback(async () => {
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users, 1);
+
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
@@ -128,8 +129,7 @@ const ListUsers = () => {
 
     fetch(API_FORM_URL, {
       method: 'GET',
-      headers: headers,
-      credentials: 'include',
+      headers: headers
     }).then((response) => {
       const result = response.json();
       if (result) {
@@ -150,6 +150,7 @@ const ListUsers = () => {
   }, []);
 
   const fetchUser = (id: number, method: HttpRequestTypes) => {
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Users);
     const url = API_FORM_URL + '/' + id;
     const headers = {
       'Content-Type': 'application/json',
@@ -158,8 +159,7 @@ const ListUsers = () => {
 
     return fetch(url, {
       method: method,
-      headers: headers,
-      credentials: 'include',
+      headers: headers
     });
   };
 
