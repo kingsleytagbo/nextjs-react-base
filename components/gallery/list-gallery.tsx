@@ -165,6 +165,9 @@ const ListGallerys = () => {
           }
         );
       }
+    })
+    .catch(error => {
+      console.log({catch: error});
     });
   }, []);
 
