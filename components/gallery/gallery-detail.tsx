@@ -14,6 +14,7 @@ const GalleryDetail = (props: any) => {
   const handleConfirmDelete = () => {
     props.onConfirmDelete(props.ITCC_ImageID);
   };
+
   // Return Gallery form
   return (
     <>

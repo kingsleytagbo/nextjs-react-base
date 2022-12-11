@@ -4,6 +4,7 @@ import formidable from 'formidable';
 import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 import { utils } from '../../../services/utility';
+import path from 'path';
 export const config = {
   api: {
     bodyParser: false,
@@ -40,7 +41,7 @@ export default function handler(
 
   if (req.method === 'POST' && hasAdminRole) {
     const form = new formidable.IncomingForm({
-      uploadDir: process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY,
+    uploadDir: path.join((process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY||''), (process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE || '')),
       keepExtensions: true,
     });
     form.parse(req, async function (err, fields) {

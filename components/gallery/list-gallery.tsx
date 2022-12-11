@@ -9,7 +9,6 @@ import AddGallery from './add-gallery';
 import GalleryDetail from './gallery-detail';
 import { EmptyGallery } from '../../models/gallery';
 
-const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery, 1);
 const editmodes = { edit: false, detail: false, delete: false };
 
 // List Gallerys Component
@@ -135,6 +134,7 @@ const ListGallerys = () => {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
     const url = API_FORM_URL + '/' + formData.ITCC_ImageID;
     return fetch(url, {
       method: 'PUT',
@@ -151,6 +151,8 @@ const ListGallerys = () => {
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery, 1);
+
     fetch(API_FORM_URL, {
       method: 'GET',
       headers: headers,
@@ -160,7 +162,7 @@ const ListGallerys = () => {
         if (result) {
           result.then(
             (result: any) => {
-              setItems(result);
+              setItems( (result && result.length > 0)  ? result : []);
             },
             (error: any) => {
               return error;
@@ -175,6 +177,7 @@ const ListGallerys = () => {
   }, []);
 
   const fetchGallery = (id: number, method: HttpRequestTypes) => {
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
     const url = API_FORM_URL + '/' + id;
     const headers = {
       'Content-Type': 'application/json',
@@ -342,7 +345,7 @@ const ListGallerys = () => {
                           </a>
                           <div
                             dangerouslySetInnerHTML={{
-                              __html: item.Description,
+                              __html: utils.getPostIext(item.Description, 150),
                             }}
                           ></div>
                         </div>
