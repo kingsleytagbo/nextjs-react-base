@@ -66,8 +66,8 @@ const AddGallery = (props: any) => {
       body: formData,
       headers: headers,
     })
-    .then()
-    .catch();
+      .then()
+      .catch();
   };
 
   // Return Gallery form

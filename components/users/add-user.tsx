@@ -41,8 +41,8 @@ const AddUser = (props: any) => {
       body: JSON.stringify(formData),
       headers: headers,
     })
-    .then()
-    .catch();
+      .then()
+      .catch();
   };
 
   // Return User form

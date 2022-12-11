@@ -134,10 +134,11 @@ const ListBlogs = () => {
       method: 'PUT',
       body: JSON.stringify(formData),
       headers: headers,
-    }).then()
-    .catch((error) => {
-      console.log({ catch: error });
-    });
+    })
+      .then()
+      .catch((error) => {
+        console.log({ catch: error });
+      });
   };
 
   const fetchBlogs = useCallback(async () => {
