@@ -16,7 +16,7 @@ const BlogForm = (props: any) => {
               <div className="col-md-12">
                 <label htmlFor="Name">Name</label>
                 <input
-                  value={props.Name}
+                  value={props.Name || ''}
                   onChange={props.onChange}
                   className="form-control"
                   id="Name"
@@ -32,7 +32,7 @@ const BlogForm = (props: any) => {
               <div className="col-md-12">
                 <label htmlFor="Description"> Description</label>
                 <input
-                  value={props.Description}
+                  value={props.Description || ''}
                   onChange={props.onChange}
                   className="form-control"
                   id="Description"
@@ -48,7 +48,7 @@ const BlogForm = (props: any) => {
               <div className="col-md-6">
                 <label htmlFor="FilePath"> Category</label>
                 <input
-                  value={props.Category}
+                  value={props.Category || ''}
                   onChange={props.onChange}
                   className="form-control"
                   id="Category"
@@ -62,7 +62,7 @@ const BlogForm = (props: any) => {
               <div className="col-md-6">
                 <label htmlFor="BlogType">BlogType</label>
                 <input
-                  value={props.BlogType}
+                  value={props.BlogType || ''}
                   onChange={props.onChange}
                   className="form-control"
                   id="BlogType"
@@ -78,7 +78,7 @@ const BlogForm = (props: any) => {
               <div className="col-md-12">
                 <label htmlFor="ImageUrl"> ImageUrl</label>
                 <input
-                  value={props.ImageUrl}
+                  value={props.ImageUrl || ''}
                   onChange={props.onChange}
                   className="form-control"
                   id="ImageUrl"

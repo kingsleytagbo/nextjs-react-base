@@ -68,10 +68,9 @@ const ListBlogs = () => {
     setEditItem({ ...editmodes });
     setItemDetail({ ...EmptyBlog });
     const result = fetchBlog(value, HttpRequestTypes.DELETE);
-    result.then((response) => {
-      const result = response.json();
+    result.then(() => {
+      //const result = response.json();
       fetchBlogs().then();
-      return result;
     });
   };
 
@@ -135,7 +134,10 @@ const ListBlogs = () => {
       method: 'PUT',
       body: JSON.stringify(formData),
       headers: headers,
-    }).then((response) => response.json());
+    }).then()
+    .catch((error) => {
+      console.log({ catch: error });
+    });
   };
 
   const fetchBlogs = useCallback(async () => {

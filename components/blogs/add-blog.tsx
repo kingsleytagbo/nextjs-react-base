@@ -40,7 +40,8 @@ const AddBlog = (props: any) => {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: headers,
-    }).then((response) => response.json());
+    }).then()
+    .catch();
   };
 
   // Return Blog form
