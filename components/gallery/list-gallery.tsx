@@ -140,7 +140,9 @@ const ListGallerys = () => {
       method: 'PUT',
       body: JSON.stringify(formData),
       headers: headers,
-    }).then((response) => response.json());
+    })
+    .then()
+    .catch();
   };
 
   const fetchGallerys = useCallback(async () => {

@@ -135,10 +135,8 @@ const ListBlogs = () => {
       body: JSON.stringify(formData),
       headers: headers,
     })
-      .then()
-      .catch((error) => {
-        console.log({ catch: error });
-      });
+    .then()
+    .catch();
   };
 
   const fetchBlogs = useCallback(async () => {
