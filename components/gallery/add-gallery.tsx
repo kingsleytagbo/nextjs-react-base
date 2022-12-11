@@ -65,7 +65,9 @@ const AddGallery = (props: any) => {
       method: 'POST',
       body: formData,
       headers: headers,
-    }).then((response) => response.json());
+    })
+    .then()
+    .catch();
   };
 
   // Return Gallery form
