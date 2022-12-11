@@ -68,10 +68,10 @@ const ListUsers = () => {
     setEditUser({ ...editmodes });
     setUserDetail({ ...EmptyUser });
     const result = fetchUser(value, HttpRequestTypes.DELETE);
-    result.then((response) => {
-      const result = response.json();
+    result.then(() => {
+      //const result = response.json();
       fetchUsers();
-      return result;
+      //return result;
     });
   };
 
@@ -117,8 +117,8 @@ const ListUsers = () => {
       body: JSON.stringify(formData),
       headers: headers,
     })
-    .then()
-    .catch();
+      .then()
+      .catch();
   };
 
   const fetchUsers = useCallback(async () => {

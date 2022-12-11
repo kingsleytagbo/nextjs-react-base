@@ -74,10 +74,10 @@ const ListGallerys = () => {
     setEditItem({ ...editmodes });
     setItemDetail({ ...EmptyGallery });
     const result = fetchGallery(value, HttpRequestTypes.DELETE);
-    result.then((response) => {
-      const result = response.json();
+    result.then(() => {
+      //const result = response.json();
       fetchGallerys().then();
-      return result;
+      //return result;
     });
   };
 
@@ -141,8 +141,8 @@ const ListGallerys = () => {
       body: JSON.stringify(formData),
       headers: headers,
     })
-    .then()
-    .catch();
+      .then()
+      .catch();
   };
 
   const fetchGallerys = useCallback(async () => {
