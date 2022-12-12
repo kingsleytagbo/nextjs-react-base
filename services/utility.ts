@@ -106,8 +106,8 @@ class Utility implements IStorage {
         baseApiPath = 'blog';
         break;
       case BaseUrlTypes.Image:
-          baseApiPath = 'image';
-          break;
+        baseApiPath = 'image';
+        break;
       default:
         break;
     }
@@ -159,18 +159,22 @@ class Utility implements IStorage {
   }
 
   stripHTMLTags = (text: any) => {
-    return (text || '').replace(/<(.|\n)*?>/g, '').replace('-->', '').trim();
-  }
-  
+    return (text || '')
+      .replace(/<(.|\n)*?>/g, '')
+      .replace('-->', '')
+      .trim();
+  };
+
   getPostIext = (value: any, length: number = 160) => {
-    const text = (this.stripHTMLTags((value || '')) || '').replace(/\s{2,}/g, ' ').trim();
+    const text = (this.stripHTMLTags(value || '') || '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
     if (text && text.length <= length) {
       return text;
-    }
-    else {
+    } else {
       return text.substring(0, length);
     }
-  }
+  };
 }
 
 export const utils = Utility.Instance;

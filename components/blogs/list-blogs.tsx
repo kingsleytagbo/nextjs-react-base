@@ -156,7 +156,7 @@ const ListBlogs = () => {
           if (result) {
             result.then(
               (result: any) => {
-                setItems( (result && result.length > 0)  ? result : []);
+                setItems(result && result.length > 0 ? result : []);
               },
               (error: any) => {
                 return error;

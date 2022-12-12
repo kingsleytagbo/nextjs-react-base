@@ -21,9 +21,10 @@ const AddUser = (props: any) => {
   };
 
   const onSave = () => {
-    postFormRequest(edituser).then(() => {
-      props.onSaveAddUser();
-    })
+    postFormRequest(edituser)
+      .then(() => {
+        props.onSaveAddUser();
+      })
       .catch();
   };
 

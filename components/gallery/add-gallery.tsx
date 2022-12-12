@@ -21,9 +21,11 @@ const AddGallery = (props: any) => {
   };
 
   const onSave = () => {
-    postFormRequest().then(() => {
-      props.onSaveAddGallery();
-    }).catch();
+    postFormRequest()
+      .then(() => {
+        props.onSaveAddGallery();
+      })
+      .catch();
   };
 
   const onCancel = () => {

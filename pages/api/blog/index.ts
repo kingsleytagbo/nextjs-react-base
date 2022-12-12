@@ -41,7 +41,10 @@ export default function handler(
 
   if (req.method === 'POST' && hasAdminRole) {
     const form = new formidable.IncomingForm({
-    uploadDir: path.join((process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY||''), (process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE || '')),
+      uploadDir: path.join(
+        process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY || '',
+        process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE || ''
+      ),
       keepExtensions: true,
     });
     form.parse(req, async function (err, fields) {

@@ -162,7 +162,7 @@ const ListGallerys = () => {
         if (result) {
           result.then(
             (result: any) => {
-              setItems( (result && result.length > 0)  ? result : []);
+              setItems(result && result.length > 0 ? result : []);
             },
             (error: any) => {
               return error;
@@ -324,11 +324,17 @@ const ListGallerys = () => {
                         <div className="col-md-5">
                           {item.FilePath && (
                             <div>
-                              <b>{utils.getBaseApi(BaseUrlTypes.Image) + item.PublishUrl}</b>
+                              <b>
+                                {utils.getBaseApi(BaseUrlTypes.Image) +
+                                  item.PublishUrl}
+                              </b>
                               <img
                                 alt="image"
                                 className="img-fluid"
-                                src={utils.getBaseApi(BaseUrlTypes.Image) + item.PublishUrl}
+                                src={
+                                  utils.getBaseApi(BaseUrlTypes.Image) +
+                                  item.PublishUrl
+                                }
                               />
                             </div>
                           )}

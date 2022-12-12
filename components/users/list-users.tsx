@@ -138,7 +138,7 @@ const ListUsers = () => {
         if (result) {
           result.then(
             (result: any) => {
-              setUsers(result);
+              setUsers(result && result.length > 0 ? result : []);
             },
             (error: any) => {
               return error;

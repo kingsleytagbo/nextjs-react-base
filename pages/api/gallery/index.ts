@@ -42,13 +42,15 @@ export default function handler(
       break;
   }
 
-  const uploadDir =  path.join((process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY||''), (process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE || ''));
+  const uploadDir = path.join(
+    process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY || '',
+    process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE || ''
+  );
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
-}
+  }
 
   if (req.method === 'POST' && hasAdminRole) {
-
     const form = new formidable.IncomingForm({
       uploadDir: uploadDir,
       keepExtensions: true,
