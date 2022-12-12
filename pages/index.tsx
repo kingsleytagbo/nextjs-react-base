@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import ListBlogs from '../components/blogs/list-blogs';
+import BlogsHome from '../components/blogs/blogs-home';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Meta from '../components/metatags';
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         <div className="row">
           <div className="col-md-12">
             <section>
-              <ListBlogs></ListBlogs>
+              <BlogsHome title="Home"></BlogsHome>
             </section>
           </div>
         </div>
