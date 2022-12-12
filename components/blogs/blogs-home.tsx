@@ -10,7 +10,7 @@ const BlogsHome = (props: any) => {
   const [items, setItems] = useState([]);
 
   const fetchBlogs = useCallback(async () => {
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1);
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1,1);
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),

@@ -76,7 +76,7 @@ class Utility implements IStorage {
     return { Authorization: `Basic ${authValue}` };
   }
 
-  getBaseApi(urlType: BaseUrlTypes, pageNumber?: number) {
+  getBaseApi(urlType: BaseUrlTypes, pageNumber?: number, pageSize?: number) {
     const useRemote =
       process.env.NEXT_PUBLIC_USE_REMOTE_API?.toLowerCase() === 'true'
         ? true
@@ -121,7 +121,7 @@ class Utility implements IStorage {
         : '');
 
     if (useRemote && pageNumber) {
-      url += '/page/' + pageNumber;
+      url += '/page/' + pageNumber + '/' + (pageSize || 10);
     }
 
     /*
