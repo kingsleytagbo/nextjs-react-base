@@ -1,6 +1,23 @@
 import React from 'react';
 
 const GalleryForm = (props: any) => {
+  const handleTextAreaAutogrow = (e: any) => {
+    // Reset field height
+    e.target.style.height = 'inherit';
+
+    // Get the computed styles for the element
+    const computed = window.getComputedStyle(e.target);
+
+    // Calculate the height
+    const height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+      + parseInt(computed.getPropertyValue('padding-top'), 10)
+      + e.target.scrollHeight
+      + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+      + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+    e.target.style.height = `${height}px`;
+  }
+
   return (
     <>
       <section className="py-1 mt-1" key="user-form">
@@ -13,7 +30,7 @@ const GalleryForm = (props: any) => {
 
           <form className="card-body">
             <div className="row">
-              <div className="col-md-4">
+              <div className="col-md-12">
                 <label htmlFor="Name">Name</label>
                 <input
                   value={props.Name}
@@ -26,21 +43,24 @@ const GalleryForm = (props: any) => {
                   autoComplete="false"
                 />
               </div>
-
-              <div className="col-md-4">
+            </div>
+            <div className="row">
+              <div className="col-md-12">
                 <label htmlFor="Description"> Description</label>
-                <input
-                  value={props.Description}
+                <textarea
+                  onKeyUp={handleTextAreaAutogrow}
+                  rows={3}
+                  value={props.Description || ''}
                   onChange={props.onChange}
                   className="form-control"
                   id="Description"
                   name="Description"
-                  placeholder="Your Description ..."
-                  type="text"
+                  placeholder="Description ..."
                   autoComplete="false"
-                />
+                ></textarea>
               </div>
-
+            </div>
+            <div className="row">
               <div className="col-md-4">
                 <label htmlFor="FilePath"> FilePath</label>
                 <input
@@ -57,7 +77,7 @@ const GalleryForm = (props: any) => {
             </div>
 
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <label htmlFor="FileGroup">FileGroup</label>
                 <input
                   value={props.FileGroup}
@@ -71,7 +91,7 @@ const GalleryForm = (props: any) => {
                 />
               </div>
 
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <label htmlFor="PublishUrl"> PublishUrl</label>
                 <input
                   value={props.PublishUrl}

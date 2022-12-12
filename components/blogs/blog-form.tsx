@@ -1,6 +1,24 @@
 import React from 'react';
 
 const BlogForm = (props: any) => {
+  
+  const handleTextAreaAutogrow = (e: any) => {
+    // Reset field height
+    e.target.style.height = 'inherit';
+
+    // Get the computed styles for the element
+    const computed = window.getComputedStyle(e.target);
+
+    // Calculate the height
+    const height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+      + parseInt(computed.getPropertyValue('padding-top'), 10)
+      + e.target.scrollHeight
+      + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+      + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+    e.target.style.height = `${height}px`;
+  }
+
   return (
     <>
       <section className="py-1 mt-1" key="user-form">
@@ -31,16 +49,17 @@ const BlogForm = (props: any) => {
             <div className="row">
               <div className="col-md-12">
                 <label htmlFor="Description"> Description</label>
-                <input
+                <textarea 
+                  onKeyUp={handleTextAreaAutogrow}  
+                  rows={3} 
                   value={props.Description || ''}
                   onChange={props.onChange}
                   className="form-control"
                   id="Description"
                   name="Description"
                   placeholder="Description ..."
-                  type="text"
                   autoComplete="false"
-                />
+                ></textarea>
               </div>
             </div>
 
