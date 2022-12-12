@@ -103,7 +103,7 @@ const ListGallerys = () => {
   };
 
   const onSaveEditGallery = () => {
-    postFormRequest(itemDetail);
+    postFormRequest();
     fetchGallerys().then();
     setItemDetail({ ...EmptyGallery });
     setAddForm(false);
@@ -111,31 +111,40 @@ const ListGallerys = () => {
 
   const onChangeImageHandle = (event: any) => {
     const file = event.target.files[0];
-    const fileName = file.name || 'image.png';
     const fileSize = file.size / 1024;
 
     if (fileSize * 1024 > 100000) {
       return;
     }
-    const formData = new FormData();
+    itemDetail.File = file;
 
-    formData.append('file', file, fileName);
-    Object.entries(itemDetail).forEach(([key, value]) => {
-      const item: any = value || '';
-      formData.append(key, item);
-    });
-
-    //console.log({formData: Array.from(formData.entries()), file: file, filename: fileName, fileSize: fileSize})
+    setItemDetail(itemDetail);
   };
 
-  const postFormRequest = (formData: any) => {
+  const postFormRequest = () => {
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
+    
+    const formData = new FormData();
+    const file = itemDetail.File;
+    const fileName = itemDetail.File?.name || 'image.png';
+
+    if (file) {
+      formData.append('file', file, fileName);
+    }
+
+    Object.entries(editItem).forEach(([key, value]) => {
+      if (key !== 'File') {
+        const item: any = value || '';
+        formData.append(key, item);
+      }
+    });
+
     const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery);
-    const url = API_FORM_URL + '/' + formData.ITCC_ImageID;
+    const url = API_FORM_URL + '/' + itemDetail.ITCC_ImageID;
     return fetch(url, {
       method: 'PUT',
       body: JSON.stringify(formData),
