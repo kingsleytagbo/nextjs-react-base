@@ -75,8 +75,7 @@ export default function handler(
         ...value,
         ITCC_ImageID: data.length + 1,
         FilePath: filePath,
-        PublishUrl:
-          process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL_API + '/image/' + path,
+        PublishUrl: '/' + path,
       };
 
       const findItem = MockServer.GalleryData.getGallery(item);

@@ -21,8 +21,10 @@ const AddUser = (props: any) => {
   };
 
   const onSave = () => {
-    postFormRequest(edituser);
-    props.onSaveAddUser();
+    postFormRequest(edituser).then(() => {
+      props.onSaveAddUser();
+    })
+      .catch();
   };
 
   const onCancel = () => {

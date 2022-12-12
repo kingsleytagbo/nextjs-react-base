@@ -6,6 +6,7 @@ export enum BaseUrlTypes {
   Users = 'users/',
   Gallery = 'gallery/',
   Blog = 'blog/',
+  Image = 'image',
 }
 
 export enum HttpRequestTypes {
@@ -104,6 +105,9 @@ class Utility implements IStorage {
       case BaseUrlTypes.Blog:
         baseApiPath = 'blog';
         break;
+      case BaseUrlTypes.Image:
+          baseApiPath = 'image';
+          break;
       default:
         break;
     }

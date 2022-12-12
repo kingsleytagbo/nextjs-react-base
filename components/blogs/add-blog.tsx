@@ -21,8 +21,9 @@ const AddBlog = (props: any) => {
   };
 
   const onSave = () => {
-    postFormRequest(editItem);
-    props.onSaveAddBlog();
+    postFormRequest(editItem).then(() => {
+      props.onSaveAddBlog();
+    }).catch();
   };
 
   const onCancel = () => {

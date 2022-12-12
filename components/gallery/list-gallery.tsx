@@ -324,10 +324,11 @@ const ListGallerys = () => {
                         <div className="col-md-5">
                           {item.FilePath && (
                             <div>
+                              <b>{utils.getBaseApi(BaseUrlTypes.Image) + item.PublishUrl}</b>
                               <img
                                 alt="image"
                                 className="img-fluid"
-                                src={item.FilePath}
+                                src={utils.getBaseApi(BaseUrlTypes.Image) + item.PublishUrl}
                               />
                             </div>
                           )}
@@ -336,12 +337,12 @@ const ListGallerys = () => {
                       <div className="row">
                         <div className="col-md-12">
                           <a
-                            href={item.PublishUrl}
+                            href={item.FilePath}
                             className="text-primary"
                             rel="noreferrer"
                             target="_blank"
                           >
-                            {item.PublishUrl}
+                            {item.FilePath}
                           </a>
                           <div
                             dangerouslySetInnerHTML={{
