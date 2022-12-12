@@ -30,7 +30,7 @@ const BlogsHome = (props: any) => {
           }
         })
         .catch();
-    } catch {}
+    } catch { }
   }, []);
 
   useEffect(() => {
@@ -53,14 +53,25 @@ const BlogsHome = (props: any) => {
                 return (
                   <section key={index}>
                     <div className="row">
-                      <div className="col-md-2"></div>
-
-                      <div className="col-md-9">
+                      <div className="col-md-12">
                         <p className="text-dark">{item.Name}</p>
                       </div>
-
-                      <div className="col-md-3">
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6">
                         <p className="text-dark">{item.Category}</p>
+                      </div>
+                      <div className="col-md-6">
+                        <p className="text-dark">{item.BlogType}</p>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item.Description,
+                          }}
+                        ></div>
                       </div>
                     </div>
                     <hr className="pt-1 bg-info" />
