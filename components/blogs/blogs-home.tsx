@@ -4,20 +4,40 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { AUTH_KEY } from '../../services/constants';
 import { BaseUrlTypes, utils } from '../../services/utility';
+import Pager from '../pager';
 
 // Blogs Home Component
 const BlogsHome = (props: any) => {
   const [items, setItems] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const fetchBlogs = useCallback(async () => {
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1, 1);
+  const nextPage = (event: any) => {
+    event.preventDefault();
+    if (items && items.length > 0) {
+      const page = pageNumber + 1;
+      setPageNumber(page);
+      fetchBlogs(page);
+    }
+  }
+
+  const prevPage = (event: any) => {
+    event.preventDefault();
+    if (pageNumber > 1) {
+      const page = pageNumber - 1;
+      setPageNumber(page);
+      fetchBlogs(page);
+    }
+  }
+
+  const fetchBlogs = useCallback(async (page: number) => {
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, page, 1);
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
     try {
-      fetch(API_FORM_URL, {
+      return fetch(API_FORM_URL, {
         method: 'GET',
         headers: headers,
       })
@@ -30,15 +50,35 @@ const BlogsHome = (props: any) => {
           }
         })
         .catch();
-    } catch {}
+    } catch { }
   }, []);
 
   useEffect(() => {
-    fetchBlogs();
+    fetchBlogs(pageNumber);
   }, [fetchBlogs]);
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
+      <section>
+        {
+          <div className="row">
+            <div className="col-6">
+              <div onClick={nextPage} className="d-flex justify-content-center mr-2 mb-4">
+                <a href="#!"
+                  className={(items && items.length > 0) ? 'btn btn-primary text-uppercase' : 'btn btn-outline-primary text-uppercase'}
+                >
+                  {pageNumber && <span>Newer Posts → </span>}</a></div>
+            </div>
+            <div className="col-6">
+              <div onClick={prevPage} className="d-flex justify-content-center mr-2 mb-4">
+                <a href="#!"
+                  className={(pageNumber > 1) ? 'btn btn-info text-uppercase' : 'btn btn-outline-info text-uppercase'}
+                >
+                  {pageNumber && <span>← Older Posts</span>} </a></div>
+            </div>
+          </div>
+        }
+      </section>
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
@@ -84,6 +124,10 @@ const BlogsHome = (props: any) => {
           {/* <!-- END LIST USERS  --> */}
         </div>
         <div className="col-md-2"></div>
+      </div>
+      <div className="container mt-3">
+        <Pager pageNumber={pageNumber} items={items}
+          nextPage={nextPage} prevPage={prevPage}></Pager>
       </div>
     </div>
   );
