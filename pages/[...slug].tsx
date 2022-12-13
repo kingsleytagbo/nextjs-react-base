@@ -9,26 +9,28 @@ const SlugPage: NextPage = (props: any) => {
   const data = props.DATA;
 
   return (
-    <main className="bg-light">
+
+    <main className="container-fluid bg-light">
       <Meta
-        description={'Post'}
-        title={'Post'}
+        description={'Home'}
+        title={'Home'}
         canonical={process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_URL + '/'}
       />
       <Header></Header>
 
-      <section className="container-fluid bg-secondary vh-100">
-        {data &&
-            <div className="row">
-              <div className="col-md-12">
-                  <BlogSlug data={data}></BlogSlug>
-              </div>
-            </div>
-        }
+      <section className="bg-secondary mb-5">
+        <div className="row">
+          <div className="col-md-12">
+            <section>
+              <BlogSlug data={data}></BlogSlug>
+            </section>
+          </div>
+        </div>
       </section>
 
       <Footer></Footer>
     </main>
+
   );
 };
 

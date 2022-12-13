@@ -51,7 +51,7 @@ const BlogsHome = (props: any) => {
           }
         })
         .catch();
-    } catch {}
+    } catch { }
   }, []);
 
   useEffect(() => {
@@ -88,14 +88,7 @@ const BlogsHome = (props: any) => {
                         </Link>
                       </div>
                     </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <p className="text-dark">{item.Category}</p>
-                      </div>
-                      <div className="col-md-6">
-                        <p className="text-dark">{item.BlogType}</p>
-                      </div>
-                    </div>
+
                     <div className="row">
                       <div className="col-md-12">
                         <div
@@ -105,12 +98,25 @@ const BlogsHome = (props: any) => {
                         ></div>
                       </div>
                     </div>
-                    <hr className="pt-1 bg-info" />
+
+                    <div className="row"><div className="col-md-12"><hr className="pt-1 bg-info" />
+                    </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="d-flex justify-content-start mb-4"><span className="text-dark text-uppercase">{item.Category}</span></div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="d-flex justify-content-end mb-4"><span className="text-dark text-uppercase">{item.BlogType}</span></div>
+                      </div>
+                    </div>
+
                   </section>
                 );
               })}
             </div>
-            
+
           </section>
 
           {/* <!-- END LIST USERS  --> */}

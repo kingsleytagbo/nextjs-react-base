@@ -14,7 +14,7 @@ const BlogSlug = (props: any) => {
           {/* <!-- BEGIN BLOG SLUG  --> */}
           <section className="card py-3 px-3 ">
 
-            <h1 className="card-title text-center textdark mt-3">
+            <h1 className="card-title text-center textdark mt-3 shandow-sm">
               <i className="bi bi-people"></i> {item.Name}
             </h1>
 
@@ -33,10 +33,10 @@ const BlogSlug = (props: any) => {
               </div>
               <div className="row">
                 <div className="col-md-6">
-                  <div className="d-flex justify-content-start mb-4">{item.Category}</div>
+                  <div className="d-flex justify-content-start mb-4"><span className="text-dark text-uppercase">{item.Category}</span></div>
                 </div>
                 <div className="col-md-6">
-                  <div className="d-flex justify-content-end mb-4">{item.BlogType}</div>
+                  <div className="d-flex justify-content-end mb-4"><span className="text-dark text-uppercase">{item.BlogType}</span></div>
                 </div>
               </div>
             </div>
