@@ -54,11 +54,13 @@ const BlogsHome = (props: any) => {
     } catch { }
   }, []);
 
+  /*
   useEffect(() => {
     if (!items || items.length === 0) {
       fetchBlogs(pageNumber);
     }
   }, [fetchBlogs, pageNumber, items]);
+  */
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">

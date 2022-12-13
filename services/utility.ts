@@ -123,13 +123,10 @@ class Utility implements IStorage {
     if (useRemote && pageNumber) {
       url += '/page/' + pageNumber + '/' + (pageSize || 10);
     }
+    else if (!useRemote && process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL) {
+      url = process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL + '/' + url;
+    }
 
-    /*
-    console.log({getBaseApi: {
-      url: url, baseUrl: baseUrl,  baseApiPath:  baseApiPath,
-      remoteApi: process.env.NEXT_PUBLIC_USE_REMOTE_API
-    }});
-*/
     return url;
   }
 
