@@ -103,10 +103,18 @@ const ListGallerys = () => {
   };
 
   const onSaveEditGallery = () => {
-    postFormRequest();
-    fetchGallerys().then();
-    setItemDetail({ ...EmptyGallery });
-    setAddForm(false);
+    try {
+      const save = async function () {
+        await postFormRequest();
+        await fetchGallerys();
+      };
+      save()
+        .then(() => {
+          setItemDetail({ ...EmptyGallery });
+          setAddForm(false);
+        })
+        .catch();
+    } catch {}
   };
 
   const onChangeImageHandle = (event: any) => {
@@ -123,11 +131,9 @@ const ListGallerys = () => {
 
   const postFormRequest = () => {
     const headers = {
-      'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
-    
     const formData = new FormData();
     const file = itemDetail.File;
     const fileName = itemDetail.File?.name || 'image.png';
@@ -136,7 +142,7 @@ const ListGallerys = () => {
       formData.append('file', file, fileName);
     }
 
-    Object.entries(editItem).forEach(([key, value]) => {
+    Object.entries(itemDetail).forEach(([key, value]) => {
       if (key !== 'File') {
         const item: any = value || '';
         formData.append(key, item);
@@ -147,7 +153,7 @@ const ListGallerys = () => {
     const url = API_FORM_URL + '/' + itemDetail.ITCC_ImageID;
     return fetch(url, {
       method: 'PUT',
-      body: JSON.stringify(formData),
+      body: formData,
       headers: headers,
     })
       .then()
