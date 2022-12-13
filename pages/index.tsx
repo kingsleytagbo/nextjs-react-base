@@ -3,8 +3,10 @@ import BlogsHome from '../components/blogs/blogs-home';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Meta from '../components/metatags';
+import { BaseUrlTypes, utils } from '../services/utility';
 
-const Home: NextPage = () => {
+const Home: NextPage = (props:any) => {
+  const data = props.DATA;
   return (
     <main className="container-fluid bg-light">
       <Meta
@@ -18,7 +20,7 @@ const Home: NextPage = () => {
         <div className="row">
           <div className="col-md-12">
             <section>
-              <BlogsHome title="Home"></BlogsHome>
+              <BlogsHome data={data} title="Home"></BlogsHome>
             </section>
           </div>
         </div>
@@ -28,5 +30,16 @@ const Home: NextPage = () => {
     </main>
   );
 };
+
+export async function getServerSideProps(context: any) {
+  const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1, 1);
+  const data = await fetch(API_FORM_URL);
+  const result = await data.json();
+  const props = {
+    API_FORM_URL: API_FORM_URL,
+    DATA: result ? result : []
+  };
+  return { props: props };
+}
 
 export default Home;

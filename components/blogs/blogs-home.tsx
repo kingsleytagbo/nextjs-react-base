@@ -9,7 +9,7 @@ import Pager from '../pager';
 
 // Blogs Home Component
 const BlogsHome = (props: any) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(props.data);
   const [pageNumber, setPageNumber] = useState(1);
 
   const nextPage = (event: any) => {
