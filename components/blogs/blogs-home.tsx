@@ -18,7 +18,7 @@ const BlogsHome = (props: any) => {
       setPageNumber(page);
       fetchBlogs(page);
     }
-  }
+  };
 
   const prevPage = (event: any) => {
     event.preventDefault();
@@ -27,7 +27,7 @@ const BlogsHome = (props: any) => {
       setPageNumber(page);
       fetchBlogs(page);
     }
-  }
+  };
 
   const fetchBlogs = useCallback(async (page: number) => {
     const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, page, 1);
@@ -50,7 +50,7 @@ const BlogsHome = (props: any) => {
           }
         })
         .catch();
-    } catch { }
+    } catch {}
   }, []);
 
   useEffect(() => {
@@ -59,26 +59,12 @@ const BlogsHome = (props: any) => {
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
-      <section>
-        {
-          <div className="row">
-            <div className="col-6">
-              <div onClick={nextPage} className="d-flex justify-content-center mr-2 mb-4">
-                <a href="#!"
-                  className={(items && items.length > 0) ? 'btn btn-primary text-uppercase' : 'btn btn-outline-primary text-uppercase'}
-                >
-                  {pageNumber && <span>Newer Posts → </span>}</a></div>
-            </div>
-            <div className="col-6">
-              <div onClick={prevPage} className="d-flex justify-content-center mr-2 mb-4">
-                <a href="#!"
-                  className={(pageNumber > 1) ? 'btn btn-info text-uppercase' : 'btn btn-outline-info text-uppercase'}
-                >
-                  {pageNumber && <span>← Older Posts</span>} </a></div>
-            </div>
-          </div>
-        }
-      </section>
+      <Pager
+        pageNumber={pageNumber}
+        items={items}
+        nextPage={nextPage}
+        prevPage={prevPage}
+      ></Pager>
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
@@ -126,8 +112,12 @@ const BlogsHome = (props: any) => {
         <div className="col-md-2"></div>
       </div>
       <div className="container mt-3">
-        <Pager pageNumber={pageNumber} items={items}
-          nextPage={nextPage} prevPage={prevPage}></Pager>
+        <Pager
+          pageNumber={pageNumber}
+          items={items}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        ></Pager>
       </div>
     </div>
   );
