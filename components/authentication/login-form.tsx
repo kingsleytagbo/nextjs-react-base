@@ -101,7 +101,7 @@ export default function LoginForm() {
         (result: any) => {
           const authId = result.AuthID;
           const roleNames = result.RoleNames;
-          console.log({ processApiResponse: result });
+
           if (authId && roleNames) {
             utils.saveData(result, AUTH_KEY);
             publish(AUTH_KEY, { detail: '' });

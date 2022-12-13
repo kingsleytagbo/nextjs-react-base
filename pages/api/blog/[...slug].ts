@@ -18,11 +18,7 @@ export default function handler(
 
   switch (req.method) {
     case 'GET':
-      if (!hasSubscriberRole && !hasAdminRole) {
-        res
-          .status(403)
-          .json({ message: 'you do not have permission to access this' });
-      }
+      //everyone should be able to access a blog post
       break;
     case 'PUT':
       if (!hasAdminRole) {
@@ -70,15 +66,26 @@ export default function handler(
 
     MockServer.BlogData.deleteBlog(deleteUser);
     res.status(200).json(deleteUserId);
-  } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
+  } else if (req.method === 'GET') {
     // get one user by id
-    if (params && params.length === 1) {
-      const items = MockServer.BlogData.getBlogs();
+    const items = MockServer.BlogData.getBlogs();
 
-      const item =
-        items.find((u) => u.ITCC_BlogID === Number(params[0])) || EmptyBlog;
-
-      res.status(200).json(item);
+    if (params) {
+      if (params.length === 1) {
+        const item =
+          items.find((u) => u.ITCC_BlogID === Number(params[0])) || EmptyBlog;
+        res.status(200).json(item);
+      }
+      else if (params.length === 2) {
+        // http://localhost:8080/api/blog/slug/thank-you-saint-louis-me'
+        if (params.indexOf('slug') > -1) {
+          const item =
+            items.find((u) =>
+              (u.Slug.trim().toLowerCase() === params[1].trim().toLowerCase())
+            ) || EmptyBlog;
+          res.status(200).json(item);
+        }
+      }
     } else {
       res.status(404).json({ messge: 'Blog not found' });
     }

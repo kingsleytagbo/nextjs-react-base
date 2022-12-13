@@ -64,11 +64,6 @@ const AddGallery = (props: any) => {
       }
     });
 
-    console.log({
-      POST: Array.from(formData),
-      editItem: editItem,
-    });
-
     return fetch(API_FORM_URL, {
       method: 'POST',
       body: formData,
