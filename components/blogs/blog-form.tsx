@@ -48,6 +48,22 @@ const BlogForm = (props: any) => {
 
             <div className="row">
               <div className="col-md-12">
+                <label htmlFor="Name">Slug</label>
+                <input
+                  value={props.Slug || ''}
+                  onChange={props.onChange}
+                  className="form-control"
+                  id="Slug"
+                  name="Slug"
+                  placeholder="Slug ..."
+                  type="text"
+                  autoComplete="false"
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-12">
                 <label htmlFor="Description"> Description</label>
                 <textarea
                   onKeyUp={handleTextAreaAutogrow}

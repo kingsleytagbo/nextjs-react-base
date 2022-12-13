@@ -1,6 +1,7 @@
 // ListBlogs Component for fetching & listing all items
 
 // Import Modules
+import Link from 'next/link';
 import React, { useState, useEffect, useCallback } from 'react';
 import { AUTH_KEY } from '../../services/constants';
 import { BaseUrlTypes, utils } from '../../services/utility';
@@ -54,8 +55,10 @@ const BlogsHome = (props: any) => {
   }, []);
 
   useEffect(() => {
-    fetchBlogs(pageNumber);
-  }, [fetchBlogs]);
+    if (!items || items.length === 0) {
+      fetchBlogs(pageNumber);
+    }
+  }, [fetchBlogs, pageNumber, items]);
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
@@ -80,7 +83,9 @@ const BlogsHome = (props: any) => {
                   <section key={index}>
                     <div className="row">
                       <div className="col-md-12">
-                        <p className="text-dark">{item.Name}</p>
+                        <Link href={'/' + item.Slug}>
+                          <h1 className="text-center">{item.Name}</h1>
+                        </Link>
                       </div>
                     </div>
                     <div className="row">
@@ -105,6 +110,7 @@ const BlogsHome = (props: any) => {
                 );
               })}
             </div>
+            
           </section>
 
           {/* <!-- END LIST USERS  --> */}
