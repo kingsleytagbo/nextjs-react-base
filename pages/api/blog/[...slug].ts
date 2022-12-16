@@ -13,8 +13,6 @@ export default function handler(
 
   const authUser = MockAuthenticator.Instance.getAuthUser(req);
   const hasAdminRole = MockAuthenticator.Instance.hasAdminRole(authUser);
-  const hasSubscriberRole =
-    MockAuthenticator.Instance.hasSubscriberRole(authUser);
 
   switch (req.method) {
     case 'GET':

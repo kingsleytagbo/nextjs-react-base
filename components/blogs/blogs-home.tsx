@@ -2,7 +2,7 @@
 
 // Import Modules
 import Link from 'next/link';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { AUTH_KEY } from '../../services/constants';
 import { BaseUrlTypes, utils } from '../../services/utility';
 import Pager from '../pager';

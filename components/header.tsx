@@ -1,32 +1,37 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import {useAuthContext} from '../context/auth-context';
 import { utils } from '../services/utility';
-import { publish, subscribe, unsubscribe } from '../services/event';
+//import { publish, subscribe, unsubscribe } from '../services/event';
 import { AUTH_KEY } from '../services/constants';
+
 
 function Header() {
   const router = useRouter();
-  const [userLoginStatus, setLoginStatus] = useState(false);
+  //const [userLoginStatus, setLoginStatus] = useState(false);
+  const {userLoginStatus, setLoginStatus} = useAuthContext();
+
   const getUserLoggedInStatus = useCallback(async () => {
     const loggedIn = utils.getUserAuthStatus(AUTH_KEY);
     setLoginStatus(loggedIn);
-  }, []);
+  }, [setLoginStatus]);
 
   const onLogout = () => {
     utils.saveData(null, AUTH_KEY);
-    publish(AUTH_KEY, { detail: '' });
+    //publish(AUTH_KEY, { detail: '' });
     getUserLoggedInStatus();
     router.push({ pathname: '/' });
   };
 
   useEffect(() => {
-    subscribe(AUTH_KEY, () => getUserLoggedInStatus());
+   //subscribe(AUTH_KEY, () => getUserLoggedInStatus());
     getUserLoggedInStatus();
-
+/*
     return () => {
       unsubscribe(AUTH_KEY, () => getUserLoggedInStatus());
     };
+    */
   }, [getUserLoggedInStatus]);
 
   return (

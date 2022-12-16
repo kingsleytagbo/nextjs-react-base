@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { APP_CLIENT_INTERNALS } from 'next/dist/shared/lib/constants';
 import BlogsHome from '../components/blogs/blogs-home';
 import Footer from '../components/footer';
 import Header from '../components/header';
@@ -32,7 +31,7 @@ const Home: NextPage = (props:any) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps() {
   const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1, 1);
   const data = await fetch(API_FORM_URL);
   const result = await data.json();

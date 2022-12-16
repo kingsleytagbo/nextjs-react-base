@@ -3,6 +3,7 @@
 // Import Modules
 import React, { useState, useEffect, useCallback } from 'react';
 import { BaseUrlTypes, HttpRequestTypes, utils } from '../../services/utility';
+import {useAuthContext} from '../../context/auth-context';
 import BlogForm from './blog-form';
 import AddBlog from './add-blog';
 import BlogDetail from './blog-detail';
@@ -17,6 +18,7 @@ const ListBlogs = () => {
   const [itemDetail, setItemDetail] = useState({ ...EmptyBlog });
   const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
+  const {userLoginStatus} = useAuthContext();
 
   const getUserAuth = useCallback(async () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
@@ -199,9 +201,9 @@ const ListBlogs = () => {
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
-          {/* <!-- BEGIN - ADD USER BUTTON  --> */}
+          {/* <!-- BEGIN - ADD ITEM BUTTON  --> */}
 
-          {!displayAddForm &&
+          {!displayAddForm && userLoginStatus &&
             itemDetail.ITCC_BlogID === 0 &&
             userAuth.IsAdmin === true && (
               <div className="d-grid mt-1">
@@ -216,19 +218,19 @@ const ListBlogs = () => {
               </div>
             )}
 
-          {/* <!-- END - ADD USER BUTTON  --> */}
+          {/* <!-- END - ADD ITEM BUTTON  --> */}
 
-          {/* <!-- BEGIN ADD USER  --> */}
-          {displayAddForm && (
+          {/* <!-- BEGIN ADD ITEM  --> */}
+          {displayAddForm && userLoginStatus && (
             <AddBlog
               onSaveAddBlog={onSaveAddBlog}
               onCancelAddBlog={onCancelAddBlog}
             ></AddBlog>
           )}
-          {/* <!-- END ADD USER  --> */}
+          {/* <!-- END ADD ITEM  --> */}
 
-          {/* <!-- BEGIN EDIT USER  --> */}
-          {(editItem.edit && itemDetail.ITCC_BlogID) > 0 && (
+          {/* <!-- BEGIN EDIT ITEM  --> */}
+          {(editItem.edit && itemDetail.ITCC_BlogID) > 0 && userLoginStatus && (
             <section className="card py-1 mt-1">
               <BlogForm
                 {...itemDetail}
@@ -242,10 +244,10 @@ const ListBlogs = () => {
               </BlogForm>
             </section>
           )}
-          {/* <!-- END EDIT USER  --> */}
+          {/* <!-- END EDIT ITEM  --> */}
 
-          {/* <!-- BEGIN USER DETAIL  --> */}
-          {(editItem.detail && itemDetail.ITCC_BlogID) > 0 && (
+          {/* <!-- BEGIN ITEM DETAIL  --> */}
+          {(editItem.detail && itemDetail.ITCC_BlogID) > 0 && userLoginStatus && (
             <section className="card py-1 mt-1">
               <BlogDetail
                 {...itemDetail}
@@ -255,10 +257,10 @@ const ListBlogs = () => {
               ></BlogDetail>
             </section>
           )}
-          {/* <!-- END USER DETAIL --> */}
+          {/* <!-- END ITEM DETAIL --> */}
 
-          {/* <!-- BEGIN USER DETAIL  --> */}
-          {(editItem.delete && itemDetail.ITCC_BlogID) > 0 && (
+          {/* <!-- BEGIN ITEM DELETE  --> */}
+          {(editItem.delete && itemDetail.ITCC_BlogID) > 0 && userLoginStatus && (
             <section className="card py-1 mt-1">
               <BlogDetail
                 {...itemDetail}
@@ -269,9 +271,9 @@ const ListBlogs = () => {
               ></BlogDetail>
             </section>
           )}
-          {/* <!-- END USER DETAIL --> */}
+          {/* <!-- END ITEM DELETE --> */}
 
-          {/* <!-- BEGIN LIST USERS  --> */}
+          {/* <!-- BEGIN LIST ITEMS  --> */}
 
           {itemDetail.ITCC_BlogID === 0 && (
             <section className="card py-1 mt-2">
@@ -357,7 +359,7 @@ const ListBlogs = () => {
             </section>
           )}
 
-          {/* <!-- END LIST USERS  --> */}
+          {/* <!-- END LIST ITEMS  --> */}
         </div>
         <div className="col-md-2"></div>
       </div>
