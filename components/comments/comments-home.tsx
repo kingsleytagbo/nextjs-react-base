@@ -2,7 +2,7 @@
 
 // Import Modules
 import Link from 'next/link';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { AUTH_KEY } from '../../services/constants';
 import { BaseUrlTypes, utils } from '../../services/utility';
 import Pager from '../pager';
@@ -54,22 +54,15 @@ const CommentsHome = (props: any) => {
     } catch { }
   }, []);
 
-  /*
+
   useEffect(() => {
-    if (!items || items.length === 0) {
-      fetchComments(pageNumber);
-    }
-  }, [fetchComments, pageNumber, items]);
-  */
+    console.log({comments: items})
+  }, [items]);
+  
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
-      <Pager
-        pageNumber={pageNumber}
-        items={items}
-        nextPage={nextPage}
-        prevPage={prevPage}
-      ></Pager>
+        
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
@@ -80,7 +73,7 @@ const CommentsHome = (props: any) => {
             </h3>
 
             <div className="card-body">
-              {items.map((item: any, index: number) => {
+              {items && items.length > 0 && items.map((item: any, index: number) => {
                 return (
                   <section key={index}>
                     <div className="row">
@@ -125,14 +118,7 @@ const CommentsHome = (props: any) => {
         </div>
         <div className="col-md-2"></div>
       </div>
-      <div className="container mt-3">
-        <Pager
-          pageNumber={pageNumber}
-          items={items}
-          nextPage={nextPage}
-          prevPage={prevPage}
-        ></Pager>
-      </div>
+   
     </div>
   );
 };

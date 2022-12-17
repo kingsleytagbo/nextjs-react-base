@@ -46,7 +46,6 @@ export async function getServerSideProps(context: any) {
     API_BLOGS_READ: API_BLOGS_READ,
     DATA: result ? result : null
   };
-  console.log({props: props})
   return { props: props };
 }
 

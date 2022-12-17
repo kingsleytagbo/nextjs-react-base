@@ -1,5 +1,7 @@
 // Blog Slug Component for viewing a Blog 
 
+import CommentsHome from "../comments/comments-home";
+
 // Blogs Home Component
 const BlogSlug = (props: any) => {
   const item = props.data;
@@ -19,6 +21,7 @@ const BlogSlug = (props: any) => {
             </h1>
 
             <div className="card-body">
+
               <div className="row">
                 <div className="col-md-12">
                   <div
@@ -39,6 +42,17 @@ const BlogSlug = (props: any) => {
                   <div className="d-flex justify-content-end mb-4"><span className="text-dark text-uppercase">{item.BlogType}</span></div>
                 </div>
               </div>
+
+              {/*<!-- BEGIN COMMENTS -->*/}
+              {(item && item.Comments) &&
+                <section>
+
+                  <CommentsHome data={item.Comments} title="Comments"></CommentsHome>
+
+                </section>
+              }
+              {/*<!-- END COMMENTS -->*/}
+
             </div>
 
           </section>

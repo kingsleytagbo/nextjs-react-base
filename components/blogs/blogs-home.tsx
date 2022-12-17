@@ -83,6 +83,7 @@ const BlogsHome = (props: any) => {
               {items.map((item: any, index: number) => {
                 return (
                   <section key={index}>
+
                     <div className="row">
                       <div className="col-md-12">
                         <Link href={'/' + item.Slug}>
@@ -112,7 +113,7 @@ const BlogsHome = (props: any) => {
                       <div className="col-md-6">
                         <div className="d-flex justify-content-end mb-4"><span className="text-dark text-uppercase">{item.BlogType}</span></div>
                       </div>
-                    </div>
+                    </div>      
 
                   </section>
                 );
