@@ -6,6 +6,7 @@ export enum BaseUrlTypes {
   Users = 'users/',
   Gallery = 'gallery/',
   Blog = 'blog/',
+  Comment = 'comment/',
   Image = 'image',
 }
 
