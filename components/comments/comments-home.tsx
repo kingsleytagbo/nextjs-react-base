@@ -61,50 +61,36 @@ const CommentsHome = (props: any) => {
   
 
   return (
-    <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
+    <div className="align-items-center justify-content-center mt-0 mb-5 clearfix">
         
       <div className="row">
-        <div className="col-md-2"></div>
-        <div className="col-md-8">
-          {/* <!-- BEGIN LIST USERS  --> */}
-          <section className="card py-1 mt-2">
-            <h3 className="card-title text-center text-dark mt-3">
+        <div className="col-md-1"></div>
+
+        <div className="col-md-9">
+          {/* <!-- BEGIN LIST COMMENTS  --> */}
+          <section className="comment py-1 mt-0">
+            <h3 className="comment-title text-center text-dark mt-0">
               <i className="bi bi-people"></i> {props.title}
             </h3>
 
-            <div className="card-body">
+            <div className="comemnt-body">
               {items && items.length > 0 && items.map((item: any, index: number) => {
                 return (
                   <section key={index}>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <Link href={'/' + item.Slug}>
-                          <h1 className="text-center">{item.Name}</h1>
-                        </Link>
-                      </div>
-                    </div>
 
                     <div className="row">
                       <div className="col-md-12">
                         <div
                           dangerouslySetInnerHTML={{
-                            __html: item.Description,
+                            __html: item.CommentDetail,
                           }}
                         ></div>
                       </div>
                     </div>
 
-                    <div className="row"><div className="col-md-12"><hr className="pt-1 bg-info" />
-                    </div>
+                    <div className="row"><div className="col-md-12"><hr className="bg-secondary" />
                     </div>
 
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="d-flex justify-content-start mb-4"><span className="text-dark text-uppercase">{item.Category}</span></div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="d-flex justify-content-end mb-4"><span className="text-dark text-uppercase">{item.CommentType}</span></div>
-                      </div>
                     </div>
 
                   </section>
@@ -116,7 +102,8 @@ const CommentsHome = (props: any) => {
 
           {/* <!-- END LIST USERS  --> */}
         </div>
-        <div className="col-md-2"></div>
+
+        <div className="col-md-1"></div>
       </div>
    
     </div>
