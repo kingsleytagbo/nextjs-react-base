@@ -3,7 +3,7 @@
 // Import Modules
 import React, { useState, useEffect, useCallback } from 'react';
 import { BaseUrlTypes, HttpRequestTypes, utils } from '../../services/utility';
-import {useAuthContext} from '../../context/auth-context';
+import { useAuthContext } from '../../context/auth-context';
 import CommentForm from './comment-form';
 import AddComment from './add-comment';
 import CommentDetail from './comment-detail';
@@ -12,35 +12,25 @@ import { AUTH_KEY } from '../../services/constants';
 
 const editmodes = { edit: false, detail: false, delete: false };
 // List Comments Component
-const ListComments = () => {
-  const [items, setItems] = useState([]);
+const ListComments = (props: any) => {
+  const API_COMMENTS_READ = props.postSlug ? 
+  utils.getBaseApi(BaseUrlTypes.Comment).concat('/slug/', props.postSlug) : '';
+
+  const [items, setItems] = useState(props.data);
   const [editItem, setEditItem] = useState({ ...editmodes });
   const [itemDetail, setItemDetail] = useState({ ...EmptyComment });
   const [displayAddForm, setAddForm] = useState(false);
-  const [userAuth, setUserAuth] = useState({ IsAdmin: false });
-  const {userLoginStatus} = useAuthContext();
+  //const [userAuth, setUserAuth] = useState({ IsAdmin: false });
+  const { userAuthContext, userAuth } = useAuthContext();
 
   const getUserAuth = useCallback(async () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
-    setUserAuth({ ...userAuthResult });
+    //setUserAuth({ ...userAuthResult });
     return userAuthResult;
   }, []);
 
   const getCommentDetail = (item: any) => {
-    const result = fetchComment(item.ITCC_CommentID, HttpRequestTypes.GET);
-    result.then((response) => {
-      const result = response.json();
-      if (result) {
-        result.then(
-          (result: any) => {
-            setItemDetail(result);
-          },
-          (error: any) => {
-            return error;
-          }
-        );
-      }
-    });
+    setItemDetail(item);
   };
 
   const handleAddCommentClick = () => {
@@ -132,6 +122,7 @@ const ListComments = () => {
 
     const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Comment);
     const url = API_FORM_URL + '/' + formData.ITCC_CommentID;
+
     return fetch(url, {
       method: 'PUT',
       body: JSON.stringify(formData),
@@ -142,7 +133,8 @@ const ListComments = () => {
   };
 
   const fetchComments = useCallback(async () => {
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Comment, 1);
+
+    const API_FORM_URL = props.postSlug ? API_COMMENTS_READ : utils.getBaseApi(BaseUrlTypes.Comment, 1);
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
@@ -167,13 +159,8 @@ const ListComments = () => {
             );
           }
         })
-        .catch((error) => {
-          console.log({ catch: error });
-        });
-    } catch (error) {
-      console.log(error);
-      //setItems
-    }
+        .catch();
+    } catch {}
   }, []);
 
   const fetchComment = (id: number, method: HttpRequestTypes) => {
@@ -191,21 +178,23 @@ const ListComments = () => {
   };
 
   useEffect(() => {
-    getUserAuth().then(() => {
-      fetchComments();
-    });
-  }, [fetchComments, getUserAuth]);
+    if (!items || items.length === 0) {
+      getUserAuth().then(() => {
+        fetchComments();
+      });
+    }
+  }, [userAuthContext, items, fetchComments, getUserAuth]);
 
   return (
-    <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
+    <div className="align-items-center justify-content-center mt-1 mb-5 clearfix">
       <div className="row">
-        <div className="col-md-2"></div>
-        <div className="col-md-8">
+        <div className="col-md-1"></div>
+        <div className="col-md-10">
           {/* <!-- BEGIN - ADD ITEM BUTTON  --> */}
 
-          {!displayAddForm && userLoginStatus &&
+          {!displayAddForm && userAuthContext &&
             itemDetail.ITCC_CommentID === 0 &&
-            userAuth.IsAdmin === true && (
+            userAuth?.IsAdmin === true && (
               <div className="d-grid mt-1">
                 <button
                   onClick={() => handleAddCommentClick()}
@@ -221,7 +210,7 @@ const ListComments = () => {
           {/* <!-- END - ADD ITEM BUTTON  --> */}
 
           {/* <!-- BEGIN ADD ITEM  --> */}
-          {displayAddForm && userLoginStatus && (
+          {displayAddForm && userAuthContext && (
             <AddComment
               onSaveAddComment={onSaveAddComment}
               onCancelAddComment={onCancelAddComment}
@@ -230,7 +219,7 @@ const ListComments = () => {
           {/* <!-- END ADD ITEM  --> */}
 
           {/* <!-- BEGIN EDIT ITEM  --> */}
-          {(editItem.edit && itemDetail.ITCC_CommentID) > 0 && userLoginStatus && (
+          {(editItem.edit && itemDetail.ITCC_CommentID) > 0 && userAuthContext && (
             <section className="card py-1 mt-1">
               <CommentForm
                 {...itemDetail}
@@ -247,7 +236,7 @@ const ListComments = () => {
           {/* <!-- END EDIT ITEM  --> */}
 
           {/* <!-- BEGIN ITEM DETAIL  --> */}
-          {(editItem.detail && itemDetail.ITCC_CommentID) > 0 && userLoginStatus && (
+          {(editItem.detail && itemDetail.ITCC_CommentID) > 0 && userAuthContext && (
             <section className="card py-1 mt-1">
               <CommentDetail
                 {...itemDetail}
@@ -260,7 +249,7 @@ const ListComments = () => {
           {/* <!-- END ITEM DETAIL --> */}
 
           {/* <!-- BEGIN ITEM DELETE  --> */}
-          {(editItem.delete && itemDetail.ITCC_CommentID) > 0 && userLoginStatus && (
+          {(editItem.delete && itemDetail.ITCC_CommentID) > 0 && userAuthContext && (
             <section className="card py-1 mt-1">
               <CommentDetail
                 {...itemDetail}
@@ -284,9 +273,18 @@ const ListComments = () => {
               <div className="card-body">
                 {items.map((item: any, index: number) => {
                   return (
-                    <section key={index}>
+                    <section key={index} className="mb-5">
+
                       <div className="row">
-                        <div className="col-md-2">
+
+                        <div className="col-md-12">
+                          <div dangerouslySetInnerHTML={{ __html: item.CommentDetail }}></div>
+                        </div>
+
+                      </div>
+
+                      <div className="row">
+                        <div className="col-md-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleCommentDetail(item)}
@@ -297,6 +295,11 @@ const ListComments = () => {
                               <i className="bi bi bi-ticket-detailed"></i>{' '}
                               &nbsp;
                             </button>
+
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="d-grid mt-3">
                             <button
                               onClick={() => handleEditComment(item)}
                               disabled={!userAuth.IsAdmin}
@@ -306,6 +309,10 @@ const ListComments = () => {
                             >
                               <i className="bi bi-pencil-square"></i> &nbsp;
                             </button>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="d-grid mt-3">
                             <button
                               onClick={() => handleDeleteComment(item)}
                               disabled={!userAuth.IsAdmin}
@@ -317,39 +324,7 @@ const ListComments = () => {
                             </button>
                           </div>
                         </div>
-
-                        <div className="col-md-5">
-                          <p className="text-dark">{item.Name}</p>
-                        </div>
-
-                        <div className="col-md-5">
-                          <p className="text-dark">{item.Category}</p>
-                        </div>
                       </div>
-
-                      {item.ImageUrl && (
-                        <div className="row">
-                          <div className="col-md-12">
-                            <a
-                              href={item.ImageUrl}
-                              className="text-primary"
-                              rel="noreferrer"
-                              target="_blank"
-                            >
-                              <img
-                                alt="Image"
-                                src={item.ImageUrl}
-                                className="img-fluid"
-                              />
-                            </a>
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: item.Description,
-                              }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
 
                       <hr className="pt-1 bg-info" />
                     </section>
@@ -361,7 +336,7 @@ const ListComments = () => {
 
           {/* <!-- END LIST ITEMS  --> */}
         </div>
-        <div className="col-md-2"></div>
+        <div className="col-md-1"></div>
       </div>
     </div>
   );

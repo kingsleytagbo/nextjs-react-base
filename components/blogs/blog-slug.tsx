@@ -1,6 +1,6 @@
 // Blog Slug Component for viewing a Blog 
 
-import CommentsHome from "../comments/comments-home";
+import ListComments from "../comments/list-comments";
 
 // Blogs Home Component
 const BlogSlug = (props: any) => {
@@ -47,7 +47,7 @@ const BlogSlug = (props: any) => {
               {(item && item.Comments) &&
                 <section>
 
-                  <CommentsHome data={item.Comments} title="Comments"></CommentsHome>
+                  <ListComments postSlug={props.postSlug} data={item.Comments} title="Comments"></ListComments>
 
                 </section>
               }

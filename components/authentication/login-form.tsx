@@ -14,12 +14,13 @@ export default function LoginForm() {
   const [isValid, setValidation] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [showForm, displayForm] = useState(true);
-  const [userLoginStatus, setLoginStatus] = useState(false);
+  const [userUserAuthContext, setUserAuthContext] = useState(false);
 
   const getUserLoggedInStatus = useCallback(async () => {
-    const loggedIn = utils.getUserAuthStatus(AUTH_KEY);
+    const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
+    const loggedIn = utils.getUserAuthStatus(null, userAuthResult);
     displayForm(!loggedIn);
-    setLoginStatus(loggedIn);
+    setUserAuthContext(loggedIn);
   }, []);
 
   useEffect(() => {
@@ -129,7 +130,7 @@ export default function LoginForm() {
 
             <div className="col-md-6">
               <section className="card">
-                {userLoginStatus === true && (
+                {userUserAuthContext === true && (
                   <h3 className="card-title text-center text-dark mt-3">
                     Login to your account ...
                   </h3>

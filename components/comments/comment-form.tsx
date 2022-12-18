@@ -24,85 +24,40 @@ const CommentForm = (props: any) => {
       <section className="py-1 mt-1" key="user-form">
         {/* <!-- BEGIN FORM  -->} */}
 
-        <section className="card">
-          <h3 className="card-title text-center text-dark mt-3">
+        <section className="comment-card">
+          <h3 className="comment-card-title text-center text-dark mt-3">
             <i className="bi bi-person"></i> {props.title}
           </h3>
 
-          <form className="card-body">
-            <div className="row">
-              <div className="col-md-12">
-                <label htmlFor="Name">Name</label>
-                <input
-                  value={props.Name || ''}
-                  onChange={props.onChange}
-                  className="form-control"
-                  id="Name"
-                  name="Name"
-                  placeholder="Name ..."
-                  type="text"
-                  autoComplete="false"
-                />
-              </div>
-            </div>
+          <form className="comment-card-body">
 
             <div className="row">
               <div className="col-md-12">
-                <label htmlFor="Name">Slug</label>
-                <input
-                  value={props.Slug || ''}
-                  onChange={props.onChange}
-                  className="form-control"
-                  id="Slug"
-                  name="Slug"
-                  placeholder="Slug ..."
-                  type="text"
-                  autoComplete="false"
-                />
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-12">
-                <label htmlFor="Description"> Description</label>
+                <label htmlFor="Description"> Comment</label>
                 <textarea
                   onKeyUp={handleTextAreaAutogrow}
                   rows={3}
-                  value={props.Description || ''}
+                  value={props.CommentDetail || ''}
                   onChange={props.onChange}
                   className="form-control"
-                  id="Description"
-                  name="Description"
-                  placeholder="Description ..."
+                  id="CommentDetail"
+                  name="CommentDetail"
+                  placeholder="Comment ..."
                   autoComplete="false"
                 ></textarea>
               </div>
             </div>
 
             <div className="row">
-              <div className="col-md-6">
-                <label htmlFor="FilePath"> Category</label>
+              <div className="col-md-12">
+                <label htmlFor="Name">Comment Title</label>
                 <input
-                  value={props.Category || ''}
+                  value={props.CommentTitle || ''}
                   onChange={props.onChange}
                   className="form-control"
-                  id="Category"
-                  name="Category"
-                  placeholder="Category ..."
-                  type="text"
-                  autoComplete="false"
-                />
-              </div>
-
-              <div className="col-md-6">
-                <label htmlFor="CommentType">CommentType</label>
-                <input
-                  value={props.CommentType || ''}
-                  onChange={props.onChange}
-                  className="form-control"
-                  id="CommentType"
-                  name="CommentType"
-                  placeholder="CommentType ..."
+                  id="CommentTitle"
+                  name="CommentTitle"
+                  placeholder="Comment Title ..."
                   type="text"
                   autoComplete="false"
                 />
@@ -111,14 +66,14 @@ const CommentForm = (props: any) => {
 
             <div className="row">
               <div className="col-md-12">
-                <label htmlFor="ImageUrl"> ImageUrl</label>
+                <label htmlFor="Name">Full Name</label>
                 <input
-                  value={props.ImageUrl || ''}
+                  value={props.CommentFullName || ''}
                   onChange={props.onChange}
                   className="form-control"
-                  id="ImageUrl"
-                  name="ImageUrl"
-                  placeholder="ImageUrl ..."
+                  id="CommentFullName"
+                  name="CommentFullName"
+                  placeholder="Full Name ..."
                   type="text"
                   autoComplete="false"
                 />

@@ -6,16 +6,26 @@ import { utils } from '../services/utility';
 //import { publish, subscribe, unsubscribe } from '../services/event';
 import { AUTH_KEY } from '../services/constants';
 
+/*
+const getUserAuth = useCallback(async () => {
+  const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
+  setUserAuth({ ...userAuthResult });
+  return userAuthResult;
+}, []);
+*/
 
 function Header() {
   const router = useRouter();
-  //const [userLoginStatus, setLoginStatus] = useState(false);
-  const {userLoginStatus, setLoginStatus} = useAuthContext();
+  //const [userAuthContext, setUserAuthContext] = useState(false);
+  const {userAuthContext, setUserAuthContext, setUserAuth} = useAuthContext();
 
   const getUserLoggedInStatus = useCallback(async () => {
-    const loggedIn = utils.getUserAuthStatus(AUTH_KEY);
-    setLoginStatus(loggedIn);
-  }, [setLoginStatus]);
+    const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
+    const loggedIn = utils.getUserAuthStatus(null, userAuthResult);
+
+    setUserAuth(userAuthResult);
+    setUserAuthContext(loggedIn);
+  }, [setUserAuthContext, setUserAuth]);
 
   const onLogout = () => {
     utils.saveData(null, AUTH_KEY);
@@ -53,7 +63,7 @@ function Header() {
               </Link>
             </li>
 
-            {userLoginStatus === true && (
+            {userAuthContext === true && (
               <>
                 <li className="nav-item">
                   <Link legacyBehavior href="/blogs">
@@ -84,7 +94,7 @@ function Header() {
               </>
             )}
 
-            {userLoginStatus === true && (
+            {userAuthContext === true && (
               <li className="nav-item">
                 <Link legacyBehavior href="/users">
                   <a
@@ -101,7 +111,7 @@ function Header() {
             )}
 
             <li className="nav-item">
-              {userLoginStatus === true ? (
+              {userAuthContext === true ? (
                 <button
                   onClick={onLogout}
                   className="btn btn-secondary"

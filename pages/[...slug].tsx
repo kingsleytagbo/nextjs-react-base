@@ -7,6 +7,7 @@ import { BaseUrlTypes, utils } from '../services/utility';
 
 const SlugPage: NextPage = (props: any) => {
   const data = props.DATA;
+  const postSlug = props.POST_SLUG;
 
   return (
 
@@ -22,7 +23,7 @@ const SlugPage: NextPage = (props: any) => {
         <div className="row">
           <div className="col-md-12">
             <section>
-              <BlogSlug data={data}></BlogSlug>
+              <BlogSlug postSlug={postSlug} data={data}></BlogSlug>
             </section>
           </div>
         </div>

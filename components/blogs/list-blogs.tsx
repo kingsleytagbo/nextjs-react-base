@@ -18,7 +18,7 @@ const ListBlogs = () => {
   const [itemDetail, setItemDetail] = useState({ ...EmptyBlog });
   const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
-  const {userLoginStatus} = useAuthContext();
+  const {userAuthContext} = useAuthContext();
 
   const getUserAuth = useCallback(async () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
@@ -191,10 +191,17 @@ const ListBlogs = () => {
   };
 
   useEffect(() => {
+    console.log({
+      Blogs_userAuthContext: userAuthContext,
+      displayAddForm:displayAddForm, 
+      itemDetail:itemDetail, 
+      userAuth: userAuth,
+      items: items
+    });
     getUserAuth().then(() => {
       fetchBlogs();
     });
-  }, [fetchBlogs, getUserAuth]);
+  }, [fetchBlogs, getUserAuth, userAuthContext]);
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
@@ -203,7 +210,7 @@ const ListBlogs = () => {
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD ITEM BUTTON  --> */}
 
-          {!displayAddForm && userLoginStatus &&
+          {!displayAddForm && userAuthContext &&
             itemDetail.ITCC_BlogID === 0 &&
             userAuth.IsAdmin === true && (
               <div className="d-grid mt-1">
@@ -221,7 +228,7 @@ const ListBlogs = () => {
           {/* <!-- END - ADD ITEM BUTTON  --> */}
 
           {/* <!-- BEGIN ADD ITEM  --> */}
-          {displayAddForm && userLoginStatus && (
+          {displayAddForm && userAuthContext && (
             <AddBlog
               onSaveAddBlog={onSaveAddBlog}
               onCancelAddBlog={onCancelAddBlog}
@@ -230,7 +237,7 @@ const ListBlogs = () => {
           {/* <!-- END ADD ITEM  --> */}
 
           {/* <!-- BEGIN EDIT ITEM  --> */}
-          {(editItem.edit && itemDetail.ITCC_BlogID) > 0 && userLoginStatus && (
+          {(editItem.edit && itemDetail.ITCC_BlogID) > 0 && userAuthContext && (
             <section className="card py-1 mt-1">
               <BlogForm
                 {...itemDetail}
@@ -247,7 +254,7 @@ const ListBlogs = () => {
           {/* <!-- END EDIT ITEM  --> */}
 
           {/* <!-- BEGIN ITEM DETAIL  --> */}
-          {(editItem.detail && itemDetail.ITCC_BlogID) > 0 && userLoginStatus && (
+          {(editItem.detail && itemDetail.ITCC_BlogID) > 0 && userAuthContext && (
             <section className="card py-1 mt-1">
               <BlogDetail
                 {...itemDetail}
@@ -260,7 +267,7 @@ const ListBlogs = () => {
           {/* <!-- END ITEM DETAIL --> */}
 
           {/* <!-- BEGIN ITEM DELETE  --> */}
-          {(editItem.delete && itemDetail.ITCC_BlogID) > 0 && userLoginStatus && (
+          {(editItem.delete && itemDetail.ITCC_BlogID) > 0 && userAuthContext && (
             <section className="card py-1 mt-1">
               <BlogDetail
                 {...itemDetail}

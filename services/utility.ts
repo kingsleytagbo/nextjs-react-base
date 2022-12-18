@@ -49,14 +49,17 @@ class Utility implements IStorage {
     appStorage[key] = value;
 
     storage.saveData(appStorage, this.appStorageKey);
-    const keyData = this.getData(key);
-    const database = this.getData();
   }
 
-  getUserAuthStatus(key: any) {
-    const value: any = this.getData(key);
-    const data = value && value.AuthID && value.RoleNames ? true : false;
-    return data;
+  getUserAuthStatus(key?: any, authData?:any) {
+    if (key || authData) {
+      const value: any = authData || this.getData(key);
+      const data = value && value.AuthID && value.RoleNames ? true : false;
+      return data;
+    }
+    else{
+      return false;
+    }
   }
 
   getUserAuthRoles(key: any) {
@@ -106,6 +109,9 @@ class Utility implements IStorage {
       case BaseUrlTypes.Blog:
         baseApiPath = 'blog';
         break;
+      case BaseUrlTypes.Comment:
+          baseApiPath = 'comment';
+          break;
       case BaseUrlTypes.Image:
         baseApiPath = 'image';
         break;

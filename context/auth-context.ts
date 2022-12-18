@@ -1,14 +1,19 @@
 import { createContext, useContext } from "react";
-// const [userLoginStatus, setLoginStatus] = useState(false);
+// const [userAuthContext, setUserAuthContext] = useState(false);
 
 export type AuthType = {
-  userLoginStatus: boolean 
-  setLoginStatus:(value: boolean) => void
+  userAuth:any;
+  setUserAuth:(value: any) => void;
+  userAuthContext: boolean; 
+  setUserAuthContext:(value: boolean) => void;
 };
 
 export const AuthContext = createContext<AuthType>({
-  userLoginStatus: false, // set a default value
-  setLoginStatus: () => {}
+  // set default values
+  userAuth:{isAdmin:false},
+  setUserAuth: () => {},
+  userAuthContext: false, 
+  setUserAuthContext: () => {}
 });
 
 export const useAuthContext = () => useContext(AuthContext);

@@ -7,10 +7,11 @@ import {AuthContext} from '../context/auth-context';
 import { useState } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [userLoginStatus, setLoginStatus] = useState(false);
+  const [userAuth, setUserAuth] = useState({ IsAdmin: false });
+  const [userAuthContext, setUserAuthContext] = useState(false);
   
   return (
-    <AuthContext.Provider value= {{ userLoginStatus, setLoginStatus }}>
+    <AuthContext.Provider value= {{  userAuth, setUserAuth, userAuthContext, setUserAuthContext }}>
       <Component {...pageProps} />
     </AuthContext.Provider>
   );

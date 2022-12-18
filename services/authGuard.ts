@@ -3,7 +3,8 @@ import { AUTH_KEY } from './constants';
 import { utils } from './utility';
 
 export const AuthGuard = () => {
-  const loggedIn = utils.getUserAuthStatus(AUTH_KEY);
+  const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
+  const loggedIn = utils.getUserAuthStatus(null, userAuthResult);
   if (!loggedIn) {
     router.push({ pathname: '/' });
   }
