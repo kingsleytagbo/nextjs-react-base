@@ -26,7 +26,7 @@ const CommentForm = (props: any) => {
 
         <section className="comment-card">
           <h3 className="comment-card-title text-center text-dark mt-3">
-            <i className="bi bi-person"></i> {props.title}
+            <i className="bi bi-megaphone"></i> {props.title}
           </h3>
 
           <form className="comment-card-body">
@@ -89,7 +89,7 @@ const CommentForm = (props: any) => {
                     type="button"
                     value="Create"
                   >
-                    <i className="bi bi-user"></i> &nbsp;{props.children}
+                    <i className="bi bi-megaphone"></i> &nbsp;{props.children}
                   </button>
                 </div>
               </div>

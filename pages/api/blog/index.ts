@@ -17,10 +17,6 @@ export default function handler(
 ) {
   const authUser = MockAuthenticator.Instance.getAuthUser(req);
   const hasAdminRole = MockAuthenticator.Instance.hasAdminRole(authUser);
-  const { slug } = req.query;
-  const params = slug ? Array.from(slug) : [];
-
-console.log({BlogIndexHandler: slug, params: params, method: req.method})
 
   switch (req.method) {
     case 'POST':

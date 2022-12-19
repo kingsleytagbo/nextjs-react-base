@@ -42,11 +42,13 @@ export async function getServerSideProps(context: any) {
   const API_BLOGS_READ = utils.getBaseApi(BaseUrlTypes.Blog).concat('/slug/', POST_SLUG);
   const data = await fetch(API_BLOGS_READ);
   const result = await data.json();
+  
   const props = {
-    POST_SLUG: POST_SLUG,
+    POST_SLUG: result ? result.ITCC_BlogID : null,
     API_BLOGS_READ: API_BLOGS_READ,
     DATA: result ? result : null
   };
+
   return { props: props };
 }
 

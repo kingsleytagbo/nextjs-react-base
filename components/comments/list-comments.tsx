@@ -13,8 +13,9 @@ import { AUTH_KEY } from '../../services/constants';
 const editmodes = { edit: false, detail: false, delete: false };
 // List Comments Component
 const ListComments = (props: any) => {
-  const API_COMMENTS_READ = props.postSlug ? 
-  utils.getBaseApi(BaseUrlTypes.Comment).concat('/slug/', props.postSlug) : '';
+  const API_COMMENTS_URL = props.postSlug ? 
+  utils.getBaseApi(BaseUrlTypes.Comment).concat('/slug/', props.postSlug) : 
+  utils.getBaseApi(BaseUrlTypes.Comment, 1);
 
   const [items, setItems] = useState(props.data);
   const [editItem, setEditItem] = useState({ ...editmodes });
@@ -134,14 +135,15 @@ const ListComments = (props: any) => {
 
   const fetchComments = useCallback(async () => {
 
-    const API_FORM_URL = props.postSlug ? API_COMMENTS_READ : utils.getBaseApi(BaseUrlTypes.Comment, 1);
+    //const API_FORM_URL = props.postSlug ? API_COMMENTS_URL : utils.getBaseApi(BaseUrlTypes.Comment, 1);
+
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
     try {
-      fetch(API_FORM_URL, {
+      fetch(API_COMMENTS_URL, {
         method: 'GET',
         headers: headers,
       })
@@ -161,7 +163,7 @@ const ListComments = (props: any) => {
         })
         .catch();
     } catch {}
-  }, []);
+  }, [API_COMMENTS_URL]);
 
   const fetchComment = (id: number, method: HttpRequestTypes) => {
     const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Comment);
@@ -202,7 +204,7 @@ const ListComments = (props: any) => {
                   type="button"
                   value="Edit"
                 >
-                  <i className="bi bi-person-plus"></i> &nbsp;Add Comment
+                  <i className="bi bi-megaphone"></i> &nbsp;Add Comment
                 </button>
               </div>
             )}
@@ -212,6 +214,7 @@ const ListComments = (props: any) => {
           {/* <!-- BEGIN ADD ITEM  --> */}
           {displayAddForm && userAuthContext && (
             <AddComment
+              postSlug = {props.postSlug}
               onSaveAddComment={onSaveAddComment}
               onCancelAddComment={onCancelAddComment}
             ></AddComment>
@@ -267,7 +270,7 @@ const ListComments = (props: any) => {
           {itemDetail.ITCC_CommentID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
-                <i className="bi bi-people"></i> Comments
+                <i className="bi bi-megaphone"></i> Comments
               </h3>
 
               <div className="card-body">

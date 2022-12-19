@@ -41,9 +41,7 @@ const ListGallerys = () => {
           );
         }
       })
-      .catch((error) => {
-        console.log({ catch: error });
-      });
+      .catch();
   };
 
   const handleAddGalleryClick = () => {
@@ -186,9 +184,7 @@ const ListGallerys = () => {
           );
         }
       })
-      .catch((error) => {
-        console.log({ catch: error });
-      });
+      .catch();
   }, []);
 
   const fetchGallery = (id: number, method: HttpRequestTypes) => {

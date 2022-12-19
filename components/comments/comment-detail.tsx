@@ -19,7 +19,7 @@ const CommentDetail = (props: any) => {
     <>
       <section className="card py-2 mt-2 p-2">
         <h3 className="card-title text-center text-dark mt-3">
-          <i className="bi bi-person"></i> {props.title}
+          <i className="bi bi-megaphone"></i> {props.title}
         </h3>
         <div className="row">
           <div className="col-md-12">

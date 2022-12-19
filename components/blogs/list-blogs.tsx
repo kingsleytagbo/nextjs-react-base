@@ -191,13 +191,6 @@ const ListBlogs = () => {
   };
 
   useEffect(() => {
-    console.log({
-      Blogs_userAuthContext: userAuthContext,
-      displayAddForm:displayAddForm, 
-      itemDetail:itemDetail, 
-      userAuth: userAuth,
-      items: items
-    });
     getUserAuth().then(() => {
       fetchBlogs();
     });

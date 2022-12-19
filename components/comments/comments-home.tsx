@@ -17,7 +17,7 @@ const CommentsHome = (props: any) => {
           {/* <!-- BEGIN LIST COMMENTS  --> */}
           <section className="comment py-1 mt-0">
             <h3 className="comment-title text-center text-dark mt-0">
-              <i className="bi bi-people"></i> {props.title}
+              <i className="bi bi-megaphone"></i> {props.title}
             </h3>
 
             <div className="comemnt-body">

@@ -147,9 +147,7 @@ const ListUsers = () => {
           );
         }
       })
-      .catch((error) => {
-        console.log({ catch: error });
-      });
+      .catch();
   }, []);
 
   const fetchUser = (id: number, method: HttpRequestTypes) => {

@@ -10,13 +10,15 @@ import { AUTH_KEY } from '../../services/constants';
 // CreateComment Component
 const AddComment = (props: any) => {
   const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Comment);
-  const [editItem, setEditItem] = useState({ ...EmptyComment });
+  const postID  = props.postSlug;
+  
+  const [editItem, setEditItem] = useState({ ...EmptyComment, ITCC_PostID: postID, ReplyPostID
+: postID  });
 
   const onChange = (e: any) => {
     const key = e.target.name;
     const value = e.target.value;
     const formState = { ...editItem, [key]: value };
-
     setEditItem(formState);
   };
 
