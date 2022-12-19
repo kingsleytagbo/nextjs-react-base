@@ -136,7 +136,7 @@ const ListComments = (props: any) => {
   const fetchComments = useCallback(async () => {
 
     //const API_FORM_URL = props.postSlug ? API_COMMENTS_URL : utils.getBaseApi(BaseUrlTypes.Comment, 1);
-
+    const API_FORM_URL = API_COMMENTS_URL;
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
@@ -163,7 +163,7 @@ const ListComments = (props: any) => {
         })
         .catch();
     } catch {}
-  }, [API_COMMENTS_URL]);
+  }, []);
 
   const fetchComment = (id: number, method: HttpRequestTypes) => {
     const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Comment);
@@ -180,7 +180,7 @@ const ListComments = (props: any) => {
   };
 
   useEffect(() => {
-    if (!items || items.length === 0) {
+    if (!props || !props.postSlug) {
       getUserAuth().then(() => {
         fetchComments();
       });
