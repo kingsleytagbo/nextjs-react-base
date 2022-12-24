@@ -32,7 +32,6 @@ export class FileCache {
       const filePath = path.join(FILE_CACHE_PATH, folder);
       const data =  JSON.stringify(content);
       fs.writeFileSync(filePath, data, 'utf8');
-      console.log({ filePath: filePath, data: content })
 
     } catch (error) {
       console.log({ 'cache writing error for: ': error })
