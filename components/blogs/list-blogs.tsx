@@ -11,13 +11,13 @@ import { EmptyBlog } from '../../models/blog';
 import { AUTH_KEY } from '../../services/constants';
 
 
-const editmodes = { edit: false, detail: false, delete: false };
+const editmodes = { add:false, edit: false, detail: false, delete: false };
 // List Blogs Component
 const ListBlogs = () => {
   const [items, setItems] = useState([]);
   const [editItem, setEditItem] = useState({ ...editmodes });
   const [itemDetail, setItemDetail] = useState({ ...EmptyBlog });
-  const [displayAddForm, setAddForm] = useState(false);
+  //const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
   const { userAuthContext } = useAuthContext();
 
@@ -45,7 +45,8 @@ const ListBlogs = () => {
   };
 
   const handleAddBlogClick = () => {
-    setAddForm(true);
+    setEditItem({ ...editmodes, add: true });
+    //setAddForm(true);
   };
 
   const handleEditBlog = (item: any) => {
@@ -79,11 +80,13 @@ const ListBlogs = () => {
 
   const onSaveAddBlog = () => {
     fetchBlogs().then();
-    setAddForm(false);
+    setEditItem({ ...editmodes, add: false });
+    //setAddForm(false);
   };
 
   const onCancelAddBlog = () => {
-    setAddForm(false);
+    setEditItem({ ...editmodes, add: false });
+   // setAddForm(false);
   };
 
   const onChangeEditBlog = (e: any) => {
@@ -103,7 +106,7 @@ const ListBlogs = () => {
     postFormRequest(itemDetail);
     fetchBlogs().then();
     setItemDetail({ ...EmptyBlog });
-    setAddForm(false);
+    //setAddForm(false);
   };
 
   const onChangeBlogHandle = (event: any) => {
@@ -204,7 +207,7 @@ const ListBlogs = () => {
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD ITEM BUTTON  --> */}
 
-          {!displayAddForm && userAuthContext &&
+          {!editItem.add && userAuthContext &&
             itemDetail.ITCC_BlogID === 0 &&
             userAuth.IsAdmin === true && (
               <div className="d-grid mt-1">
@@ -222,7 +225,7 @@ const ListBlogs = () => {
           {/* <!-- END - ADD ITEM BUTTON  --> */}
 
           {/* <!-- BEGIN ADD ITEM  --> */}
-          {displayAddForm && userAuthContext && (
+          {editItem.add && userAuthContext && (
             <AddBlog
               onSaveAddBlog={onSaveAddBlog}
               onCancelAddBlog={onCancelAddBlog}
@@ -276,7 +279,7 @@ const ListBlogs = () => {
 
           {/* <!-- BEGIN LIST ITEMS  --> */}
 
-          {itemDetail.ITCC_BlogID === 0 && (
+          {!editItem.add && itemDetail.ITCC_BlogID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
               <i className="bi bi-envelope-check"></i> Blogs
