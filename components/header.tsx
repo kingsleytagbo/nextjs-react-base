@@ -16,6 +16,8 @@ const getUserAuth = useCallback(async () => {
 
 function Header() {
   const router = useRouter();
+  const navPaths = ['/', '/blogs', '/gallery', '/users'];
+  const isBlogPath = router.asPath && (navPaths.indexOf(router.asPath) > -1) ? false: true; 
   //const [userAuthContext, setUserAuthContext] = useState(false);
   const {userAuthContext, setUserAuthContext, setUserAuth} = useAuthContext();
 
@@ -54,7 +56,7 @@ function Header() {
                 <a
                   href="/"
                   className={`nav-link ${
-                    router.asPath === '/' ? 'active' : ''
+                    ((router.asPath === '/') || isBlogPath) ? 'active' : ''
                   }`}
                   aria-current="page"
                 >
@@ -62,6 +64,7 @@ function Header() {
                 </a>
               </Link>
             </li>
+
 
             {userAuthContext === true && (
               <>
@@ -98,7 +101,7 @@ function Header() {
               <li className="nav-item">
                 <Link legacyBehavior href="/users">
                   <a
-                    href="/"
+                    href="/users"
                     className={`nav-link ${
                       router.asPath === '/users' ? 'active' : ''
                     }`}
@@ -134,6 +137,7 @@ function Header() {
                 </Link>
               )}
             </li>
+
           </ul>
         </section>
       }
