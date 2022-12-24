@@ -5,6 +5,7 @@ import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 import { utils } from '../../../services/utility';
 import path from 'path';
+import { FileCache } from '../../../services/fileCache';
 
 export const config = {
   api: {
@@ -37,6 +38,7 @@ export default function handler(
   }
 
   if (req.method === 'POST' && hasAdminRole) {
+    /*
     const form = new formidable.IncomingForm({
       uploadDir: path.join(
         process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY || '',
@@ -44,6 +46,14 @@ export default function handler(
       ),
       keepExtensions: true,
     });
+    */
+    const form = new formidable.IncomingForm({
+      uploadDir: path.join(
+        FileCache.Instance.getFileUploadDirectory()
+      ),
+      keepExtensions: true,
+    });
+    
     form.parse(req, async function (err, fields) {
       createBlog(fields);
     });

@@ -136,7 +136,6 @@ const ListComments = (props: any) => {
   const fetchComments = useCallback(async () => {
 
     //const API_FORM_URL = props.postSlug ? API_COMMENTS_URL : utils.getBaseApi(BaseUrlTypes.Comment, 1);
-    const API_FORM_URL = API_COMMENTS_URL;
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),

@@ -4,7 +4,7 @@ import formidable from 'formidable';
 import fs from 'fs';
 import { EmptyGallery, Gallery } from '../../../models/gallery';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
-import path from 'path';
+import { FileCache } from '../../../services/fileCache';
 export const config = {
   api: {
     bodyParser: false,
@@ -42,10 +42,14 @@ export default function handler(
       break;
   }
 
+  /*
   const uploadDir = path.join(
     process.env.NEXT_PUBLIC_FILE_UPLOAD_DIRECTORY || '',
     process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE || ''
   );
+  */
+ const uploadDir =  FileCache.Instance.getFileUploadDirectory();
+ 
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
   }
