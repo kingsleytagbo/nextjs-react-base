@@ -2,6 +2,7 @@ import { NextApiRequest } from 'next';
 import { Blog } from '../models/blog';
 import { Gallery } from '../models/gallery';
 import { User, EmptyUser } from '../models/user';
+import { FileCache } from './fileCache';
 
 export class MockAuthenticator {
   private static _instance: MockAuthenticator;
@@ -172,10 +173,13 @@ class MockBlogData {
   private constructor() {}
 
   getBlogs() {
+    const fileCacheItems = FileCache.Instance.getData('blog.json');
+    if(fileCacheItems){ this.items = fileCacheItems };
     return this.items;
   }
 
   saveBlogs(values: any) {
+    FileCache.Instance.saveData('blog.json', values);
     this.items = values;
   }
 

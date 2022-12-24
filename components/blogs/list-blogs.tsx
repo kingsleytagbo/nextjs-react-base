@@ -10,6 +10,7 @@ import BlogDetail from './blog-detail';
 import { EmptyBlog } from '../../models/blog';
 import { AUTH_KEY } from '../../services/constants';
 
+
 const editmodes = { edit: false, detail: false, delete: false };
 // List Blogs Component
 const ListBlogs = () => {

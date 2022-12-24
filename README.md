@@ -159,6 +159,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## References
 
+- Bootstrap 5 Form Validation: https://www.w3schools.com/bootstrap5/bootstrap_form_validation.php
 - Create a NextJs project with Typescript, ESLint, Prettier https://www.sandromaglione.com/techblog/create-nextjs-project-with-typescript-eslint-prettier-tailwindcss
 - - npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier
 - - npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript
@@ -169,6 +170,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ### Next.js SEO
 
 - Incremental Static Generation: https://blog.logrocket.com/incremental-static-regeneration-next-js/
+
+- How to cache data in Next.js globally across all pages at build time
+https://flaviocopes.com/nextjs-cache-data-globally/
 
 ### Http Error Codes
 

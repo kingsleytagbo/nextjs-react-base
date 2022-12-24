@@ -5,6 +5,7 @@ import { EmptyBlog, Blog } from '../../../models/blog';
 import { MockAuthenticator, MockServer } from '../../../services/mockData';
 import { utils } from '../../../services/utility';
 import path from 'path';
+import { FileCache } from '../../../services/fileCache';
 export const config = {
   api: {
     bodyParser: false,
