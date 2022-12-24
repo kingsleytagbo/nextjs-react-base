@@ -14,7 +14,7 @@ export class FileCache {
     let cachedData;
 
     try {
-      const filePath = path.join(FILE_CACHE_PATH, folder);
+      const filePath = path.resolve(FILE_CACHE_PATH, folder);
       const data = fs.readFileSync(filePath, 'utf8');
       cachedData = data ? JSON.parse(data) : null;
 
