@@ -19,7 +19,7 @@ const BlogDetail = (props: any) => {
     <>
       <section className="card py-2 mt-2 p-2">
         <h3 className="card-title text-center text-dark mt-3">
-          <i className="bi bi-person"></i> {props.title}
+        <i className="bi bi-envelope-slash"></i> {props.title}
         </h3>
         <div className="row">
           <div className="col-md-12">
@@ -29,13 +29,13 @@ const BlogDetail = (props: any) => {
         </div>
 
         <div className="row">
-          <div className="col-md-6">
-            <label>Category</label>
-            <p className="text-dark">{props.Category}</p>
-          </div>
           <div className="col-md-4">
             <label>BlogType</label>
             <p className="text-dark">{props.BlogType}</p>
+          </div>
+          <div className="col-md-6">
+            <label>Category</label>
+            <p className="text-dark">{props.Category}</p>
           </div>
         </div>
 

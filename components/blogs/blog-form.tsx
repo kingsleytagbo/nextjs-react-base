@@ -26,7 +26,7 @@ const BlogForm = (props: any) => {
 
         <section className="card">
           <h3 className="card-title text-center text-dark mt-3">
-            <i className="bi bi-person"></i> {props.title}
+          <i className="bi bi-envelope-dash-fill"></i> {props.title}
           </h3>
 
           <form className="card-body">
@@ -80,19 +80,6 @@ const BlogForm = (props: any) => {
             </div>
 
             <div className="row">
-              <div className="col-md-6">
-                <label htmlFor="FilePath"> Category</label>
-                <input
-                  value={props.Category || ''}
-                  onChange={props.onChange}
-                  className="form-control"
-                  id="Category"
-                  name="Category"
-                  placeholder="Category ..."
-                  type="text"
-                  autoComplete="false"
-                />
-              </div>
 
               <div className="col-md-6">
                 <label htmlFor="BlogType">BlogType</label>
@@ -107,6 +94,22 @@ const BlogForm = (props: any) => {
                   autoComplete="false"
                 />
               </div>
+
+              <div className="col-md-6">
+                <label htmlFor="FilePath"> Category</label>
+                <input
+                  value={props.Category || ''}
+                  onChange={props.onChange}
+                  className="form-control"
+                  id="Category"
+                  name="Category"
+                  placeholder="Category ..."
+                  type="text"
+                  autoComplete="false"
+                />
+              </div>
+
+
             </div>
 
             <div className="row">

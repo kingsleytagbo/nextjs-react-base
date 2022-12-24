@@ -3,7 +3,7 @@
 // Import Modules
 import React, { useState, useEffect, useCallback } from 'react';
 import { BaseUrlTypes, HttpRequestTypes, utils } from '../../services/utility';
-import {useAuthContext} from '../../context/auth-context';
+import { useAuthContext } from '../../context/auth-context';
 import BlogForm from './blog-form';
 import AddBlog from './add-blog';
 import BlogDetail from './blog-detail';
@@ -19,7 +19,7 @@ const ListBlogs = () => {
   const [itemDetail, setItemDetail] = useState({ ...EmptyBlog });
   const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
-  const {userAuthContext} = useAuthContext();
+  const { userAuthContext } = useAuthContext();
 
   const getUserAuth = useCallback(async () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
@@ -214,7 +214,7 @@ const ListBlogs = () => {
                   type="button"
                   value="Edit"
                 >
-                  <i className="bi bi-person-plus"></i> &nbsp;Add Blog
+                  <i className="bi bi-envelope-plus"></i> &nbsp;Add Blog
                 </button>
               </div>
             )}
@@ -279,52 +279,37 @@ const ListBlogs = () => {
           {itemDetail.ITCC_BlogID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
-                <i className="bi bi-people"></i> Blogs
+              <i className="bi bi-envelope-check"></i> Blogs
               </h3>
 
               <div className="card-body">
                 {items.map((item: any, index: number) => {
                   return (
                     <section key={index}>
-                      <div className="row">
-                        <div className="col-md-2">
-                          <div className="d-grid mt-3">
-                            <button
-                              onClick={() => handleBlogDetail(item)}
-                              className="btn btn-outline-dark btn-sm"
-                              type="button"
-                              value="Detail"
-                            >
-                              <i className="bi bi bi-ticket-detailed"></i>{' '}
-                              &nbsp;
-                            </button>
-                            <button
-                              onClick={() => handleEditBlog(item)}
-                              disabled={!userAuth.IsAdmin}
-                              className="btn btn-outline-warning btn-sm"
-                              type="button"
-                              value="Edit"
-                            >
-                              <i className="bi bi-pencil-square"></i> &nbsp;
-                            </button>
-                            <button
-                              onClick={() => handleDeleteBlog(item)}
-                              disabled={!userAuth.IsAdmin}
-                              className="btn btn-outline-danger btn-sm"
-                              type="button"
-                              value="Delete"
-                            >
-                              <i className="bi bi-trash3"></i> &nbsp;
-                            </button>
-                          </div>
-                        </div>
 
-                        <div className="col-md-5">
+                      <div className="row">
+                        <div className="col-md-12">
                           <p className="text-dark">{item.Name}</p>
                         </div>
+                      </div>
 
-                        <div className="col-md-5">
+                      <div className="row">
+                        <div className="col-md-6">
+                        <p className="text-dark">{item.BlogType}</p>
+                        </div>
+
+                        <div className="col-md-6">
                           <p className="text-dark">{item.Category}</p>
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-md-12">
+                        <div
+                              dangerouslySetInnerHTML={{
+                                __html: item.Description,
+                              }}
+                            ></div>
                         </div>
                       </div>
 
@@ -343,14 +328,54 @@ const ListBlogs = () => {
                                 className="img-fluid"
                               />
                             </a>
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: item.Description,
-                              }}
-                            ></div>
                           </div>
                         </div>
                       )}
+
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div className="d-grid mt-2 mb-2">
+                            <button
+                              onClick={() => handleBlogDetail(item)}
+                              className="btn btn-outline-dark btn-sm"
+                              type="button"
+                              value="Detail"
+                            >
+                              <i className="bi bi bi-ticket-detailed"></i>{' '}
+                              &nbsp;
+                            </button>
+
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div className="d-grid mt-2 mb-2">
+                            <button
+                              onClick={() => handleEditBlog(item)}
+                              disabled={!userAuth.IsAdmin}
+                              className="btn btn-outline-warning btn-sm"
+                              type="button"
+                              value="Edit"
+                            >
+                              <i className="bi bi-pencil-square"></i> &nbsp;
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div className="d-grid mt-2 mb-2">
+                            <button
+                              onClick={() => handleDeleteBlog(item)}
+                              disabled={!userAuth.IsAdmin}
+                              className="btn btn-outline-danger btn-sm"
+                              type="button"
+                              value="Delete"
+                            >
+                              <i className="bi bi-trash3"></i> &nbsp;
+                            </button>
+                          </div>
+                        </div>
+                      </div>
 
                       <hr className="pt-1 bg-info" />
                     </section>
