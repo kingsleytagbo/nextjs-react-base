@@ -47,7 +47,7 @@ class MockUserData {
   users: Array<User> = [
     {
       ITCC_UserID: 1,
-      UserID: '32E3785C-DD3D-426D-BDBE-92F2818C0AC9',
+      UserID: '9235607A-C308-40E4-987F-2E74848637A8',
       UserName: 'admin',
       EmailAddress: '',
       FirstName: 'System',
@@ -65,16 +65,28 @@ class MockUserData {
 
   private constructor() {}
 
-  getUsers() {
+  getFileCache() {
+    const fileCacheItems = FileCache.Instance.getData('users.json');
+    if(fileCacheItems){ this.users = fileCacheItems };
     return this.users;
   }
 
-  saveUsers(values: any) {
+  saveFileCache(values: any) {
+    FileCache.Instance.saveData('users.json', values);
     this.users = values;
+  }
+
+  getUsers() {
+    return this.getFileCache();
+  }
+
+  saveUsers(values: any) {
+    this.saveFileCache(values);
   }
 
   getUser(item: User) {
     let user: User | undefined;
+    this.getFileCache();
     if (this.users && this.users.length > 0) {
       user = this.users.find(
         (user) =>
@@ -87,10 +99,12 @@ class MockUserData {
   }
 
   updateUser(item: User) {
+    this.getFileCache();
     if (this.users && this.users.length > 0) {
       for (let u = 0; u < this.users.length; u++) {
         if (this.users[u].ITCC_UserID === item.ITCC_UserID) {
           this.users[u] = item;
+          this.saveFileCache(this.users);
         }
       }
     }
@@ -98,10 +112,12 @@ class MockUserData {
   }
 
   deleteUser(item?: User) {
+    this.getFileCache();
     if (item && this.users && this.users.length > 0) {
       this.users.forEach((user, index) => {
         if (item === user) {
           this.users.splice(index, 1);
+          this.saveFileCache(this.users);
         }
       });
     }
@@ -118,6 +134,8 @@ class MockGalleryData {
   }
 
   private constructor() {}
+
+  
 
   getGallerys() {
     return this.items;
@@ -198,6 +216,7 @@ class MockBlogData {
   }
 
   updateBlog(item: Blog) {
+    this.getBlogs();
     if (this.items && this.items.length > 0) {
       for (let u = 0; u < this.items.length; u++) {
         if (this.items[u].ITCC_BlogID === item.ITCC_BlogID) {
