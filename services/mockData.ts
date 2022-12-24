@@ -135,18 +135,28 @@ class MockGalleryData {
 
   private constructor() {}
 
-  
-
-  getGallerys() {
+  getFileCache() {
+    const fileCacheItems = FileCache.Instance.getData('gallerys.json');
+    if(fileCacheItems){ this.items = fileCacheItems };
     return this.items;
   }
 
-  saveGallerys(values: any) {
+  saveFileCache(values: any) {
+    FileCache.Instance.saveData('gallerys.json', values);
     this.items = values;
+  }
+
+  getGallerys() {
+    return this.getFileCache();
+  }
+
+  saveGallerys(values: any) {
+    this.saveFileCache(values);
   }
 
   getGallery(item: Gallery) {
     let user: Gallery | undefined;
+    this.getFileCache();
     if (this.items && this.items.length > 0) {
       user = this.items.find(
         (user) =>
@@ -158,10 +168,12 @@ class MockGalleryData {
   }
 
   updateGallery(item: Gallery) {
+    this.getFileCache();
     if (this.items && this.items.length > 0) {
       for (let u = 0; u < this.items.length; u++) {
         if (this.items[u].ITCC_ImageID === item.ITCC_ImageID) {
           this.items[u] = item;
+          this.saveFileCache(this.items);
         }
       }
     }
@@ -169,10 +181,12 @@ class MockGalleryData {
   }
 
   deleteGallery(item?: Gallery) {
+    this.getFileCache();
     if (item && this.items && this.items.length > 0) {
       this.items.forEach((user, index) => {
         if (item === user) {
           this.items.splice(index, 1);
+          this.saveFileCache(this.items);
         }
       });
     }
@@ -190,20 +204,28 @@ class MockBlogData {
 
   private constructor() {}
 
-  getBlogs() {
-    const fileCacheItems = FileCache.Instance.getData('blog.json');
+  getFileCache() {
+    const fileCacheItems = FileCache.Instance.getData('blogs.json');
     if(fileCacheItems){ this.items = fileCacheItems };
     return this.items;
   }
 
-  saveBlogs(values: any) {
-    FileCache.Instance.saveData('blog.json', values);
+  saveFileCache(values: any) {
+    FileCache.Instance.saveData('blogs.json', values);
     this.items = values;
+  }
+
+  getBlogs() {
+    return this.getFileCache();
+  }
+
+  saveBlogs(values: any) {
+    this.saveFileCache(values);
   }
 
   getBlog(item: Blog) {
     let user: Blog | undefined;
-    this.getBlogs();
+    this.getFileCache();
     if (this.items && this.items.length > 0) {
       user = this.items.find(
         (user) =>
@@ -216,12 +238,12 @@ class MockBlogData {
   }
 
   updateBlog(item: Blog) {
-    this.getBlogs();
+    this.getFileCache();
     if (this.items && this.items.length > 0) {
       for (let u = 0; u < this.items.length; u++) {
         if (this.items[u].ITCC_BlogID === item.ITCC_BlogID) {
           this.items[u] = item;
-          this.saveBlogs(this.items);
+          this.saveFileCache(this.items);
         }
       }
     }
@@ -229,11 +251,12 @@ class MockBlogData {
   }
 
   deleteBlog(item?: Blog) {
+    this.getFileCache();
     if (item && this.items && this.items.length > 0) {
       this.items.forEach((user, index) => {
         if (item === user) {
           this.items.splice(index, 1);
-          this.saveBlogs(this.items);
+          this.saveFileCache(this.items);
         }
       });
     }
