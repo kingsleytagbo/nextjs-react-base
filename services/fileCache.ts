@@ -11,7 +11,7 @@ export class FileCache {
   }
 
   public getData(folder: string) {
-    let cachedData
+    let cachedData;
 
     try {
       const filePath = path.join(FILE_CACHE_PATH, folder);
@@ -26,7 +26,6 @@ export class FileCache {
   }
 
   public saveData(folder: string, content: any) {
-    let cachedData
 
     try {
       const filePath = path.join(FILE_CACHE_PATH, folder);

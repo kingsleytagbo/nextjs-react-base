@@ -185,6 +185,7 @@ class MockBlogData {
 
   getBlog(item: Blog) {
     let user: Blog | undefined;
+    this.getBlogs();
     if (this.items && this.items.length > 0) {
       user = this.items.find(
         (user) =>
@@ -201,6 +202,7 @@ class MockBlogData {
       for (let u = 0; u < this.items.length; u++) {
         if (this.items[u].ITCC_BlogID === item.ITCC_BlogID) {
           this.items[u] = item;
+          this.saveBlogs(this.items);
         }
       }
     }
@@ -212,6 +214,7 @@ class MockBlogData {
       this.items.forEach((user, index) => {
         if (item === user) {
           this.items.splice(index, 1);
+          this.saveBlogs(this.items);
         }
       });
     }
