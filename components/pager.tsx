@@ -6,7 +6,7 @@ export default function Pager(props: any) {
           <div className="col-6">
             <div
               onClick={props.nextPage}
-              className="d-flex justify-content-center mr-2 mb-4"
+              className="d-flex justify-content-center mr-2"
             >
               <a
                 href="#!"
@@ -23,7 +23,7 @@ export default function Pager(props: any) {
           <div className="col-6">
             <div
               onClick={props.prevPage}
-              className="d-flex justify-content-center mr-2 mb-4"
+              className="d-flex justify-content-center mr-2"
             >
               <a
                 href="#!"

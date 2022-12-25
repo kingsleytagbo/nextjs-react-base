@@ -63,14 +63,14 @@ const BlogsHome = (props: any) => {
   */
 
   return (
-    <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
-      <Pager
+    <div className="align-items-center justify-content-center mt-3 mb-3 clearfix">
+      <Pager 
         pageNumber={pageNumber}
         items={items}
         nextPage={nextPage}
         prevPage={prevPage}
       ></Pager>
-      <div className="row">
+      <div className="row mt-2">
         <div className="col-md-2"></div>
         <div className="col-md-8">
           {/* <!-- BEGIN LIST USERS  --> */}
