@@ -166,7 +166,7 @@ const ListBlogs = () => {
   };
 
   const fetchBlogs = useCallback(async (page = 1) => {
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, page, 3);
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, page, 1);
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
