@@ -131,7 +131,7 @@ class Utility implements IStorage {
         ? '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE
         : '');
 
-    if (useRemote) {
+    if (useRemote && pageNumber) {
       url += '/page/' + pageNumber + '/' + (pageSize || 10);
     }
     else if ( (!useRemote && pageNumber) && ( (['home'].indexOf(urlType) > -1) )) {
@@ -140,6 +140,8 @@ class Utility implements IStorage {
     else if (!useRemote && process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL) {
       url = process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL + '/' + url;
     }
+
+    console.log({url: url, urlTypes: urlType, pageNumber: pageNumber})
 
     return url;
   }

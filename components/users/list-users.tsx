@@ -167,7 +167,7 @@ const ListUsers = () => {
 
   useEffect(() => {
     const result = getUserAuth();
-    if (result.IsAdmin) {
+    if (result?.RoleNames?.Length > 0) {
       fetchUsers();
     }
   }, [fetchUsers]);
