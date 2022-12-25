@@ -31,7 +31,7 @@ const BlogsHome = (props: any) => {
   };
 
   const fetchBlogs = useCallback(async (page: number) => {
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, page, 1);
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Home, page, 1);
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
@@ -54,14 +54,6 @@ const BlogsHome = (props: any) => {
     } catch { }
   }, []);
 
-  /*
-  useEffect(() => {
-    if (!items || items.length === 0) {
-      fetchBlogs(pageNumber);
-    }
-  }, [fetchBlogs, pageNumber, items]);
-  */
-
   return (
     <div className="align-items-center justify-content-center mt-3 mb-3 clearfix">
       <Pager
@@ -80,7 +72,7 @@ const BlogsHome = (props: any) => {
             </h1>
 
             <div className="card-body">
-              {items.map((item: any, index: number) => {
+              {(items && items.length > 0) && items.map((item: any, index: number) => {
                 return (
                   <section key={index}>
 

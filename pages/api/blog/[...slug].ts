@@ -67,12 +67,20 @@ export default function handler(
   } else if (req.method === 'GET') {
     // get one user by id
     const items = MockServer.BlogData.getBlogs();
-
     if (params) {
       if (params.length === 1) {
         const item =
           items.find((u) => u.ITCC_BlogID === Number(params[0])) || EmptyBlog;
         res.status(200).json(item);
+      }
+      else if (params.indexOf('page') > -1) {
+        
+        const pageNumber = Number(params[1]) || 1;
+        const pageSize = Number(params[2]) || 1;
+        const startPage = (pageNumber * pageSize)-1;
+        const data = items.slice(startPage, startPage + pageSize) || [EmptyBlog];
+
+        res.status(200).json(data);
       }
       else if (params.length === 2) {
         // http://localhost:8080/api/blog/slug/thank-you-saint-louis-me'

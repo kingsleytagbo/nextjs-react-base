@@ -32,7 +32,7 @@ const Home: NextPage = (props:any) => {
 };
 
 export async function getServerSideProps() {
-  const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1, 1);
+  const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Home, 1, 1);
   const data = await fetch(API_FORM_URL);
   const result = await data.json();
 
@@ -40,6 +40,7 @@ export async function getServerSideProps() {
     API_FORM_URL: API_FORM_URL,
     DATA: result ? result : []
   };
+
   return { props: props };
 }
 

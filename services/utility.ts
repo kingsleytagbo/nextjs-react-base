@@ -8,6 +8,7 @@ export enum BaseUrlTypes {
   Blog = 'blog/',
   Comment = 'comment/',
   Image = 'image',
+  Home = 'home'
 }
 
 export enum HttpRequestTypes {
@@ -109,6 +110,9 @@ class Utility implements IStorage {
       case BaseUrlTypes.Blog:
         baseApiPath = 'blog';
         break;
+      case BaseUrlTypes.Home:
+          baseApiPath = 'blog';
+          break;
       case BaseUrlTypes.Comment:
           baseApiPath = 'comment';
           break;
@@ -127,8 +131,11 @@ class Utility implements IStorage {
         ? '/' + process.env.NEXT_PUBLIC_REACT_APP_WEBSITE_KEY_PRIVATE
         : '');
 
-    if (useRemote && pageNumber) {
+    if (useRemote) {
       url += '/page/' + pageNumber + '/' + (pageSize || 10);
+    }
+    else if ( (!useRemote && pageNumber) && ( (['home'].indexOf(urlType) > -1) )) {
+      url = process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL + '/' + url + '/page/' + pageNumber + '/' + (pageSize || 10);
     }
     else if (!useRemote && process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL) {
       url = process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL + '/' + url;
