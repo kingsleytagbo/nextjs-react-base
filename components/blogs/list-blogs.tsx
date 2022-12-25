@@ -165,7 +165,7 @@ const ListBlogs = () => {
       .catch();
   };
 
-  const fetchBlogs = useCallback(async (page: number = 1) => {
+  const fetchBlogs = useCallback(async (page = 1) => {
     const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, page, 3);
     const headers = {
       'Content-Type': 'application/json',
