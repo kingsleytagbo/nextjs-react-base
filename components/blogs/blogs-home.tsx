@@ -76,7 +76,7 @@ const BlogsHome = (props: any) => {
           {/* <!-- BEGIN LIST USERS  --> */}
           <section className="card py-1 mt-2">
             <h3 className="card-title text-center text-dark mt-3">
-              <i className="bi bi-people"></i> {props.title}
+              <i className="bi bi-house"></i> {props.title}
             </h3>
 
             <div className="card-body">
