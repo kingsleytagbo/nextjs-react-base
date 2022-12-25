@@ -9,13 +9,13 @@ import AddUser from './add-user';
 import UserDetail from './user-detail';
 import { EmptyUser } from '../../models/user';
 
-const editmodes = { edit: false, detail: false, delete: false };
+const editmodes = { add: false, edit: false, detail: false, delete: false };
 // List Users Component
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
-  const [edituser, setEditUser] = useState({ ...editmodes });
+  const [editItem, setEditItem] = useState({ ...editmodes });
   const [userdetail, setUserDetail] = useState({ ...EmptyUser });
-  const [displayAddForm, setAddForm] = useState(false);
+  //const [editItem.add, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
 
   const getUserAuth = () => {
@@ -42,30 +42,31 @@ const ListUsers = () => {
   };
 
   const handleAddUserClick = () => {
-    setAddForm(true);
+    setUserDetail({ ...EmptyUser });
+    setEditItem({ ...editmodes, add: true });
   };
 
   const handleEditUser = (item: any) => {
-    setEditUser({ ...editmodes, edit: true });
+    setEditItem({ ...editmodes, edit: true });
     getUserDetail(item);
   };
 
   const handleDeleteUser = (item: any) => {
-    setEditUser({ ...editmodes, delete: true });
+    setEditItem({ ...editmodes, delete: true });
     getUserDetail(item);
   };
 
   const handleUserDetail = (item: any) => {
-    setEditUser({ ...editmodes, detail: true });
+    setEditItem({ ...editmodes, detail: true });
     getUserDetail(item);
   };
 
   const onCancelUserDetail = () => {
-    setEditUser({ ...editmodes });
+    setEditItem({ ...editmodes });
     setUserDetail({ ...EmptyUser });
   };
   const onConfirmDelete = (value: any) => {
-    setEditUser({ ...editmodes });
+    setEditItem({ ...editmodes });
     setUserDetail({ ...EmptyUser });
     const result = fetchUser(value, HttpRequestTypes.DELETE);
     result.then(() => {
@@ -77,11 +78,11 @@ const ListUsers = () => {
 
   const onSaveAddUser = () => {
     fetchUsers();
-    setAddForm(false);
+    setEditItem({ ...editmodes, add: false });
   };
 
   const onCancelAddUser = () => {
-    setAddForm(false);
+    setEditItem({ ...editmodes, add: false });
   };
 
   const onChangeEditUser = (e: any) => {
@@ -93,7 +94,7 @@ const ListUsers = () => {
   };
 
   const onCancelEditUser = () => {
-    setEditUser({ ...editmodes });
+    setEditItem({ ...editmodes });
     setUserDetail({ ...EmptyUser });
   };
 
@@ -101,7 +102,7 @@ const ListUsers = () => {
     postFormRequest(userdetail);
     fetchUsers();
     setUserDetail({ ...EmptyUser });
-    setAddForm(false);
+    setEditItem({ ...editmodes, add: false });
   };
 
   const postFormRequest = (formData: any) => {
@@ -178,7 +179,7 @@ const ListUsers = () => {
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-          {!displayAddForm && userdetail.ITCC_UserID === 0 && (
+          {!editItem.add && userdetail.ITCC_UserID === 0 && (
             <div className="d-grid mt-1">
               <button
                 onClick={() => handleAddUserClick()}
@@ -194,7 +195,7 @@ const ListUsers = () => {
           {/* <!-- END - ADD USER BUTTON  --> */}
 
           {/* <!-- BEGIN ADD USER  --> */}
-          {displayAddForm && (
+          {editItem.add && (
             <AddUser
               onSaveAddUser={onSaveAddUser}
               onCancelAddUser={onCancelAddUser}
@@ -203,7 +204,7 @@ const ListUsers = () => {
           {/* <!-- END ADD USER  --> */}
 
           {/* <!-- BEGIN EDIT USER  --> */}
-          {(edituser.edit && userdetail.ITCC_UserID) > 0 && (
+          {(editItem.edit && userdetail.ITCC_UserID) > 0 && (
             <section className="card py-1 mt-1">
               <UserForm
                 {...userdetail}
@@ -219,11 +220,11 @@ const ListUsers = () => {
           {/* <!-- END EDIT USER  --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(edituser.detail && userdetail.ITCC_UserID) > 0 && (
+          {(editItem.detail && userdetail.ITCC_UserID) > 0 && (
             <section className="card py-1 mt-1">
               <UserDetail
                 {...userdetail}
-                {...edituser}
+                {...editItem}
                 title="User Details"
                 onCancel={onCancelUserDetail}
               ></UserDetail>
@@ -232,11 +233,11 @@ const ListUsers = () => {
           {/* <!-- END USER DETAIL --> */}
 
           {/* <!-- BEGIN USER DETAIL  --> */}
-          {(edituser.delete && userdetail.ITCC_UserID) > 0 && (
+          {(editItem.delete && userdetail.ITCC_UserID) > 0 && (
             <section className="card py-1 mt-1">
               <UserDetail
                 {...userdetail}
-                {...edituser}
+                {...editItem}
                 title="Delete User"
                 onCancel={onCancelUserDetail}
                 onConfirmDelete={onConfirmDelete}
@@ -247,7 +248,7 @@ const ListUsers = () => {
 
           {/* <!-- BEGIN LIST USERS  --> */}
 
-          {userdetail.ITCC_UserID === 0 && (
+          {!editItem.add && userdetail.ITCC_UserID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
                 <i className="bi bi-people"></i> Users
@@ -257,8 +258,23 @@ const ListUsers = () => {
                 {users.map((item: any, index: number) => {
                   return (
                     <section key={index}>
+
                       <div className="row">
-                        <div className="col-md-2">
+
+                        <div className="col-md-6">
+                          <label htmlFor="username">UserName</label>
+                          <p className="text-dark">{item.UserName}</p>
+                        </div>
+
+                        <div className="col-md-6">
+                          <label htmlFor="password"> Password</label>
+                          <p className="text-dark">{item.Password}</p>
+                        </div>
+                      </div>
+
+                      <div className="row">
+
+                        <div className="col-md-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleUserDetail(item)}
@@ -269,6 +285,12 @@ const ListUsers = () => {
                               <i className="bi bi bi-ticket-detailed"></i>{' '}
                               &nbsp;
                             </button>
+
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div className="d-grid mt-3">
                             <button
                               onClick={() => handleEditUser(item)}
                               disabled={!userAuth.IsAdmin}
@@ -278,6 +300,11 @@ const ListUsers = () => {
                             >
                               <i className="bi bi-pencil-square"></i> &nbsp;
                             </button>
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div className="d-grid mt-3">
                             <button
                               onClick={() => handleDeleteUser(item)}
                               disabled={!userAuth.IsAdmin}
@@ -290,16 +317,8 @@ const ListUsers = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-5">
-                          <label htmlFor="username">UserName</label>
-                          <p className="text-dark">{item.UserName}</p>
-                        </div>
-
-                        <div className="col-md-5">
-                          <label htmlFor="password"> Password</label>
-                          <p className="text-dark">{item.Password}</p>
-                        </div>
                       </div>
+
                       <hr className="pt-1 bg-info" />
                     </section>
                   );
