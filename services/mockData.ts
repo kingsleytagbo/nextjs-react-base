@@ -115,7 +115,8 @@ class MockUserData {
     this.getFileCache();
     if (item && this.users && this.users.length > 0) {
       this.users.forEach((user, index) => {
-        if (item === user) {
+        // cannot delete the admin suer
+        if ((item === user) && (user.RoleNames?.indexOf('admin') === -1) {
           this.users.splice(index, 1);
           this.saveFileCache(this.users);
         }
