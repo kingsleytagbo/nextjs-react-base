@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect } from 'react';
-import {useAuthContext} from '../context/auth-context';
+import { useAuthContext } from '../context/auth-context';
 import { utils } from '../services/utility';
 //import { publish, subscribe, unsubscribe } from '../services/event';
 import { AUTH_KEY } from '../services/constants';
@@ -16,10 +16,10 @@ const getUserAuth = useCallback(async () => {
 
 function Header() {
   const router = useRouter();
-  const navPaths = ['/', '/blogs', '/gallery', '/users'];
-  const isBlogPath = router.asPath && (navPaths.indexOf(router.asPath) > -1) ? false: true; 
+  const navPaths = ['/', '/blogs', '/gallery', '/users', '/login'];
+  const isBlogPath = router.asPath && (navPaths.indexOf(router.asPath) > -1) ? false : true;
   //const [userAuthContext, setUserAuthContext] = useState(false);
-  const {userAuthContext, setUserAuthContext, setUserAuth} = useAuthContext();
+  const { userAuthContext, setUserAuthContext, setUserAuth } = useAuthContext();
 
   const getUserLoggedInStatus = useCallback(async () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
@@ -37,13 +37,13 @@ function Header() {
   };
 
   useEffect(() => {
-   //subscribe(AUTH_KEY, () => getUserLoggedInStatus());
+    //subscribe(AUTH_KEY, () => getUserLoggedInStatus());
     getUserLoggedInStatus();
-/*
-    return () => {
-      unsubscribe(AUTH_KEY, () => getUserLoggedInStatus());
-    };
-    */
+    /*
+        return () => {
+          unsubscribe(AUTH_KEY, () => getUserLoggedInStatus());
+        };
+        */
   }, [getUserLoggedInStatus]);
 
   return (
@@ -55,9 +55,8 @@ function Header() {
               <Link legacyBehavior href="/">
                 <a
                   href="/"
-                  className={`nav-link ${
-                    ((router.asPath === '/') || isBlogPath) ? 'active' : ''
-                  }`}
+                  className={`nav-link ${((router.asPath === '/') || isBlogPath) ? 'active' : ''
+                    }`}
                   aria-current="page"
                 >
                   Home
@@ -72,9 +71,8 @@ function Header() {
                   <Link legacyBehavior href="/blogs">
                     <a
                       href="/blogs"
-                      className={`nav-link ${
-                        router.asPath === '/blogs' ? 'active' : ''
-                      }`}
+                      className={`nav-link ${router.asPath === '/blogs' ? 'active' : ''
+                        }`}
                       aria-current="page"
                     >
                       Blogs
@@ -85,9 +83,8 @@ function Header() {
                   <Link legacyBehavior href="/gallery">
                     <a
                       href="/gallery"
-                      className={`nav-link ${
-                        router.asPath === '/gallery' ? 'active' : ''
-                      }`}
+                      className={`nav-link ${router.asPath === '/gallery' ? 'active' : ''
+                        }`}
                       aria-current="page"
                     >
                       Gallery
@@ -102,9 +99,8 @@ function Header() {
                 <Link legacyBehavior href="/users">
                   <a
                     href="/users"
-                    className={`nav-link ${
-                      router.asPath === '/users' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${router.asPath === '/users' ? 'active' : ''
+                      }`}
                     aria-current="page"
                   >
                     Users
@@ -113,23 +109,23 @@ function Header() {
               </li>
             )}
 
-            <li className="nav-item">
+            <li className="nav-item mx-2">
               {userAuthContext === true ? (
-                <button
-                  onClick={onLogout}
-                  className="btn btn-secondary"
-                  type="button"
-                  value="Logout"
-                >
-                  <i className="bi bi-unlock"></i>&nbsp;Logout
-                </button>
+                  <button
+                    onClick={onLogout}
+                    className="btn btn-secondary"
+                    type="button"
+                    value="Logout"
+                  >
+                    <i className="bi bi-unlock"></i>&nbsp;Logout
+                  </button>
+            
               ) : (
                 <Link legacyBehavior href="/login">
                   <a
                     href="/"
-                    className={`nav-link ${
-                      router.asPath === '/login' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${router.asPath === '/login' ? 'active' : ''
+                      }`}
                     aria-current="page"
                   >
                     Login
