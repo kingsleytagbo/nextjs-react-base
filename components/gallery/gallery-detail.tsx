@@ -2,6 +2,7 @@
 
 // Import Modules
 import React, { useState } from 'react';
+import { BaseUrlTypes, utils } from '../../services/utility';
 
 // GalleryDetail Component
 const GalleryDetail = (props: any) => {
@@ -22,33 +23,54 @@ const GalleryDetail = (props: any) => {
         <h3 className="card-title text-center text-dark mt-3">
         <span className="text-dark"><i className="bi bi-camera"></i></span> {props.title}
         </h3>
+
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label>Name</label>
             <p className="text-dark">{props.Name}</p>
           </div>
+        </div>
 
-          <div className="col-md-6">
+        <div className="row">
+          <div className="col-md-12">
             <label>Description</label>
-            <div dangerouslySetInnerHTML={{ __html: props.Description }}></div>
+            <div className="mb-2" dangerouslySetInnerHTML={{ __html: props.Description }}></div>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-6">
+            <label>FilePath</label>
+            <p className="text-dark">{props.FilePath}</p>
+          </div>
+          <div className="col-md-6">
             <label>FileGroup</label>
             <p className="text-dark">{props.FileGroup}</p>
           </div>
-          <div className="col-md-4">
-            <label htmlFor="username">FilePath</label>
-            <p className="text-dark">{props.FilePath}</p>
+        </div>
+
+        <div className="row">
+          <div className="col-md-12">
+            <label>PublishUrl</label>
+            <p className="text-dark">{props.PublishUrl}</p>
           </div>
         </div>
 
         <div className="row">
           <div className="col-12">
             <label>Image</label>
-            <img alt="Image" src={props.Password} className="img-fluid" />
+            <div>                          {props.PublishUrl && (
+              <div className="mx-auto">
+                <img
+                  alt={props.Name}
+                  className="img-fluid rounded mx-auto d-block"
+                  src={
+                    utils.getBaseApi(BaseUrlTypes.Image) +
+                    props.PublishUrl
+                  }
+                />
+              </div>
+            )}</div>
           </div>
         </div>
 

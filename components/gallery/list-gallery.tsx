@@ -330,7 +330,7 @@ const ListGallerys = () => {
                           {item.PublishUrl && (
                             <div className="mx-auto">
                               <img
-                                alt="image"
+                                alt={item.Name}
                                 className="img-fluid rounded mx-auto d-block"
                                 src={
                                   utils.getBaseApi(BaseUrlTypes.Image) +

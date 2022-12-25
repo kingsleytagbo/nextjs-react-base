@@ -30,6 +30,7 @@ const GalleryForm = (props: any) => {
           </h3>
 
           <form className="card-body">
+
             <div className="row">
               <div className="col-md-12">
                 <label htmlFor="Name">Name</label>
@@ -45,6 +46,7 @@ const GalleryForm = (props: any) => {
                 />
               </div>
             </div>
+
             <div className="row">
               <div className="col-md-12">
                 <label htmlFor="Description"> Description</label>
@@ -61,8 +63,9 @@ const GalleryForm = (props: any) => {
                 ></textarea>
               </div>
             </div>
+
             <div className="row">
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <label htmlFor="FilePath"> FilePath</label>
                 <input
                   value={props.FilePath || ''}
@@ -75,10 +78,8 @@ const GalleryForm = (props: any) => {
                   autoComplete="false"
                 />
               </div>
-            </div>
 
-            <div className="row">
-              <div className="col-md-4">
+              <div className="col-md-6">
                 <label htmlFor="FileGroup">FileGroup</label>
                 <input
                   value={props.FileGroup || ''}
@@ -91,8 +92,10 @@ const GalleryForm = (props: any) => {
                   autoComplete="false"
                 />
               </div>
+              </div>
 
-              <div className="col-md-4">
+              <div className="row">
+              <div className="col-md-12">
                 <label htmlFor="PublishUrl"> PublishUrl</label>
                 <input
                   value={props.PublishUrl || ''}
