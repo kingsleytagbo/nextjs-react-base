@@ -26,7 +26,7 @@ const GalleryForm = (props: any) => {
 
         <section className="card">
           <h3 className="card-title text-center text-dark mt-3">
-            <i className="bi bi-person"></i> {props.title}
+            <span className="text-dark fs-4"><i className="bi bi-camera2"></i> {props.title} </span>
           </h3>
 
           <form className="card-body">

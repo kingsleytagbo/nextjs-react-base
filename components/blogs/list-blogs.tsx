@@ -309,10 +309,10 @@ const ListBlogs = () => {
                       <div className="row">
                         <div className="col-md-12">
                         <div
-                              dangerouslySetInnerHTML={{
-                                __html: item.Description,
-                              }}
-                            ></div>
+                            dangerouslySetInnerHTML={{
+                              __html: utils.getPostIext(item.Description, 150),
+                            }}
+                          ></div>
                         </div>
                       </div>
 

@@ -223,7 +223,7 @@ const ListGallerys = () => {
                 type="button"
                 value="Edit"
               >
-                <i className="bi bi-person-plus"></i> &nbsp;Add Gallery
+                <span className="text-dark fs-4"><i className="bi bi-camera"></i> &nbsp;Add Gallery</span> 
               </button>
             </div>
           )}
@@ -288,15 +288,64 @@ const ListGallerys = () => {
           {!editItem.add && itemDetail.ITCC_ImageID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
-                <i className="bi bi-people"></i> Gallerys
+              <span className="text-primary"><i className="bi bi-camera-reels"></i></span> Gallerys
               </h3>
 
               <div className="card-body">
                 {items.map((item: any, index: number) => {
                   return (
                     <section key={index}>
+
                       <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-12">
+                          <div className="text-dark">{item.Name}</div>
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-md-12">
+                        <div
+                            dangerouslySetInnerHTML={{
+                              __html: utils.getPostIext(item.Description, 150),
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                        
+                      <div className="row">
+                        <div className="col-md-12">
+                          <a
+                            href={item.FilePath}
+                            className="text-primary"
+                            rel="noreferrer"
+                            target="_blank"
+                          >
+                            {item.FilePath}
+                          </a>
+                        </div>
+                      </div>
+
+                        <div className="row">
+                        <div className="col-md-12">
+                          {item.PublishUrl && (
+                            <div className="mx-auto">
+                              <img
+                                alt="image"
+                                className="img-fluid rounded mx-auto d-block"
+                                src={
+                                  utils.getBaseApi(BaseUrlTypes.Image) +
+                                  item.PublishUrl
+                                }
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+
+                      <div className="row">
+
+                        <div className="col-md-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleGalleryDetail(item)}
@@ -307,6 +356,11 @@ const ListGallerys = () => {
                               <i className="bi bi bi-ticket-detailed"></i>{' '}
                               &nbsp;
                             </button>
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div className="d-grid mt-3">
                             <button
                               onClick={() => handleEditGallery(item)}
                               disabled={!userAuth.IsAdmin}
@@ -316,6 +370,11 @@ const ListGallerys = () => {
                             >
                               <i className="bi bi-pencil-square"></i> &nbsp;
                             </button>
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div className="d-grid mt-3">
                             <button
                               onClick={() => handleDeleteGallery(item)}
                               disabled={!userAuth.IsAdmin}
@@ -328,46 +387,8 @@ const ListGallerys = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-5">
-                          <p className="text-dark">{item.Name}</p>
-                        </div>
+                      </div>
 
-                        <div className="col-md-5">
-                          {item.FilePath && (
-                            <div>
-                              <b>
-                                {utils.getBaseApi(BaseUrlTypes.Image) +
-                                  item.PublishUrl}
-                              </b>
-                              <img
-                                alt="image"
-                                className="img-fluid"
-                                src={
-                                  utils.getBaseApi(BaseUrlTypes.Image) +
-                                  item.PublishUrl
-                                }
-                              />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-12">
-                          <a
-                            href={item.FilePath}
-                            className="text-primary"
-                            rel="noreferrer"
-                            target="_blank"
-                          >
-                            {item.FilePath}
-                          </a>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: utils.getPostIext(item.Description, 150),
-                            }}
-                          ></div>
-                        </div>
-                      </div>
                       <hr className="pt-1 bg-info" />
                     </section>
                   );
