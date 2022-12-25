@@ -75,9 +75,9 @@ const BlogsHome = (props: any) => {
         <div className="col-md-8">
           {/* <!-- BEGIN LIST USERS  --> */}
           <section className="card py-1 mt-2">
-            <h3 className="card-title text-center text-dark mt-3">
+            <h1 className="card-title text-center text-dark mt-3">
               <i className="bi bi-house"></i> {props.title}
-            </h3>
+            </h1>
 
             <div className="card-body">
               {items.map((item: any, index: number) => {
@@ -87,7 +87,7 @@ const BlogsHome = (props: any) => {
                     <div className="row">
                       <div className="col-md-12">
                         <Link href={'/' + item.Slug}>
-                          <h1 className="text-center">{item.Name}</h1>
+                          <h2 className="text-center">{item.Name}</h2>
                         </Link>
                       </div>
                     </div>
