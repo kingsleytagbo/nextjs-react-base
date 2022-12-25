@@ -9,6 +9,7 @@ import AddBlog from './add-blog';
 import BlogDetail from './blog-detail';
 import { EmptyBlog } from '../../models/blog';
 import { AUTH_KEY } from '../../services/constants';
+import Pager from '../pager';
 
 
 const editmodes = { add:false, edit: false, detail: false, delete: false };
@@ -17,7 +18,8 @@ const ListBlogs = () => {
   const [items, setItems] = useState([]);
   const [editItem, setEditItem] = useState({ ...editmodes });
   const [itemDetail, setItemDetail] = useState({ ...EmptyBlog });
-  //const [displayAddForm, setAddForm] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
+
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
   const { userAuthContext } = useAuthContext();
 
@@ -26,6 +28,24 @@ const ListBlogs = () => {
     setUserAuth({ ...userAuthResult });
     return userAuthResult;
   }, []);
+
+  const nextPage = (event: any) => {
+    event.preventDefault();
+    if (items && items.length > 0) {
+      const page = pageNumber + 1;
+      setPageNumber(page);
+      fetchBlogs(page);
+    }
+  };
+
+  const prevPage = (event: any) => {
+    event.preventDefault();
+    if (pageNumber > 1) {
+      const page = pageNumber - 1;
+      setPageNumber(page);
+      fetchBlogs(page);
+    }
+  };
 
   const getBlogDetail = (item: any) => {
     const result = fetchBlog(item.ITCC_BlogID, HttpRequestTypes.GET);
@@ -145,8 +165,8 @@ const ListBlogs = () => {
       .catch();
   };
 
-  const fetchBlogs = useCallback(async () => {
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, 1);
+  const fetchBlogs = useCallback(async (page: number = 1) => {
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Blog, page, 3);
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
@@ -202,6 +222,12 @@ const ListBlogs = () => {
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
+            <Pager
+        pageNumber={pageNumber}
+        items={items}
+        nextPage={nextPage}
+        prevPage={prevPage}
+      ></Pager>
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
