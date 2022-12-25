@@ -16,7 +16,7 @@ const ListUsers = () => {
   const [editItem, setEditItem] = useState({ ...editmodes });
   const [userdetail, setUserDetail] = useState({ ...EmptyUser });
   //const [editItem.add, setAddForm] = useState(false);
-  const [userAuth, setUserAuth] = useState({ IsAdmin: false });
+  const [userAuth, setUserAuth] = useState({ IsAdmin: false, RoleNames: [] });
 
   const getUserAuth = () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
@@ -167,7 +167,7 @@ const ListUsers = () => {
 
   useEffect(() => {
     const result = getUserAuth();
-    if (result?.RoleNames?.Length > 0) {
+    if (result?.RoleNames?.length > 0) {
       fetchUsers();
     }
   }, [fetchUsers]);
@@ -265,11 +265,26 @@ const ListUsers = () => {
                           <label htmlFor="username">UserName</label>
                           <p className="text-dark">{item.UserName}</p>
                         </div>
+                        <div className="col-md-6">
+                          <label htmlFor="username">EmailAddress</label>
+                          <p className="text-dark">{item.EmailAddress}</p>
+                        </div>
+
+                      </div>
+
+
+                      <div className="row">
 
                         <div className="col-md-6">
-                          <label htmlFor="password"> Password</label>
-                          <p className="text-dark">{item.Password}</p>
+                          <label htmlFor="username">FirstName</label>
+                          <p className="text-dark">{item.FirstName}</p>
                         </div>
+
+                        <div className="col-md-6">
+                          <label htmlFor="password"> LastName</label>
+                          <p className="text-dark">{item.LastName}</p>
+                        </div>
+                        
                       </div>
 
                       <div className="row">
@@ -293,7 +308,7 @@ const ListUsers = () => {
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleEditUser(item)}
-                              disabled={!userAuth.IsAdmin}
+                              disabled={! (userAuth?.RoleNames?.length > 0) }
                               className="btn btn-outline-warning btn-sm"
                               type="button"
                               value="Edit"
@@ -307,7 +322,7 @@ const ListUsers = () => {
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleDeleteUser(item)}
-                              disabled={!userAuth.IsAdmin}
+                              disabled={! (userAuth?.RoleNames?.length > 0) }
                               className="btn btn-outline-danger btn-sm"
                               type="button"
                               value="Delete"
