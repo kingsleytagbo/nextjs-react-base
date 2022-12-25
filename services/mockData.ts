@@ -115,8 +115,8 @@ class MockUserData {
     this.getFileCache();
     if (item && this.users && this.users.length > 0) {
       this.users.forEach((user, index) => {
-        // cannot delete the admin suer
-        if ((item === user) && (user.RoleNames?.indexOf('admin') === -1) ) {
+        // cannot delete the admin user
+        if ((item.ITCC_UserID === user.ITCC_UserID) && (user.RoleNames?.indexOf('admin') === -1) ) {
           this.users.splice(index, 1);
           this.saveFileCache(this.users);
         }
@@ -185,7 +185,7 @@ class MockGalleryData {
     this.getFileCache();
     if (item && this.items && this.items.length > 0) {
       this.items.forEach((user, index) => {
-        if (item === user) {
+        if (item.ITCC_ImageID === user.ITCC_ImageID) {
           this.items.splice(index, 1);
           this.saveFileCache(this.items);
         }
@@ -255,7 +255,7 @@ class MockBlogData {
     this.getFileCache();
     if (item && this.items && this.items.length > 0) {
       this.items.forEach((user, index) => {
-        if (item === user) {
+        if (item.ITCC_BlogID === user.ITCC_BlogID) {
           this.items.splice(index, 1);
           this.saveFileCache(this.items);
         }
