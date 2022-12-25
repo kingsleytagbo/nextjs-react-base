@@ -64,7 +64,7 @@ const BlogsHome = (props: any) => {
 
   return (
     <div className="align-items-center justify-content-center mt-3 mb-3 clearfix">
-      <Pager 
+      <Pager
         pageNumber={pageNumber}
         items={items}
         nextPage={nextPage}
@@ -102,10 +102,6 @@ const BlogsHome = (props: any) => {
                       </div>
                     </div>
 
-                    <div className="row"><div className="col-md-12"><hr className="pt-1 bg-info" />
-                    </div>
-                    </div>
-
                     <div className="row">
                       <div className="col-md-6">
                         <div className="d-flex justify-content-start mb-4"><span className="text-dark text-uppercase">{item.Category}</span></div>
@@ -113,7 +109,11 @@ const BlogsHome = (props: any) => {
                       <div className="col-md-6">
                         <div className="d-flex justify-content-end mb-4"><span className="text-dark text-uppercase">{item.BlogType}</span></div>
                       </div>
-                    </div>      
+                    </div>
+
+                    <div className="row"><div className="col-md-12"><hr className="pt-1 bg-info" />
+                    </div>
+                    </div>
 
                   </section>
                 );
