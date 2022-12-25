@@ -9,14 +9,14 @@ import AddGallery from './add-gallery';
 import GalleryDetail from './gallery-detail';
 import { EmptyGallery } from '../../models/gallery';
 
-const editmodes = { edit: false, detail: false, delete: false };
+const editmodes = { add: false, edit: false, detail: false, delete: false };
 
 // List Gallerys Component
 const ListGallerys = () => {
   const [items, setItems] = useState([]);
   const [editItem, setEditItem] = useState({ ...editmodes });
   const [itemDetail, setItemDetail] = useState({ ...EmptyGallery });
-  const [displayAddForm, setAddForm] = useState(false);
+  //const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
 
   const getUserAuth = () => {
@@ -45,7 +45,7 @@ const ListGallerys = () => {
   };
 
   const handleAddGalleryClick = () => {
-    setAddForm(true);
+    setEditItem({ ...editmodes, add: true });
   };
 
   const handleEditGallery = (item: any) => {
@@ -80,11 +80,11 @@ const ListGallerys = () => {
 
   const onSaveAddGallery = () => {
     fetchGallerys().then();
-    setAddForm(false);
+    setEditItem({ ...editmodes, add: false });
   };
 
   const onCancelAddGallery = () => {
-    setAddForm(false);
+    setEditItem({ ...editmodes, add: false });
   };
 
   const onChangeEditGallery = (e: any) => {
@@ -109,7 +109,7 @@ const ListGallerys = () => {
       save()
         .then(() => {
           setItemDetail({ ...EmptyGallery });
-          setAddForm(false);
+          setEditItem({ ...editmodes, add: false });
         })
         .catch();
     } catch {}
@@ -215,7 +215,7 @@ const ListGallerys = () => {
         <div className="col-md-8">
           {/* <!-- BEGIN - ADD USER BUTTON  --> */}
 
-          {!displayAddForm && itemDetail.ITCC_ImageID === 0 && (
+          {!editItem.add && itemDetail.ITCC_ImageID === 0 && (
             <div className="d-grid mt-1">
               <button
                 onClick={() => handleAddGalleryClick()}
@@ -231,7 +231,7 @@ const ListGallerys = () => {
           {/* <!-- END - ADD USER BUTTON  --> */}
 
           {/* <!-- BEGIN ADD USER  --> */}
-          {displayAddForm && (
+          {editItem.add && (
             <AddGallery
               onSaveAddGallery={onSaveAddGallery}
               onCancelAddGallery={onCancelAddGallery}
@@ -285,7 +285,7 @@ const ListGallerys = () => {
 
           {/* <!-- BEGIN LIST USERS  --> */}
 
-          {itemDetail.ITCC_ImageID === 0 && (
+          {!editItem.add && itemDetail.ITCC_ImageID === 0 && (
             <section className="card py-1 mt-2">
               <h3 className="card-title text-center text-dark mt-3">
                 <i className="bi bi-people"></i> Gallerys
