@@ -134,14 +134,14 @@ class Utility implements IStorage {
     if (useRemote && pageNumber) {
       url += '/page/' + pageNumber + '/' + (pageSize || 10);
     }
-    else if ( (!useRemote && pageNumber) && ( (['home', 'blog/'].includes(urlType) ) )) {
+    else if ( (!useRemote && pageNumber) && ( (['home', 'blog/', 'gallery/'].includes(urlType) ) )) {
       url = process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL + '/' + url + '/page/' + pageNumber + '/' + (pageSize || 10);
     }
     else if (!useRemote && process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL) {
       url = process.env.NEXT_PUBLIC_REACT_APP_LOCALHOST_URL + '/' + url;
     }
 
-    console.log({url: url, urlTypes: urlType, pageNumber: pageNumber})
+   // console.log({url: url, urlTypes: urlType, pageNumber: pageNumber})
 
     return url;
   }

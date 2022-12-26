@@ -68,15 +68,27 @@ export default function handler(
     MockServer.GalleryData.deleteGallery(deleteUser);
     res.status(200).json(deleteUserId);
   } else if (req.method === 'GET' && (hasAdminRole || hasSubscriberRole)) {
-    // get one user by id
-    if (params && params.length === 1) {
+
+    if (params) {
       const items = MockServer.GalleryData.getGallerys();
+      
+      if (params.length === 1) {
+        const item =
+          items.find((u) => u.ITCC_ImageID === Number(params[0])) || EmptyGallery;
 
-      const item =
-        items.find((u) => u.ITCC_ImageID === Number(params[0])) || EmptyGallery;
+        res.status(200).json(item);
+      }
+      else if (params.indexOf('page') > -1) {
 
-      res.status(200).json(item);
-    } else {
+        const pageNumber = Number(params[1]) || 1;
+        const pageSize = Number(params[2]) || 1;
+        const startPage = (pageNumber * pageSize) - 1;
+        const data = items.slice(startPage, startPage + pageSize) || [EmptyGallery];
+
+        res.status(200).json(data);
+      }
+    }
+    else {
       res.status(404).json({ messge: 'Gallery not found' });
     }
   }

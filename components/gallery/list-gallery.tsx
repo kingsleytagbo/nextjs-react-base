@@ -8,6 +8,7 @@ import GalleryForm from './gallery-form';
 import AddGallery from './add-gallery';
 import GalleryDetail from './gallery-detail';
 import { EmptyGallery } from '../../models/gallery';
+import Pager from '../pager';
 
 const editmodes = { add: false, edit: false, detail: false, delete: false };
 
@@ -18,6 +19,25 @@ const ListGallerys = () => {
   const [itemDetail, setItemDetail] = useState({ ...EmptyGallery });
   //const [displayAddForm, setAddForm] = useState(false);
   const [userAuth, setUserAuth] = useState({ IsAdmin: false });
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const nextPage = (event: any) => {
+    event.preventDefault();
+    if (items && items.length > 0) {
+      const page = pageNumber + 1;
+      setPageNumber(page);
+      fetchGallerys(page);
+    }
+  };
+
+  const prevPage = (event: any) => {
+    event.preventDefault();
+    if (pageNumber > 1) {
+      const page = pageNumber - 1;
+      setPageNumber(page);
+      fetchGallerys(page);
+    }
+  };
 
   const getUserAuth = () => {
     const userAuthResult = utils.getUserAuthRoles(AUTH_KEY);
@@ -67,6 +87,7 @@ const ListGallerys = () => {
     setEditItem({ ...editmodes });
     setItemDetail({ ...EmptyGallery });
   };
+
   const onConfirmDelete = (value: any) => {
     setEditItem({ ...editmodes });
     setItemDetail({ ...EmptyGallery });
@@ -112,7 +133,7 @@ const ListGallerys = () => {
           setEditItem({ ...editmodes, add: false });
         })
         .catch();
-    } catch {}
+    } catch { }
   };
 
   const onChangeImageHandle = (event: any) => {
@@ -158,13 +179,13 @@ const ListGallerys = () => {
       .catch();
   };
 
-  const fetchGallerys = useCallback(async () => {
+  const fetchGallerys = useCallback(async (page = 1) => {
     const headers = {
       'Content-Type': 'application/json',
       ...utils.getUserAuthHeader(AUTH_KEY),
     };
 
-    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery, 1);
+    const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Gallery, page, 1);
 
     fetch(API_FORM_URL, {
       method: 'GET',
@@ -210,6 +231,7 @@ const ListGallerys = () => {
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
+
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
@@ -223,7 +245,7 @@ const ListGallerys = () => {
                 type="button"
                 value="Edit"
               >
-                <span className="text-dark fs-4"><i className="bi bi-camera"></i> &nbsp;Add Gallery</span> 
+                <span className="text-dark fs-4"><i className="bi bi-camera"></i> &nbsp;Add Gallery</span>
               </button>
             </div>
           )}
@@ -287,9 +309,20 @@ const ListGallerys = () => {
 
           {!editItem.add && itemDetail.ITCC_ImageID === 0 && (
             <section className="card py-1 mt-2">
+
               <h3 className="card-title text-center text-dark mt-3">
-              <span className="text-primary"><i className="bi bi-camera-reels"></i></span> Gallerys
+                <span className="text-primary"><i className="bi bi-camera-reels"></i></span> Gallerys
               </h3>
+
+              <div className="row">
+                <div className="col-md-12">
+                  <Pager
+                    pageNumber={pageNumber}
+                    items={items}
+                    nextPage={nextPage}
+                    prevPage={prevPage}
+                  ></Pager>
+                </div></div>
 
               <div className="card-body">
                 {items.map((item: any, index: number) => {
@@ -304,14 +337,14 @@ const ListGallerys = () => {
 
                       <div className="row">
                         <div className="col-md-12">
-                        <div
+                          <div
                             dangerouslySetInnerHTML={{
                               __html: utils.getPostIext(item.Description, 150),
                             }}
                           ></div>
                         </div>
                       </div>
-                        
+
                       <div className="row">
                         <div className="col-md-12">
                           <a
@@ -325,7 +358,7 @@ const ListGallerys = () => {
                         </div>
                       </div>
 
-                        <div className="row">
+                      <div className="row">
                         <div className="col-md-12">
                           {item.PublishUrl && (
                             <div className="mx-auto">

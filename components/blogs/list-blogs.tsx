@@ -222,12 +222,7 @@ const ListBlogs = () => {
 
   return (
     <div className="align-items-center justify-content-center mt-5 mb-5 clearfix">
-            <Pager
-        pageNumber={pageNumber}
-        items={items}
-        nextPage={nextPage}
-        prevPage={prevPage}
-      ></Pager>
+
       <div className="row">
         <div className="col-md-2"></div>
         <div className="col-md-8">
@@ -310,6 +305,17 @@ const ListBlogs = () => {
               <h3 className="card-title text-center text-dark mt-3">
               <i className="bi bi-envelope-check"></i> Blogs
               </h3>
+
+              <div className="row">
+                <div className="col-md-12">
+                  <Pager
+                    pageNumber={pageNumber}
+                    items={items}
+                    nextPage={nextPage}
+                    prevPage={prevPage}
+                  ></Pager>
+                </div></div>
+
 
               <div className="card-body">
                 {items.map((item: any, index: number) => {
