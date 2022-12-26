@@ -249,96 +249,98 @@ const ListUsers = () => {
           {/* <!-- BEGIN LIST USERS  --> */}
 
           {!editItem.add && userdetail.ITCC_UserID === 0 && (
-            <section className="card py-1 mt-2">
-              <h3 className="card-title text-center text-dark mt-3">
-                <i className="bi bi-people"></i> Users
-              </h3>
+            <section>
+              <div className="card py-1 mt-2">
+                <h3 className="card-title text-center text-dark mt-3">
+                  <i className="bi bi-people"></i> Users
+                </h3>
 
-              <div className="card-body">
-                {users.map((item: any, index: number) => {
-                  return (
-                    <section key={index}>
+                <div className="card-body">
+                  {users.map((item: any, index: number) => {
+                    return (
+                      <section key={index}>
 
-                      <div className="row">
+                        <div className="row">
 
-                        <div className="col-md-6">
-                          <label htmlFor="username">UserName</label>
-                          <p className="text-dark">{item.UserName}</p>
-                        </div>
-                        <div className="col-md-6">
-                          <label htmlFor="username">EmailAddress</label>
-                          <p className="text-dark">{item.EmailAddress}</p>
-                        </div>
-
-                      </div>
-
-
-                      <div className="row">
-
-                        <div className="col-md-6">
-                          <label htmlFor="username">FirstName</label>
-                          <p className="text-dark">{item.FirstName}</p>
-                        </div>
-
-                        <div className="col-md-6">
-                          <label htmlFor="password"> LastName</label>
-                          <p className="text-dark">{item.LastName}</p>
-                        </div>
-                        
-                      </div>
-
-                      <div className="row">
-
-                        <div className="col-4">
-                          <div className="d-grid mt-3">
-                            <button
-                              onClick={() => handleUserDetail(item)}
-                              className="btn btn-outline-dark btn-sm"
-                              type="button"
-                              value="Detail"
-                            >
-                              <i className="bi bi bi-ticket-detailed"></i>{' '}
-                              &nbsp;
-                            </button>
-
+                          <div className="col-md-6">
+                            <label htmlFor="username">UserName</label>
+                            <p className="text-dark">{item.UserName}</p>
                           </div>
-                        </div>
-
-                        <div className="col-4">
-                          <div className="d-grid mt-3">
-                            <button
-                              onClick={() => handleEditUser(item)}
-                              disabled={! (userAuth?.RoleNames?.length > 0) }
-                              className="btn btn-outline-warning btn-sm"
-                              type="button"
-                              value="Edit"
-                            >
-                              <i className="bi bi-pencil-square"></i> &nbsp;
-                            </button>
+                          <div className="col-md-6">
+                            <label htmlFor="username">EmailAddress</label>
+                            <p className="text-dark">{item.EmailAddress}</p>
                           </div>
+
                         </div>
 
-                        <div className="col-4">
-                          <div className="d-grid mt-3">
-                            <button
-                              onClick={() => handleDeleteUser(item)}
-                              disabled={! (userAuth?.RoleNames?.length > 0) }
-                              className="btn btn-outline-danger btn-sm"
-                              type="button"
-                              value="Delete"
-                            >
-                              <i className="bi bi-trash3"></i> &nbsp;
-                            </button>
+
+                        <div className="row">
+
+                          <div className="col-md-6">
+                            <label htmlFor="username">FirstName</label>
+                            <p className="text-dark">{item.FirstName}</p>
                           </div>
+
+                          <div className="col-md-6">
+                            <label htmlFor="password"> LastName</label>
+                            <p className="text-dark">{item.LastName}</p>
+                          </div>
+
                         </div>
 
-                      </div>
+                        <div className="row">
 
-                      <hr className="pt-1 bg-info" />
-                    </section>
-                  );
-                })}
-                ;
+                          <div className="col-4">
+                            <div className="d-grid mt-3">
+                              <button
+                                onClick={() => handleUserDetail(item)}
+                                className="btn btn-outline-dark btn-sm"
+                                type="button"
+                                value="Detail"
+                              >
+                                <i className="bi bi bi-ticket-detailed"></i>{' '}
+                                &nbsp;
+                              </button>
+
+                            </div>
+                          </div>
+
+                          <div className="col-4">
+                            <div className="d-grid mt-3">
+                              <button
+                                onClick={() => handleEditUser(item)}
+                                disabled={!(userAuth?.RoleNames?.length > 0)}
+                                className="btn btn-outline-warning btn-sm"
+                                type="button"
+                                value="Edit"
+                              >
+                                <i className="bi bi-pencil-square"></i> &nbsp;
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="col-4">
+                            <div className="d-grid mt-3">
+                              <button
+                                onClick={() => handleDeleteUser(item)}
+                                disabled={!(userAuth?.RoleNames?.length > 0)}
+                                className="btn btn-outline-danger btn-sm"
+                                type="button"
+                                value="Delete"
+                              >
+                                <i className="bi bi-trash3"></i> &nbsp;
+                              </button>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <hr className="pt-1 bg-info" />
+                      </section>
+                    );
+                  })}
+                  ;
+                </div>
               </div>
             </section>
           )}

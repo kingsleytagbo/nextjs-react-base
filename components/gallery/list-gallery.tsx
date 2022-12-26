@@ -18,7 +18,7 @@ const ListGallerys = () => {
   const [editItem, setEditItem] = useState({ ...editmodes });
   const [itemDetail, setItemDetail] = useState({ ...EmptyGallery });
   //const [displayAddForm, setAddForm] = useState(false);
-  const [userAuth, setUserAuth] = useState({ IsAdmin: false });
+  const [userAuth, setUserAuth] = useState({ IsAdmin: false, ITCC_UserID:null });
   const [pageNumber, setPageNumber] = useState(1);
 
   const nextPage = (event: any) => {
@@ -44,6 +44,12 @@ const ListGallerys = () => {
     setUserAuth({ ...userAuthResult });
     return userAuthResult;
   };
+
+  const hasItemEditRight = (item: any) =>{
+    const hasAdminRights = userAuth.IsAdmin;
+    const hasItemRights = userAuth.ITCC_UserID === item.CreateUserID;
+    return (hasAdminRights || hasItemRights);
+  }
 
   const getGalleryDetail = (item: any) => {
     const result = fetchGallery(item.ITCC_ImageID, HttpRequestTypes.GET);
@@ -224,7 +230,7 @@ const ListGallerys = () => {
 
   useEffect(() => {
     const result = getUserAuth();
-    if (result.IsAdmin) {
+    if (result?.RoleNames?.length > 0) {
       fetchGallerys();
     }
   }, [fetchGallerys]);
@@ -396,7 +402,7 @@ const ListGallerys = () => {
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleEditGallery(item)}
-                              disabled={!userAuth.IsAdmin}
+                              disabled={!hasItemEditRight(item)}
                               className="btn btn-outline-warning btn-sm"
                               type="button"
                               value="Edit"
@@ -410,7 +416,7 @@ const ListGallerys = () => {
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleDeleteGallery(item)}
-                              disabled={!userAuth.IsAdmin}
+                              disabled={!hasItemEditRight(item)}
                               className="btn btn-outline-danger btn-sm"
                               type="button"
                               value="Delete"

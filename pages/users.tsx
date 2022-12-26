@@ -20,7 +20,7 @@ const UsersPage: NextPage = () => {
       />
       <Header></Header>
 
-      <section className="container-fluid bg-secondary vh-100">
+      <section className="container-fluid bg-secondary">
         <div className="row">
           <div className="col-md-12">
             <section>
