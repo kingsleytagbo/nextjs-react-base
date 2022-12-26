@@ -378,7 +378,7 @@ const ListGallerys = () => {
 
                       <div className="row">
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleGalleryDetail(item)}
@@ -392,7 +392,7 @@ const ListGallerys = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleEditGallery(item)}
@@ -406,7 +406,7 @@ const ListGallerys = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleDeleteGallery(item)}

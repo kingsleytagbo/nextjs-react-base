@@ -7,7 +7,7 @@ import { useAuthContext } from '../../context/auth-context';
 import BlogForm from './blog-form';
 import AddBlog from './add-blog';
 import BlogDetail from './blog-detail';
-import { EmptyBlog } from '../../models/blog';
+import { Blog, EmptyBlog } from '../../models/blog';
 import { AUTH_KEY } from '../../services/constants';
 import Pager from '../pager';
 
@@ -20,7 +20,7 @@ const ListBlogs = () => {
   const [itemDetail, setItemDetail] = useState({ ...EmptyBlog });
   const [pageNumber, setPageNumber] = useState(1);
 
-  const [userAuth, setUserAuth] = useState({ IsAdmin: false });
+  const [userAuth, setUserAuth] = useState({ IsAdmin: false, RoleNames:[], ITCC_UserID: null });
   const { userAuthContext } = useAuthContext();
 
   const getUserAuth = useCallback(async () => {
@@ -46,6 +46,12 @@ const ListBlogs = () => {
       fetchBlogs(page);
     }
   };
+
+  const hasItemEditRight = (item: any) =>{
+    const hasAdminRights = userAuth.IsAdmin;
+    const hasItemRights = userAuth.ITCC_UserID === item.CreateAccountID;
+    return (hasAdminRights || hasItemRights);
+  }
 
   const getBlogDetail = (item: any) => {
     const result = fetchBlog(item.ITCC_BlogID, HttpRequestTypes.GET);
@@ -230,7 +236,7 @@ const ListBlogs = () => {
 
           {!editItem.add && userAuthContext &&
             itemDetail.ITCC_BlogID === 0 &&
-            userAuth.IsAdmin === true && (
+            (userAuth?.RoleNames?.length > 0) && (
               <div className="d-grid mt-1">
                 <button
                   onClick={() => handleAddBlogClick()}
@@ -368,7 +374,7 @@ const ListBlogs = () => {
                       )}
 
                       <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-2 mb-2">
                             <button
                               onClick={() => handleBlogDetail(item)}
@@ -383,11 +389,11 @@ const ListBlogs = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-2 mb-2">
                             <button
                               onClick={() => handleEditBlog(item)}
-                              disabled={!userAuth.IsAdmin}
+                              disabled={ !hasItemEditRight(item) }
                               className="btn btn-outline-warning btn-sm"
                               type="button"
                               value="Edit"
@@ -397,11 +403,11 @@ const ListBlogs = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-2 mb-2">
                             <button
                               onClick={() => handleDeleteBlog(item)}
-                              disabled={!userAuth.IsAdmin}
+                              disabled={ !hasItemEditRight(item) }
                               className="btn btn-outline-danger btn-sm"
                               type="button"
                               value="Delete"

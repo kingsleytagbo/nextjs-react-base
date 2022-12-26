@@ -289,7 +289,7 @@ const ListUsers = () => {
 
                       <div className="row">
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleUserDetail(item)}
@@ -304,7 +304,7 @@ const ListUsers = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleEditUser(item)}
@@ -318,7 +318,7 @@ const ListUsers = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-4">
                           <div className="d-grid mt-3">
                             <button
                               onClick={() => handleDeleteUser(item)}
