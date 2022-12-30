@@ -36,10 +36,10 @@ const BlogSlug = (props: any) => {
               </div>
               <div className="row">
                 <div className="col-md-6">
-                  <div className="d-flex justify-content-start mb-4"><span className="text-dark text-uppercase">{item.Category}</span></div>
+                  <div className="d-flex justify-content-start mb-4"><span className="badge rounded-pill bg-secondary text-lowercase">{item.Category}</span></div>
                 </div>
                 <div className="col-md-6">
-                  <div className="d-flex justify-content-end mb-4"><span className="text-dark text-uppercase">{item.BlogType}</span></div>
+                  <div className="d-flex justify-content-end mb-4"><span className="badge rounded-pill bg-secondary text-lowercase">{item.BlogType}</span></div>
                 </div>
               </div>
 

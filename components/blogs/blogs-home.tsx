@@ -96,10 +96,10 @@ const BlogsHome = (props: any) => {
 
                     <div className="row">
                       <div className="col-md-6">
-                        <div className="d-flex justify-content-start mt-4 mb-3"><span className="text-dark text-uppercase">{item.Category}</span></div>
+                        <div className="d-flex justify-content-start mt-4 mb-3"><span className="badge rounded bg-secondary text-lowercase">{item.Category}</span></div>
                       </div>
                       <div className="col-md-6">
-                        <div className="d-flex justify-content-end mt-3 mb-3"><span className="text-dark text-uppercase">{item.BlogType}</span></div>
+                        <div className="d-flex justify-content-end mt-3 mb-3"><span className="badge rounded bg-secondary text-lowercase">{item.BlogType}</span></div>
                       </div>
                     </div>
 
