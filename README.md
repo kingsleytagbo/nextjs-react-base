@@ -179,3 +179,8 @@ https://flaviocopes.com/nextjs-cache-data-globally/
 #### 401 vs. 403 http error codes
 
 https://www.freecodecamp.org/news/http-401-error-vs-http-403-error-status-code-responses-explained/
+
+### NextJs on Azure
+- https://learn.microsoft.com/en-us/azure/static-web-apps/deploy-nextjs-hybrid
+- https://github.com/vercel/next.js/discussions/28356
+- https://techcommunity.microsoft.com/t5/apps-on-azure-blog/extending-next-js-support-in-azure-static-web-apps/ba-p/3627975
