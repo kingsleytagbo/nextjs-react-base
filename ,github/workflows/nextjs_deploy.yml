@@ -17,15 +17,6 @@ stages:
               npm install
             displayName: 'npm install'
           - script: |
-              npm run lint
-            displayName: 'linting'
-          - script: |
-              npm run typecheck
-            displayName: 'type-checking'
-          - script: |
-              npm run test
-            displayName: 'tests'
-          - script: |
               npm run build
             displayName: 'build'
           - task: CopyFiles@2

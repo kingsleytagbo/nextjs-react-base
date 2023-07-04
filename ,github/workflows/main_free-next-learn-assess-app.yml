@@ -1,56 +1,55 @@
-trigger:
-- main
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
 
-pool:
-  vmImage: ubuntu-latest
+name: Build and deploy Node.js app to Azure Web App - free-next-learn-assess-app
 
-stages:
-  - stage: Build
-    jobs:
-      - job: Build
-        steps:
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '16.18.0'
-            displayName: Install NodeJS
-          - script: |
-              npm install
-            displayName: 'npm install'
-          - script: |
-              npm run build
-            displayName: 'build'
-          - task: CopyFiles@2
-            inputs:
-              Contents: |
-                .next/**
-                package.json
-                node_modules/**
-                public/**
-                ecosystem.config.js
-              TargetFolder: '$(Build.ArtifactStagingDirectory)'
-          - task: PublishPipelineArtifact@1
-            inputs:
-              targetPath: '$(Build.ArtifactStagingDirectory)'
-              artifactName: 'nextJS-ssr-demo-artifact'
-              artifactType: 'pipeline' # artifact publish location
-  - stage: Deploy (CD)
-    jobs:
-      - deployment:
-        environment: Prod
-        strategy:
-          runOnce:
-            deploy: 
-              steps:
-                - task: DownloadPipelineArtifact@2
-                  displayName: Downloading artifact
-                  inputs:
-                    buildType: 'current'
-                    artifactName: 'nextJS-ssr-demo-artifact'
-                    targetPath: '$(System.ArtifactsDirectory)/nextJS-ssr-demo-artifact'
-                - task: AzureWebApp@1
-                  inputs:
-                    azureSubscription: '<redacted>' # this is a service connection
-                    appType: 'webAppLinux'
-                    appName: 'free-next-learn-assess-app' # name of the app service we're deploying to
-                    package: '$(System.ArtifactsDirectory)/nextJS-ssr-demo-artifact'
-                    startUpCommand: 'pm2 --no-daemon start /home/site/wwwroot/ecosystem.config.js'
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: node-app
+          path: .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: node-app
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'free-next-learn-assess-app'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F5414F9EA2B49CEB2575B84617EF8E9 }}
+          package: .
