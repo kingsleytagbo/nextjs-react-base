@@ -33,8 +33,17 @@ const Home: NextPage = (props:any) => {
 
 export async function getServerSideProps() {
   const API_FORM_URL = utils.getBaseApi(BaseUrlTypes.Home, 1, 1);
+  console.log({API_FORM_URL: API_FORM_URL});
+  
+  let result = [];
+
+  try{
   const data = await fetch(API_FORM_URL);
-  const result = await data.json();
+  result = await data.json();
+  }
+  catch(error){
+    console.log({API_Error: error})
+  }
 
   const props = {
     API_FORM_URL: API_FORM_URL,
