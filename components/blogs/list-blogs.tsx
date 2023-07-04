@@ -72,7 +72,6 @@ const ListBlogs = () => {
 
   const handleAddBlogClick = () => {
     setEditItem({ ...editmodes, add: true });
-    //setAddForm(true);
   };
 
   const handleEditBlog = (item: any) => {

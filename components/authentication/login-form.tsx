@@ -52,6 +52,7 @@ export default function LoginForm() {
     } else {
       valid = false;
     }
+    console.log({validate: valid})
     setValidation(valid);
   };
 
@@ -63,7 +64,10 @@ export default function LoginForm() {
     const formState: any = Object.assign({}, form);
     setFormValue(formState);
 
+    console.log({onChange: formState})
+
     validate();
+
   };
 
   const onClick = () => {
@@ -199,7 +203,7 @@ export default function LoginForm() {
                     <button
                       disabled={!isValid}
                       onClick={onClick}
-                      className="btn btn-primary btn-lg"
+                      className={isValid ? "btn btn-primary btn-lg" : "btn btn-outline-primary btn-lg"}
                       type="button"
                       value="Send Now"
                     >
